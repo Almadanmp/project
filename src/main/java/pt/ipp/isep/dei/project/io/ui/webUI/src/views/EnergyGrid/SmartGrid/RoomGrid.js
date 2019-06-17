@@ -61,8 +61,7 @@ class RoomGrid extends Component {
                     textAlign: "right"
                   }}>
                     <Table responsive>
-                      <TableBody grid={items.name}/>
-
+                      <TableBody link={items.links.map(hrefs => (hrefs.rel.indexOf("1.")!=-1 ? hrefs.href : "No link available"))} grid={items.name}/>
                     </Table>
                     <US147 grid={items.name}/>
                   </CardBody>

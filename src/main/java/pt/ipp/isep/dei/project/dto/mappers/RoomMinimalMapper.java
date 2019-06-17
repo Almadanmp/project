@@ -28,7 +28,7 @@ public final class RoomMinimalMapper {
 
         // Update the description
 
-        String objectDescription = "";
+        String objectDescription = dtoWeb.getDescription();
 
         // Update the floor
 
@@ -64,6 +64,7 @@ public final class RoomMinimalMapper {
     public static RoomDTOMinimal objectToDtoWeb(Room room) {
         //Update the name
         String dtoWebName = room.getId();
+        String description = room.getDescription();
         //Update the floor
         int dtoWebFloor = room.getFloor();
         //Update the width
@@ -75,6 +76,7 @@ public final class RoomMinimalMapper {
         // Create, update and return the converted object.
         RoomDTOMinimal roomDTOMinimal = new RoomDTOMinimal();
         roomDTOMinimal.setName(dtoWebName);
+        roomDTOMinimal.setDescription(description);
         roomDTOMinimal.setFloor(dtoWebFloor);
         roomDTOMinimal.setWidth(dtoWebWidth);
         roomDTOMinimal.setLength(dtoWebLength);

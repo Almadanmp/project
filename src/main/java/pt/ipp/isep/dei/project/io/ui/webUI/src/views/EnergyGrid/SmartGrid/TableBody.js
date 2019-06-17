@@ -17,7 +17,7 @@ class TableBody extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/gridSettings/grids/' + this.props.grid, {
+    fetch(this.props.link, {
       headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,
@@ -38,6 +38,7 @@ class TableBody extends Component {
     const headers = {
       name: "Rooms",
       floor: "Floor",
+      description: "Description",
       height: "Height (m)",
       length: "Length (m)",
       width: "Width (m)",
@@ -54,16 +55,19 @@ class TableBody extends Component {
             }}> {item.name}</td>
             <td style={{
               textAlign: "center"
+            }}>{item.description} </td>
+            <td style={{
+              textAlign: "center"
             }}>{item.floor} </td>
-            <td style={{
-              textAlign: "center"
-            }}> {item.height}</td>
-            <td style={{
-              textAlign: "center"
-            }}> {item.length} </td>
-            <td style={{
-              textAlign: "center"
-            }}> {item.width} </td>
+            {/*<td style={{*/}
+              {/*textAlign: "center"*/}
+            {/*}}> {item.height}</td>*/}
+            {/*<td style={{*/}
+              {/*textAlign: "center"*/}
+            {/*}}> {item.length} </td>*/}
+            {/*<td style={{*/}
+              {/*textAlign: "center"*/}
+            {/*}}> {item.width} </td>*/}
             <td style={{
               textAlign: "center"
             }}>

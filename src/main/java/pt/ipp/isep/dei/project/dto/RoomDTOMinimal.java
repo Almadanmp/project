@@ -10,6 +10,7 @@ import java.util.Objects;
  */
 public class RoomDTOMinimal extends ResourceSupport {
     private String name;
+    private String description;
     private int floor;
     private double width;
     private double length;
@@ -28,6 +29,19 @@ public class RoomDTOMinimal extends ResourceSupport {
      **/
     public void setName(String name) {
         this.name = name;
+    }
+    /**
+     * Name getter
+     **/
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Name setter
+     **/
+    public void setDescription(String name) {
+        this.description = name;
     }
     /**
      * Name getter
