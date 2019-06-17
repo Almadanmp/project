@@ -5,13 +5,13 @@ export const REMOVE_GRID_ROOM_INFO_SUCCESS = 'REMOVE_GRID_ROOM_INFO_SUCCESS';
 export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
 
 
-export const deleteRoomFromGrid = ({name, grid}) => {
-  console.log({name, grid});
+export const deleteRoomFromGrid = ({name, link}) => {
+  console.log({name});
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchRoomFromGridInfo(name, grid));
+    dispatch(fetchRoomFromGridInfo(name, link));
     axios
-      .delete('https://localhost:8443/gridSettings/grids/' + grid,
+      .delete(link,
         {
           headers: {
             'Authorization': token,

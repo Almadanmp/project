@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button} from 'reactstrap';
+import {Button} from 'reactstrap';
 import US108Redux from "./US108Redux";
 
 class US108BackButton extends Component {
@@ -11,10 +11,10 @@ class US108BackButton extends Component {
     }
   }
 
-  toggleHidden = ()=>this.setState((prevState)=>({isHidden: !prevState.isHidden}));
+  toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}));
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Back</Button>
         {!this.state.isHidden && <US108Redux/>}

@@ -25,7 +25,7 @@ class US105 extends Component {
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new room to the
             house</Button>
           <Collapse isOpen={this.state.collapse}>
-            <Card>
+            <Card className="US105">
               <CardBody>
                 <RoomCreator/>
               </CardBody>

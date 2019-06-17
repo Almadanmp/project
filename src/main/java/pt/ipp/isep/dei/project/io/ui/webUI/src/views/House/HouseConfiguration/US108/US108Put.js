@@ -40,23 +40,23 @@ class US108Put extends Component {
     return (
       <div>
         <p>The room has been altered to the following configuration:</p>
-          <ul>
-            <li>
+        <ul>
+          <li>
             Name: {this.props.name}
-            </li>
-            <li>
+          </li>
+          <li>
             Floor: {this.props.floor}
-            </li>
-            <li>
+          </li>
+          <li>
             Width: {this.props.width} m
-            </li>
-            <li>
+          </li>
+          <li>
             Length: {this.props.length} m
-            </li>
-            <li>
+          </li>
+          <li>
             Height: {this.props.height} m
-            </li>
-          </ul>
+          </li>
+        </ul>
       </div>
     );
   }

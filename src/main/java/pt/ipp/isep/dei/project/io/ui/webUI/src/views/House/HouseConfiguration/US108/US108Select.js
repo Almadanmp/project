@@ -50,7 +50,7 @@ class US108Select extends Component {
 
       if (!item.error) {
         return (
-          <div>
+          <div style={{textAlign: 'center'}}>
             <RoomEditor name={this.props.name}/>
           </div>
         );

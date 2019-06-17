@@ -41,7 +41,10 @@ class US610 extends Component {
               <span>
               <DatePickerOneDay610 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
               </span>
+                  <br></br>
+                  <br></br>
               <SelectRoom day={this.state.selectedDay}/>
+                  <br></br>
             </CardBody>
               </Table>
             </CardBody>

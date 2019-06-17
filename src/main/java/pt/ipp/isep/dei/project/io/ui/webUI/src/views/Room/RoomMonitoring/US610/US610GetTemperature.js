@@ -35,8 +35,8 @@ class US610GetTemperature extends Component {
   render() {
     return (
       <div>
-        <h6 key={this.state.item}>The maximum temperature
-          was {this.state.item}ºC</h6>
+        <h5 key={this.state.item}>The maximum temperature
+          was {this.state.item}ºC</h5>
       </div>
     );
   }

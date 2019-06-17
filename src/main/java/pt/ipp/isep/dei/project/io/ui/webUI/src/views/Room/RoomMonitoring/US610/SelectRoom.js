@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, FormGroup, Input} from "reactstrap";
+import {CardBody, Form, FormGroup, Input} from "reactstrap";
 import US610Button from "./US610Button";
 
 class SelectRoom extends Component {
@@ -69,7 +69,8 @@ class SelectRoom extends Component {
               </Input>
             </FormGroup>
           </Form>
-
+          <br></br>
+          <br></br>
           <US610Button day={this.props.day} roomID={this.state.value}/>
         </div>
       );} else {
