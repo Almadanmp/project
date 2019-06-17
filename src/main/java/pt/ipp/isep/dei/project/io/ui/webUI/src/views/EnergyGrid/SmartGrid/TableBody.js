@@ -67,7 +67,7 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>
-              <RemoveFromGrid link={item.href} grid={this.props.grid} name={item.name}/>
+              <RemoveFromGrid link={item.links.map(hrefs => (hrefs.rel.indexOf("1.")!=-1 ? hrefs.href : "No link available"))} grid={this.props.grid} name={item.name}/>
             </td>
           </tr>
         ))}

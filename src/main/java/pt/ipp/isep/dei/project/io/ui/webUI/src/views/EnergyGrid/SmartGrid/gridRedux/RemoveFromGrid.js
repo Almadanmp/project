@@ -36,7 +36,7 @@ class RemoveFromGrid extends React.Component {
   };
 
   handleSubmit() {
-    this.props.onDeleteRoomFromGrid(this.state.name, this.state.grid);
+    this.props.onDeleteRoomFromGrid(this.state.name, this.props.link);
   }
 
   render() {
@@ -51,8 +51,8 @@ class RemoveFromGrid extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDeleteRoomFromGrid: (name, grid) => {
-      dispatch(deleteRoomFromGrid({name, grid}))
+    onDeleteRoomFromGrid: (name, link) => {
+      dispatch(deleteRoomFromGrid({name, link}))
     }
   }
 };

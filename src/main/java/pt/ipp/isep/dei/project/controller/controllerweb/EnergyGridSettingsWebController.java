@@ -51,8 +51,8 @@ public class EnergyGridSettingsWebController {
             List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
             for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
                 Link linkDelete = linkTo(methodOn(EnergyGridSettingsWebController.class).detachRoomFromGrid(roomDTOMinimal,gridId)).withRel("1. Detach the room from the grid.");
-                Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
-                roomDTOMinimal.add(link);
+               // Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
+               // roomDTOMinimal.add(link);
                 roomDTOMinimal.add(linkDelete);
             }
             return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);
