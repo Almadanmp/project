@@ -37,13 +37,13 @@ class TableBodyUS108 extends Component {
         <TableHeaderUS108 headers={headers}/>
         <tbody>
         {rooms.map((todo) => (
-          <tr key={todo.name}>
-            <td>{todo.name}</td>
-            <td>{todo.floor}</td>
-            <td>{todo.height}</td>
-            <td>{todo.length}</td>
-            <td>{todo.width}</td>
-            <td>
+          <tr style={{textAlign: 'center'}} key={todo.name}>
+            <td style={{textAlign: 'center'}}>{todo.name}</td>
+            <td style={{textAlign: 'center'}}>{todo.floor}</td>
+            <td style={{textAlign: 'center'}}>{todo.height}</td>
+            <td style={{textAlign: 'center'}}>{todo.length}</td>
+            <td style={{textAlign: 'center'}}>{todo.width}</td>
+            <td style={{textAlign: 'center'}}>
               <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => {
                 this.handleEdit();
                 this.state.name = todo.name;

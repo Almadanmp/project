@@ -10,12 +10,12 @@ class TableHeaderUS108 extends Component {
     return (
       <thead>
       <tr>
-        <th>{headers.name}</th>
-        <th>{headers.floor}</th>
-        <th>{headers.height}</th>
-        <th>{headers.length}</th>
-        <th>{headers.width}</th>
-        <th>{headers.edit}</th>
+        <th style={{textAlign: 'center'}}>{headers.name}</th>
+        <th style={{textAlign: 'center'}}>{headers.floor}</th>
+        <th style={{textAlign: 'center'}}>{headers.height}</th>
+        <th style={{textAlign: 'center'}}>{headers.length}</th>
+        <th style={{textAlign: 'center'}}>{headers.width}</th>
+        <th style={{textAlign: 'center'}}>{headers.edit}</th>
       </tr>
       </thead>
     );
