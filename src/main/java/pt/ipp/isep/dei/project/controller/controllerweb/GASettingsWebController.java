@@ -76,11 +76,10 @@ public class GASettingsWebController {
                 dto.add(link);
                 return new ResponseEntity<>(dto, HttpStatus.CREATED);
             } else {
-                return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
+                return new ResponseEntity<>("The geographic area hasn't been created. That area already exists.", HttpStatus.CONFLICT);
             }
         }
-        return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an" +
-                " invalid Area.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
     }
 
     /**
