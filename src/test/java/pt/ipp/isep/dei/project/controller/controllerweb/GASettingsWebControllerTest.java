@@ -368,6 +368,33 @@ class GASettingsWebControllerTest {
     }
 
     @Test
+    void seeIfGetAllGeographicAreasBadRequestNull() {
+        // Arrange
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(null);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);;
+
+        // Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.getAllGeographicAreas();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAllGeographicAreasBadRequestEmpty() {
+        // Arrange
+        List<GeographicAreaDTO> emptyDTOList = new ArrayList<>();
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(emptyDTOList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);;
+
+        // Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.getAllGeographicAreas();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void addChildArea() {
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
         List<GeographicAreaDTO> childAreas = new ArrayList<>();
