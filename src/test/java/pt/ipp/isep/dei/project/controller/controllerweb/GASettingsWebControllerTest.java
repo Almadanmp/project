@@ -92,7 +92,7 @@ class GASettingsWebControllerTest {
 
         Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistPlainDTO(validGeographicAreaDTO);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. That area already exists.", HttpStatus.CONFLICT);
 
         // Act
         
@@ -119,7 +119,7 @@ class GASettingsWebControllerTest {
 
 //        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
@@ -144,7 +144,7 @@ class GASettingsWebControllerTest {
 
 //        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
@@ -168,7 +168,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setTypeArea("urban area");
 //        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
 
@@ -195,7 +195,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setTypeArea("urban area");
 //        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
 
@@ -222,7 +222,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setTypeArea("urban area");
 //        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
 
@@ -244,7 +244,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
@@ -261,7 +261,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
@@ -279,7 +279,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
 
@@ -299,7 +299,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
@@ -323,7 +323,7 @@ class GASettingsWebControllerTest {
 
 //        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
 
         // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);

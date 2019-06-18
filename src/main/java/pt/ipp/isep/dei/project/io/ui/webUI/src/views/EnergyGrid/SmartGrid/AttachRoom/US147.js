@@ -28,7 +28,7 @@ class US147 extends Component {
             <CardBody style={{
               textAlign: "center"
             }}>
-              <AttachRoomToGrid grid={this.props.grid}/>
+              <AttachRoomToGrid link={this.props.link} grid={this.props.grid}/>
             </CardBody>
           </Card>
         </Collapse>

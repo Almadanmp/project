@@ -1,6 +1,9 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
 import US006Button from './US006Button';
+import DatePicker from "./DatePicker";
+import CardHeader from "semantic-ui-react/dist/commonjs/views/Card/CardHeader";
+import CardBody from "reactstrap/es/CardBody";
 
 class AreaSensorCreator extends React.Component {
 
@@ -24,8 +27,18 @@ class AreaSensorCreator extends React.Component {
     });
   };
 
+  handleDayPicker = (selectedDay) => {
+
+    console.log("handleDayPicker:"+ JSON.stringify(selectedDay))
+    if (selectedDay !== undefined) {
+      const initialDay = selectedDay.toISOString().substring(0, 10);
+      this.setState({dateStartedFunctioning: initialDay});
+    }
+  }
+
   render() {
     const {sensorId, name, dateStartedFunctioning, latitude, longitude, altitude} = this.state;
+    const numberOfMonths = 1;
     return (
       <div>
         <label>Sensor ID:
@@ -37,10 +50,19 @@ class AreaSensorCreator extends React.Component {
         </label>
         <p></p>
         <label>Date it started functioning:
-          <input value={dateStartedFunctioning} placeholder="YYYY-MM-DD" type="text" name="dateStartedFunctioning" onChange={this.handleInputChange('dateStartedFunctioning')}/>
+        <p></p>
+          <div>
+          <CardHeader>
+            <CardBody style={{backgroundColor: '#b9cfc5', border: '1px solid',
+              borderRadius:'0.25rem' , borderColor: '#b9cfc5' , marginBottom: '1rem'}}>
+              <span>
+            <DatePicker getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
+              </span>
+            </CardBody>
+          </CardHeader>
+          </div>
         </label>
         <p></p>
-
         <label>Latitude:
           <input value={latitude} placeholder="Latitude" type="number" name="latitude" onChange={this.handleInputChange('latitude')}/>
         </label>
@@ -52,6 +74,7 @@ class AreaSensorCreator extends React.Component {
         <label>Altitude:
           <input value={altitude} placeholder="Altitude" type="number" name="altitude" onChange={this.handleInputChange('altitude')}/>
         </label>
+        <p></p>
         <US006Button geographicAreaId={this.props.geographicAreaId} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}
         latitude={this.state.latitude} longitude={this.state.longitude} altitude={this.state.altitude}/>
       </div>

@@ -16,8 +16,9 @@ class TableBody extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.link)
     const token = localStorage.getItem('loginToken');
-    fetch(this.props.link, {
+    fetch(this.props.link.href, {
       headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,

@@ -43,10 +43,13 @@ public class EnergyGridSettingsWebController {
     ResponseEntity<Object> getAllGrids() {
         List<EnergyGrid> list = energyGridRepository.getAllGrids();
         List<EnergyGridDTO> result = new ArrayList<>();
+        RoomDTO roomDTO = new RoomDTO();
         for (EnergyGrid energyGrid : list) {
             EnergyGridDTO dto = EnergyGridMapper.objectToDTO(energyGrid);
             Link link = linkTo(methodOn(EnergyGridSettingsWebController.class).getRoomsWebDtoInGrid(dto.getName())).withRel("1. Get rooms in Grid.");
+            Link linkAttach = linkTo(methodOn(EnergyGridSettingsWebController.class).attachRoomToGrid(roomDTO,dto.getName())).withRel("2. Attach a new room to a Grid.");
             dto.add(link);
+            dto.add(linkAttach);
             result.add(dto);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);

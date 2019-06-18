@@ -16,7 +16,7 @@ class US006 extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}>Add a new
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new
           sensor to a Geographic Area</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
