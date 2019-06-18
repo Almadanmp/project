@@ -3,7 +3,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import {Button} from "reactstrap";
 
-export default class MyForm extends React.Component {
+export default class DatePickerOneDay610 extends React.Component {
   constructor(props) {
     super(props);
     this.handleDayChange = this.handleDayChange.bind(this);
