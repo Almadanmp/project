@@ -33,7 +33,10 @@ public class GASettingsWebController {
 
     @PostMapping(value = "/areaTypes")
     public ResponseEntity<Object> addAreaType(@RequestBody AreaTypeDTO typeToAdd) {
-        if (typeToAdd.getName() == null || typeToAdd.getName().equals("")) {
+        if (typeToAdd.getName() == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (typeToAdd.getName().equals("")) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<AreaTypeDTO> repoTypes = areaTypeRepository.getAllTypesDTO();
@@ -105,7 +108,8 @@ public class GASettingsWebController {
      * @return string with info if geoArea was added or not
      */
     @PutMapping("areas/{idParent}/{idChild}")
-    public ResponseEntity<Object> addChildArea(@PathVariable("idChild") long idAreaChild, @PathVariable("idParent") long idAreaParent) {
+    public ResponseEntity<Object> addChildArea(@PathVariable("idChild") long idAreaChild,
+                                               @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
         try {
@@ -123,7 +127,8 @@ public class GASettingsWebController {
     }
 
     @PutMapping("areas/list/{idParent}/{idChild}")
-    public ResponseEntity<Object> removeChildArea(@PathVariable("idChild") long idAreaChild, @PathVariable("idParent") long idAreaParent) {
+    public ResponseEntity<Object> removeChildArea(@PathVariable("idChild") long idAreaChild,
+                                                  @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
         try {
@@ -146,7 +151,8 @@ public class GASettingsWebController {
      * This method deactivates a sensor selected from a list of sensors of a previously selected geographic area
      */
     @PutMapping("areas/{id}/sensors/{id2}")
-    public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id, @PathVariable("id2") String sensorId) {
+    public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id,
+                                                   @PathVariable("id2") String sensorId) {
         try {
             if (geographicAreaRepo.deactivateAreaSensor(id, sensorId)) {
                 return new ResponseEntity<>("The sensor was successfully deactivated from the selected geographic area.", HttpStatus.OK);
