@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
