@@ -10,12 +10,12 @@ class SelectSensor extends Component {
       item: [],
       isLoaded: false,
       value: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
+    const token = localStorage.getItem('loginToken');
     fetch('https://localhost:8443/geographic_area_settings/areas',{
         headers: {
           'Authorization': token,
