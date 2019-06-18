@@ -45,8 +45,7 @@ class SaveAreaSensor extends Component {
   render() {
     return (
       <div>
-        <p>The created sensor has the following
-          configuration: {this.props.geographicAreaId}, {this.props.sensorId}, {this.props.name},{this.props.dateStartedFunctioning}, {this.props.typeSensor} </p>
+        The new sensor {this.props.name} was sucessfully saved with the following ID: {this.props.sensorId}.
       </div>
     );
 
