@@ -33,7 +33,7 @@ export default function Reducers600 (state = initialstate, action) {
         ...state,
         loading: false,
         error: action.payload.error,
-        room: "ERROR: NO DATA Available"
+        room: "ERROR: " + action.payload.error,
       };
     case FETCH_NO_ROOM_GRID_DATA:
       return {

@@ -7,14 +7,14 @@ export const FETCH_ROOM_GRID_INFO_FAILURE = 'FETCH_ROOM_GRID_INFO_FAILURE';
 export const FETCH_NO_ROOM_GRID_DATA = 'FETCH_NO_ROOM_GRID_DATA';
 
 
-export const attachRoomGrid = ({name, grid}) => {
-  console.log({name, grid});
+export const attachRoomGrid = ({name, link}) => {
+  console.log({name, link});
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchRoomGridInfo(name, grid));
-    const data = {name, grid};
+    dispatch(fetchRoomGridInfo(name, link));
+    const data = {name, link};
     axios
-      .post('https://localhost:8443/gridSettings/grids/' + grid, data,
+      .post(link, data,
         {
           headers: {
             'Authorization': token,
@@ -40,12 +40,12 @@ export const attachRoomGrid = ({name, grid}) => {
 };
 
 
-export function fetchRoomGridInfo(name, grid) {
+export function fetchRoomGridInfo(name, link) {
   return {
     type: FETCH_ROOM_GRID_INFO_STARTED,
     payload: {
       name: name,
-      grid: grid
+      link: link
     }
   }
 }
