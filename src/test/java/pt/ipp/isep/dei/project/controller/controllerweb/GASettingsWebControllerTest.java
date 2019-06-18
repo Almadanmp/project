@@ -732,9 +732,10 @@ class GASettingsWebControllerTest {
 
         List<AreaTypeDTO> emptyList = new ArrayList<>();
         Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         AreaTypeDTO typeToAdd = new AreaTypeDTO();
-        typeToAdd.setName("");
+        typeToAdd.setName(null);
 
         // Act
 
@@ -751,6 +752,7 @@ class GASettingsWebControllerTest {
 
         List<AreaTypeDTO> emptyList = new ArrayList<>();
         Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         AreaTypeDTO typeToAdd = new AreaTypeDTO();
         typeToAdd.setName("");
