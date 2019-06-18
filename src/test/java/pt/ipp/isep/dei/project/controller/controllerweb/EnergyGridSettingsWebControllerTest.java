@@ -83,19 +83,148 @@ class EnergyGridSettingsWebControllerTest {
 
     @Test
     void seeIfCreateEnergyGridGenerates201() {
-        //Arrange
+        // Arrange
 
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "7");
-
         EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
 
         Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
 
-        // Act
-        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
+        HttpStatus expectedResult = HttpStatus.CREATED;
 
-        //Assert
-        assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridGeneratesBadRequestNullName() {
+        // Arrange
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "7");
+        validGrid.setName(null);
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        HttpStatus expectedResult = HttpStatus.BAD_REQUEST;
+
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridGeneratesBadRequestNullHouseId() {
+        // Arrange
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "7");
+        validGrid.setHouseId(null);
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        HttpStatus expectedResult = HttpStatus.BAD_REQUEST;
+
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridGeneratesBadRequestNullMaxCP() {
+        // Arrange
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", null, "7");
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        HttpStatus expectedResult = HttpStatus.BAD_REQUEST;
+
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridGeneratesBadRequestNullHouseIdAndMaxCP() {
+        // Arrange
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", null, null);
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        HttpStatus expectedResult = HttpStatus.BAD_REQUEST;
+
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridBadRequestNullMaxCPAndName() {
+        // Arrange
+
+        EnergyGrid validGrid = new EnergyGrid(null, null, "7");
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        HttpStatus expectedResult = HttpStatus.BAD_REQUEST;
+
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridBadRequestIdAndName() {
+        // Arrange
+
+        EnergyGrid validGrid = new EnergyGrid(null, 45D, null);
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        HttpStatus expectedResult = HttpStatus.BAD_REQUEST;
+
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridGeneratesConflict() {
+        // Arrange
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "7");
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(false).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        HttpStatus expectedResult = HttpStatus.CONFLICT;
+
+        // Act
+        HttpStatus actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO).getStatusCode();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
     }
 
 //    @Test
