@@ -35,7 +35,7 @@ class AttachRoomToGrid extends React.Component {
     const {name} = this.state;
     return (
       <>
-        RoomID:<input value={this.state.name} placeholder="Ex: B107" type="text" name="name"
+        Name:<input value={this.state.name} placeholder="Ex: B107" type="text" name="name"
                       onChange={this.handleInputChange('name')}
       />
         Former Grid:<input value={this.state.formerGrid} placeholder="Ex: B building" type="text" name="formerGrid"
@@ -49,7 +49,7 @@ class AttachRoomToGrid extends React.Component {
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}}
                 onClick={this.toggleHidden}>Attach
           Room {name} to {this.props.grid}</Button>
-        {!this.state.isHidden && <AttachRoom name={ this.state.name} grid={this.props.grid} formerGrid={this.state.formerGrid}/>}
+        {!this.state.isHidden && <AttachRoom link={this.props.link} name={ this.state.name} grid={this.props.grid} formerGrid={this.state.formerGrid}/>}
       </>
     )
   }

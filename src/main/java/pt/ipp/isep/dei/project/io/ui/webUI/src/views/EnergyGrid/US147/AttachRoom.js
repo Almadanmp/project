@@ -18,7 +18,7 @@ class AttachRoom extends React.Component {
 
   componentDidMount() {
     this.props.onDetachRoomFromGrid(this.props.name, this.props.formerGrid);
-    this.props.onAttachRoomGrid(this.props.name, this.props.grid);
+    this.props.onAttachRoomGrid(this.props.name, this.props.link.href);
   }
 
   render() {
@@ -54,8 +54,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAttachRoomGrid: (name, grid) => {
-      dispatch(attachRoomGrid({name, grid}))
+    onAttachRoomGrid: (name, link) => {
+      dispatch(attachRoomGrid({name, link}))
     },
     onDetachRoomFromGrid: (name, grid) => {
       dispatch(detachRoomFromGrid({name, grid}))
