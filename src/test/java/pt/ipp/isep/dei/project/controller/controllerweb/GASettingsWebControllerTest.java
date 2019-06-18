@@ -690,6 +690,9 @@ class GASettingsWebControllerTest {
         // Arrange
 
         List<AreaTypeDTO> emptyList = new ArrayList<>();
+        AreaTypeDTO typeAlreadyAdded = new AreaTypeDTO();
+        typeAlreadyAdded.setName("NunoCity");
+        emptyList.add(typeAlreadyAdded);
         Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
         AreaTypeDTO typeToAdd = new AreaTypeDTO();
         typeToAdd.setName("Area");
