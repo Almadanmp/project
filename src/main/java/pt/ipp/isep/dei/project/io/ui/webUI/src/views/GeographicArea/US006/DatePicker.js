@@ -28,7 +28,7 @@ export default class DatePicker extends React.Component {
     return (
       <div>
         {selectedDay && <p>Day: {selectedDay.toLocaleDateString()}</p>}
-        {!selectedDay && <h6>Choose a day</h6>}
+        {!selectedDay}
         <DayPickerInput onDayChange={this.handleDayChange} />
         <p></p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>

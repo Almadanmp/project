@@ -37,44 +37,40 @@ class AreaSensorCreator extends React.Component {
   }
 
   render() {
-    const {sensorId, name, dateStartedFunctioning, latitude, longitude, altitude} = this.state;
+    const {sensorId, name, latitude, longitude, altitude} = this.state;
     const numberOfMonths = 1;
     return (
       <div>
         <label>Sensor ID:
           <input value={sensorId} placeholder="Sensor00" type="text" name="sensorId" onChange={this.handleInputChange('sensorId')}/>
         </label>
-        <p></p>
-        <label>Sensor name:
+        <span> Sensor name:
           <input value={name} placeholder="Sensor name" type="text" name="name" onChange={this.handleInputChange('name')}/>
-        </label>
-        <p></p>
-        <label>Date it started functioning:
-        <p></p>
-          <div>
-          <CardHeader>
-            <CardBody style={{backgroundColor: '#b9cfc5', border: '1px solid',
-              borderRadius:'0.25rem' , borderColor: '#b9cfc5' , marginBottom: '1rem'}}>
-              <span>
-            <DatePicker getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
-              </span>
-            </CardBody>
-          </CardHeader>
-          </div>
-        </label>
+        </span>
         <p></p>
         <label>Latitude:
           <input value={latitude} placeholder="Latitude" type="number" name="latitude" onChange={this.handleInputChange('latitude')}/>
         </label>
-        <p></p>
-        <label>Longitude:
+        <span> Longitude:
           <input value={longitude} placeholder="Longitude" type="number" name="longitude" onChange={this.handleInputChange('longitude')}/>
-        </label>
-        <p></p>
-        <label>Altitude:
+        </span>
+        <span> Altitude:
           <input value={altitude} placeholder="Altitude" type="number" name="altitude" onChange={this.handleInputChange('altitude')}/>
-        </label>
+        </span>
         <p></p>
+        <label>Date it started functioning:
+          <p></p>
+          <div>
+            <CardHeader>
+              <CardBody style={{backgroundColor: '#b9cfc5', border: '1px solid',
+                borderRadius:'0.25rem' , borderColor: '#b9cfc5' , marginBottom: '1rem'}}>
+              <span>
+            <DatePicker getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
+              </span>
+              </CardBody>
+            </CardHeader>
+          </div>
+        </label>
         <US006Button geographicAreaId={this.props.geographicAreaId} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}
         latitude={this.state.latitude} longitude={this.state.longitude} altitude={this.state.altitude}/>
       </div>

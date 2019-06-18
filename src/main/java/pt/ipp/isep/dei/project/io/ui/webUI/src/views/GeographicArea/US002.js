@@ -16,14 +16,14 @@ class US002 extends Component {
   render() {
     return (
       <div>
-        {/*<Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get geographic area types</Button>*/}
-        {/*<Collapse isOpen={this.state.collapse}>*/}
-          {/*<Card>*/}
-            {/*<CardBody>*/}
-              {/*<US002Redux/>*/}
-            {/*</CardBody>*/}
-          {/*</Card>*/}
-        {/*</Collapse>*/}
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get geographic area types</Button>
+        <Collapse isOpen={this.state.collapse}>
+          <Card>
+            <CardBody>
+              <US002Redux/>
+            </CardBody>
+          </Card>
+        </Collapse>
       </div>
     );
   }
