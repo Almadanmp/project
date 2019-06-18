@@ -114,26 +114,6 @@ public class SensorSettingsWebController {
     }
 
     /**
-     * US010 WEB controller: deactivate area sensor with id sensor
-     *
-     * @param idArea   area id where the area sensor id
-     * @param idSensor sensor id
-     * @return ok status if the area sensor exists
-     */
-    @PutMapping("areas/{id}/sensors/{id2}")
-    public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
-        try {
-            if (geographicAreaRepository.deactivateAreaSensor(idArea, idSensor)) {
-                return new ResponseEntity<>("The Area Sensor has been deactivated.", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("The Area Sensor is already deactivated", HttpStatus.CONFLICT);
-            }
-        } catch (NoSuchElementException ok) {
-            return new ResponseEntity<>("There is no Geographic Area or Sensor with that ID.", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    /**
      * US011 Web Controller:
      * Method for removing area sensors from repository.
      *
