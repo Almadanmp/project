@@ -58,7 +58,7 @@ class SensorSettings extends Component {
               <FormGroup>
                 <Label>Select Sensor Type</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  <option value="0" onChange={this.handleChange}>Please select the Sensor Type</option>
                   {item.map(items => (
                     <option value={items.name} key={items.name}>
                       Type: {items.name}

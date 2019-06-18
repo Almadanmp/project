@@ -58,13 +58,14 @@ class SelectSensor extends Component {
               <FormGroup>
                 <Label>Select Geographic Area</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  <option value="0" onChange={this.handleChange}>Please select Geographic Area</option>
                   {item.map(items => (
                     <option value={items.geographicAreaId}  key={items.name}>
                       Name: {items.name}
                     </option>
                   ))}
                 </Input>
+                <p></p>
                 <SensorSettings geographicAreaId={this.state.value}/>
               </FormGroup>
             </Form>
