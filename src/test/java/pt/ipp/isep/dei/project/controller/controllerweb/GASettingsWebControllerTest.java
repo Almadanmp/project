@@ -712,7 +712,9 @@ class GASettingsWebControllerTest {
         AreaTypeDTO typeInRepo = new AreaTypeDTO();
         typeInRepo.setName("Area");
         repoList.add(typeInRepo);
+
         Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(repoList);
+
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
         AreaTypeDTO typeToAdd = new AreaTypeDTO();
         typeToAdd.setName("Area");
@@ -723,6 +725,26 @@ class GASettingsWebControllerTest {
 
         // Assert
 
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaTypeWorksDuplicateConflict(){
+        // Arrange
+
+        List<AreaTypeDTO> repoList = new ArrayList<>();
+        AreaTypeDTO typeInRepo = new AreaTypeDTO();
+        typeInRepo.setName("Area");
+        repoList.add(typeInRepo);
+
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(repoList);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
+
+        // Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addAreaType(typeInRepo);
+
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
