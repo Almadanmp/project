@@ -737,6 +737,10 @@ class GASettingsWebControllerTest {
         typeInRepo.setName("Area");
         repoList.add(typeInRepo);
 
+        AreaTypeDTO typeInRepo2 = new AreaTypeDTO();
+        typeInRepo.setName("Areosa");
+        repoList.add(typeInRepo2);
+
         Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(repoList);
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
