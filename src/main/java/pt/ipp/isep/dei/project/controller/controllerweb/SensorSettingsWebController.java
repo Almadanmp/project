@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
@@ -112,26 +111,6 @@ public class SensorSettingsWebController {
         }
         return new ResponseEntity<>("There was a problem creating the Area Sensor, because one or more components are missing!",
                 HttpStatus.BAD_REQUEST);
-    }
-
-    /**
-     * US010 WEB controller: deactivate area sensor with id sensor
-     *
-     * @param idArea   area id where the area sensor id
-     * @param idSensor sensor id
-     * @return ok status if the area sensor exists
-     */
-    @PutMapping("areas/{id}/sensors/{id2}")
-    public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
-        try {
-            if (geographicAreaRepository.deactivateAreaSensor(idArea, idSensor)) {
-                return new ResponseEntity<>("The Area Sensor has been deactivated.", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("The Area Sensor is already deactivated", HttpStatus.CONFLICT);
-            }
-        } catch (NoSuchElementException ok) {
-            return new ResponseEntity<>("There is no Geographic Area or Sensor with that ID.", HttpStatus.NOT_FOUND);
-        }
     }
 
     /**

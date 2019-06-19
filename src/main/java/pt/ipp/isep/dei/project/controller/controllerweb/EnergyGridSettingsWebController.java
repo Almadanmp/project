@@ -10,11 +10,13 @@ import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -39,9 +41,21 @@ public class EnergyGridSettingsWebController {
 
     @GetMapping(value = "/grids")
     public @ResponseBody
-    List<EnergyGrid> getAllGrids() {
-        return energyGridRepository.getAllGrids();
+    ResponseEntity<Object> getAllGrids() {
+        List<EnergyGrid> list = energyGridRepository.getAllGrids();
+        List<EnergyGridDTO> result = new ArrayList<>();
+        RoomDTO roomDTO = new RoomDTO();
+        for (EnergyGrid energyGrid : list) {
+            EnergyGridDTO dto = EnergyGridMapper.objectToDTO(energyGrid);
+            Link link = linkTo(methodOn(EnergyGridSettingsWebController.class).getRoomsWebDtoInGrid(dto.getName())).withRel("1. Get rooms in Grid.");
+            Link linkAttach = linkTo(methodOn(EnergyGridSettingsWebController.class).attachRoomToGrid(roomDTO,dto.getName())).withRel("2. Attach a new room to a Grid.");
+            dto.add(link);
+            dto.add(linkAttach);
+            result.add(dto);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 
     /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
      * attach/detach rooms from it.
@@ -51,9 +65,7 @@ public class EnergyGridSettingsWebController {
         try {
             List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
             for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
-                Link linkDelete = linkTo(methodOn(EnergyGridSettingsWebController.class).detachRoomFromGrid(roomDTOMinimal,gridId)).withRel("1. Detach the room from the grid.");
-               // Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
-               // roomDTOMinimal.add(link);
+                Link linkDelete = linkTo(methodOn(EnergyGridSettingsWebController.class).detachRoomFromGrid(roomDTOMinimal, gridId)).withRel("1. Detach the room from the grid.");
                 roomDTOMinimal.add(linkDelete);
             }
             return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);

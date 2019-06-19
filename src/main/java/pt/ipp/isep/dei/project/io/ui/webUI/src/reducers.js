@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import Reducer002 from "./views/GeographicArea/US002/Reducers002";
-
+import Reducers003 from "./views/GeographicArea/US003/Reducers003";
 import Reducers004 from "./views/GeographicArea/US004/Reducers004";
 import Reducer108 from './views/House/HouseConfiguration/US108/Reducers108.js';
 import Reducers600 from './views/House/HouseMonitoring/USRedux/US600Redux/Reducers600.js';
@@ -19,6 +19,7 @@ import ReducersGetRoomsNotInGrid from './views/EnergyGrid/US147/ReducersGetRooms
 export default combineReducers({
 
   Reducer002,
+  Reducers003,
   Reducers004,
   Reducer108,
   Reducers600,

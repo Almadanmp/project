@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
-import SelectHouseAddressLocation from './SelectHouseAddressLocation';
+import US003Redux from "./US003Redux";
 
-class SelectHouseGA extends Component {
+class TypeAreaSelector extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       item: [],
       isLoaded: false,
+      typeArea: '',
       value: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -16,15 +17,14 @@ class SelectHouseGA extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/geographic_area_settings/areas', {
-        headers: {
-          'Authorization': token,
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        }
+    fetch('https://localhost:8443/geographic_area_settings/areaTypes', {
+      headers: {
+        'Authorization': token,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
       }
-    )
+    })
       .then(res => res.json())
       .then((json) => {
         this.setState({
@@ -39,37 +39,29 @@ class SelectHouseGA extends Component {
     this.setState({value: event.target.value});
   }
 
-
   render() {
 
-    const {isLoaded, item} = this.state;
-    console.log(item);
-    this.state.item = Array.from(this.state.item);
+    var {isLoaded, item} = this.state;
     if (!isLoaded) {
-      return (
-        <div className = "spinner-border" role = "status" >
-        <span className = "sr-only" > Loading...</span>
-      </div>
-      )
+      return <div>Loading...</div>
     } else {
-
       if (!item.error) {
         return (
           <div>
             <Form action="" method="post">
               <FormGroup>
-                <Label>Select Geographic Area</Label>
+                <Label>Select area type</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                  <option value="0" onChange={this.handleChange}>Please select the Geographic Area</option>
+                  <option value="0" onChange={this.handleChange}>Please select</option>
                   {item.map(items => (
-                    <option value={items.geographicAreaId} key={items.geographicAreaId}>
-                      Name: {items.name}
+                    <option value={items.name} key={items.name}>
+                      Type: {items.name}
                     </option>
                   ))}
                 </Input>
               </FormGroup>
             </Form>
-            <SelectHouseAddressLocation geographicAreaId={this.state.value}/>
+            <US003Redux typeArea={this.props.typeArea}/>
           </div>
         );
       } else {
@@ -79,4 +71,4 @@ class SelectHouseGA extends Component {
   }
 }
 
-export default SelectHouseGA;
+export default TypeAreaSelector;

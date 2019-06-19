@@ -1,9 +1,9 @@
 import React from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
-import {Button} from "reactstrap";
+import {Button, Card, Collapse} from "reactstrap";
 
-export default class DatePickerOneDay610 extends React.Component {
+export default class DatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.handleDayChange = this.handleDayChange.bind(this);
@@ -28,7 +28,7 @@ export default class DatePickerOneDay610 extends React.Component {
     return (
       <div>
         {selectedDay && <p>Day: {selectedDay.toLocaleDateString()}</p>}
-        {!selectedDay && <h6>Choose a day</h6>}
+        {!selectedDay}
         <DayPickerInput onDayChange={this.handleDayChange} />
         <p></p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
-import SelectHouseAddressLocation from './SelectHouseAddressLocation';
+import US007Button from "./US007Button";
 
-class SelectHouseGA extends Component {
+class SelectSensor extends Component {
 
   constructor(props) {
     super(props);
@@ -10,13 +10,13 @@ class SelectHouseGA extends Component {
       item: [],
       isLoaded: false,
       value: ''
-    };
+    }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/geographic_area_settings/areas', {
+    const token = localStorage.getItem('loginToken')
+    fetch('https://localhost:8443/geographic_area_settings/areas',{
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
@@ -42,34 +42,31 @@ class SelectHouseGA extends Component {
 
   render() {
 
-    const {isLoaded, item} = this.state;
+    var {isLoaded, item} = this.state;
     console.log(item);
-    this.state.item = Array.from(this.state.item);
     if (!isLoaded) {
-      return (
-        <div className = "spinner-border" role = "status" >
-        <span className = "sr-only" > Loading...</span>
-      </div>
-      )
+      return <div>Loading...</div>
     } else {
-
       if (!item.error) {
+        const tasks = item.filter(task => task.geographicAreaId != this.props.geographicAreaId);
+
         return (
           <div>
-            <Form action="" method="post">
+            <Form action="" method="post" >
               <FormGroup>
-                <Label>Select Geographic Area</Label>
+                <Label>Select the child Geographic Area</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                  <option value="0" onChange={this.handleChange}>Please select the Geographic Area</option>
-                  {item.map(items => (
-                    <option value={items.geographicAreaId} key={items.geographicAreaId}>
+                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  {tasks.map(items => (
+                    <option value={items.geographicAreaId}  key={items.name}>
                       Name: {items.name}
                     </option>
                   ))}
                 </Input>
+                <br/>
+                <US007Button motherAreaId={this.props.geographicAreaId} childAreaId={this.state.value}/>
               </FormGroup>
             </Form>
-            <SelectHouseAddressLocation geographicAreaId={this.state.value}/>
           </div>
         );
       } else {
@@ -79,4 +76,4 @@ class SelectHouseGA extends Component {
   }
 }
 
-export default SelectHouseGA;
+export default SelectSensor;

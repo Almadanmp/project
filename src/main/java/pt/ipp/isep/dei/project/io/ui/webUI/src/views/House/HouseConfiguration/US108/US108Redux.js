@@ -26,7 +26,11 @@ class US108Redux extends Component {
 
     const {loading, rooms} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
+      return (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
+        </div>
+      );
     }
     if (rooms.length > 0) {
       {

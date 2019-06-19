@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
 import {Button} from "reactstrap";
-import {deleteRoomFromGrid} from "../../US149/Actions";
+import {deleteRoomFromGrid} from "../../US149/Actions149Hateoas";
 import {connect} from 'react-redux';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css

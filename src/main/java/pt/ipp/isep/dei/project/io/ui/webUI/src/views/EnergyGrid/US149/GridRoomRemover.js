@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
 import {Button} from "reactstrap";
-import {deleteRoomFromGrid} from "./Actions";
+import {deleteRoomFromGrid} from "./Actions149Hateoas";
 import {connect} from 'react-redux';
 
 class GridRoomRemover extends React.Component {

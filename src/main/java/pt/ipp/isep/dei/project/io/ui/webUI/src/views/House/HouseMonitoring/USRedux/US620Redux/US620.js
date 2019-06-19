@@ -37,42 +37,46 @@ class US620 extends Component {
     const numberOfMonths = 1;
     const {loading, totalRainfall} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
+      return (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
+        </div>
+      );
+    } else {
+      if ((totalRainfall.toString()).indexOf("ERROR") != -1) {
+        return (
+          <div>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
+              in the house area for a given day.</Button>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                  ERROR: No Data Available.
+                </CardBody>
+              </Card>
+            </Collapse>
+          </div>
+        )
       } else {
-        if ((totalRainfall.toString()).indexOf("ERROR") != -1) {
-          return (
-            <div>
-              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
-                      style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
-                in the house area for a given day.</Button>
-              <Collapse isOpen={this.state.collapse}>
-                <Card>
-                  <CardBody>
-                    ERROR: No Data Available.
-                  </CardBody>
-                </Card>
-              </Collapse>
-            </div>
-          )
-        } else {
-          const {totalRainfall} = this.props;
-          return (
-            <div>
-              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
-                      style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
-                in the house area for a given day.</Button>
-              <Collapse isOpen={this.state.collapse}>
-                <Card>
-                  <CardBody>
-                    <DatePickerOneDay620 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
-                    <h5 key={totalRainfall}>The total rainfall was {totalRainfall} </h5>
-                  </CardBody>
-                </Card>
-              </Collapse>
-            </div>
-          );
-        }
+        const {totalRainfall} = this.props;
+        return (
+          <div>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
+              in the house area for a given day.</Button>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                  <DatePickerOneDay620 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
+                  <h5 key={totalRainfall}>The total rainfall was {totalRainfall} </h5>
+                </CardBody>
+              </Card>
+            </Collapse>
+          </div>
+        );
       }
+    }
   }
 }
 

@@ -10,12 +10,12 @@ class SelectSensor extends Component {
       item: [],
       isLoaded: false,
       value: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
+    const token = localStorage.getItem('loginToken');
     fetch('https://localhost:8443/geographic_area_settings/areas',{
         headers: {
           'Authorization': token,
@@ -45,7 +45,11 @@ class SelectSensor extends Component {
     var {isLoaded, item} = this.state;
     console.log(item);
     if (!isLoaded) {
-      return <div>Loading...</div>
+      return (
+        <div className = "spinner-border" role = "status" >
+        <span className = "sr-only" > Loading...</span>
+        </div>
+      )
     } else {
       if (!item.error) {
         return (
@@ -54,13 +58,14 @@ class SelectSensor extends Component {
               <FormGroup>
                 <Label>Select Geographic Area</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  <option value="0" onChange={this.handleChange}>Please select Geographic Area</option>
                   {item.map(items => (
                     <option value={items.geographicAreaId}  key={items.name}>
                       Name: {items.name}
                     </option>
                   ))}
                 </Input>
+                <p></p>
                 <SensorSettings geographicAreaId={this.state.value}/>
               </FormGroup>
             </Form>

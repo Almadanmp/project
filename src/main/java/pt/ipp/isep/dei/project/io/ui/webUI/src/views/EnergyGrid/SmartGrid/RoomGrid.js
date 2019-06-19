@@ -44,8 +44,9 @@ class RoomGrid extends Component {
 
     var {isLoaded, item} = this.state;
     if (!isLoaded) {
-      return <div>Loading
-        ...</div>
+      return (<div className = "spinner-border" role = "status" >
+        <span className = "sr-only" > Loading...</span>
+      </div>)
     } else {
       if (!item.error) {
         return (
@@ -61,10 +62,9 @@ class RoomGrid extends Component {
                     textAlign: "right"
                   }}>
                     <Table responsive>
-                      <TableBody grid={items.name}/>
-
+                      <TableBody link={items.links.find((hrefs) => hrefs.rel === '1. Get rooms in Grid.')} grid={items.name}/>
                     </Table>
-                    <US147 grid={items.name}/>
+                    <US147 link={items.links.find((hrefs) => hrefs.rel === '2. Attach a new room to a Grid.')} grid={items.name}/>
                   </CardBody>
                 </Card>
               </Col>

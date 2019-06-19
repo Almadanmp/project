@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnergyGridDTO {
+public class EnergyGridDTO extends ResourceSupport {
 
     private List<String> roomIds;
     private String name;

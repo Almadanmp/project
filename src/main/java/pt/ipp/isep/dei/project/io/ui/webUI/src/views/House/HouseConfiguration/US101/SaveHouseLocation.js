@@ -44,25 +44,16 @@ class SaveHouseLocation extends Component {
   render() {
     return (
       <div>
-        <p>The house location has been altered with the following parameters:</p>
+        <p>The house now has the following parameters:</p>
         <ul>
           <li>
-            Geographic Area Id: {this.props.geographicAreaId}
+            Geographic Area ID: {this.props.geographicAreaId}
           </li>
           <li>
-            Street: {this.props.street}
+            Address: {this.props.street}, {this.props.number}
           </li>
           <li>
-            Number: {this.props.number}
-          </li>
-          <li>
-            Zip: {this.props.zip}
-          </li>
-          <li>
-            Town: {this.props.town}
-          </li>
-          <li>
-            Country: {this.props.country}
+            Zip Code: {this.props.zip} - {this.props.town}, {this.props.country}
           </li>
           <li>
             Latitude: {this.props.latitude}
