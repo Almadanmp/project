@@ -6,17 +6,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +30,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 class GeoAreasWebControllerTest {
 
+    @Autowired
+    private MockMvc mockMvc;
+    @Mock
+    private UserService userService;
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
     @Mock
@@ -41,6 +51,7 @@ class GeoAreasWebControllerTest {
     @BeforeEach
     void insertData() {
         MockitoAnnotations.initMocks(this);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(geoAreasWebController).build();
     }
 
     @Test
@@ -356,6 +367,7 @@ class GeoAreasWebControllerTest {
         geographicAreas.add(validGeographicAreaDTO);
 
         Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(geographicAreas);
+        Mockito.when(userService.getUsernameFromToken()).thenReturn("admin");
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(geographicAreas, HttpStatus.OK);
 
@@ -831,6 +843,52 @@ class GeoAreasWebControllerTest {
         ResponseEntity<Object> actualResult = geoAreasWebController.deactivateSensor(6L, "id");
 
         assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+    }
+
+    @Test
+    void seeIfGetAllGeographicAreasWorks() throws Exception {
+
+        // Arrange
+
+        List<GeographicAreaDTO> list = new ArrayList<>();
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+
+        areaSensorDTO.setId("area sensor");
+        areaSensorDTO.setName("sensor 1");
+        areaSensorDTO.setTypeSensor("Temperature");
+        areaSensorDTO.setUnits("Celsius");
+        areaSensorDTO.setLatitude(10D);
+        areaSensorDTO.setLongitude(10D);
+        areaSensorDTO.setAltitude(10D);
+        areaSensorDTO.setDateStartedFunctioning("10-12-2018");
+        areaSensorDTO.setActive(true);
+
+        validGeographicAreaDTO.addSensor(areaSensorDTO);
+        list.add(validGeographicAreaDTO);
+
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(list);
+        Mockito.when(userService.getUsernameFromToken()).thenReturn("admin");
+
+        // Perform
+
+        this.mockMvc.perform(get("/geoAreas/"))
+                .andExpect(status().isOk());
     }
 }
 
