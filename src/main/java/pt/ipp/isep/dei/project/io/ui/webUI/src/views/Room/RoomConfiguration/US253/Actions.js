@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {fetchNoData} from "../../../EnergyGrid/US147/Actions";
 
 export const FETCH_SENSOR_INFO_STARTED = 'FETCH_SENSOR_INFO_STARTED';
 export const FETCH_SENSOR_INFO_SUCCESS = 'FETCH_SENSOR_INFO_SUCCESS';
@@ -25,7 +26,14 @@ export const fetchSensor = ({roomID, typeSensor,name,sensorId,dateStartedFunctio
         dispatch(fetchSensorInfoSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
-        dispatch(fetchSensorInfoFailure(err.message));
+        if (err.response === 400) {
+          dispatch(fetchNoData(err.message))
+        }
+        else {
+          if (err.response !== undefined) {
+            dispatch(fetchSensorInfoFailure(err.response.data));
+          }
+        }
       });
   };
 };
@@ -53,11 +61,11 @@ export function fetchSensorInfoSuccess(data) { // cria uma açao
   }
 }
 
-export function fetchSensorInfoFailure(message) {
+export function fetchSensorInfoFailure(response) {
   return {
     type: FETCH_SENSOR_INFO_FAILURE,
     payload: {
-      error: message
+      error: response
     }
   }
 }
