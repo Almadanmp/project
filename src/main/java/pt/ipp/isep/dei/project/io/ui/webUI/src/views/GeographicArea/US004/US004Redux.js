@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchGABTs} from './Actions004';
+import {remove} from "lodash/array";
 
 class US004Redux extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class US004Redux extends Component {
   }
 
   render() {
-    const {areas} = this.props;
+    const {areas, listGATypes} = this.props;
     var areasByType = this.organizeByType(areas);
     return (
       <>
@@ -33,10 +34,19 @@ class US004Redux extends Component {
           {Object.keys(areasByType).map(type => (
             <div>
               <h5>{'Areas from type ' + type + ': '}</h5>
-              {areasByType[type].map(area => (<p>{'- ' + area.name + ' - description: ' + area.description}</p>))}
+              {areasByType[type].map(area => (<p>{'- ' + area.name + ' - ' + area.description}</p>))}
             </div>
           ))}
         </label>
+        <p> </p>
+        <div>
+          <label>
+            <p>
+              {listGATypes.map(name => (<p><h5>{'Areas from type ' + name.name + ': '}</h5>
+                {'- There are no areas from this area type.'}</p>))}
+            </p>
+          </label>
+        </div>
       </>
     );
   }
@@ -44,7 +54,8 @@ class US004Redux extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    areas: state.Reducers004.areas
+    areas: state.Reducers004.areas,
+    listGATypes: state.Reducer002.listGATypes
   }
 };
 
