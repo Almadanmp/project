@@ -17,7 +17,7 @@ class SensorTypesSelect extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken')
-    fetch('https://localhost:8443/roomConfiguration/types',{
+    fetch('https://localhost:8443/rooms/types',{
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,

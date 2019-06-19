@@ -60,15 +60,15 @@ public class RoomsWebController {
                 break;
             }
             if (userService.getUsernameFromToken().equals("admin")) {
-                Link roomSensors = linkTo(methodOn(RoomsWebController.class).getSensors(r.getName())).withRel("Get Room" +
-                        "Sensors");
+                Link roomSensors = linkTo(methodOn(RoomsWebController.class).getSensors(r.getName())).withRel("Get Room Sensors");
                 Link deleteRoom = linkTo(methodOn(RoomsWebController.class).deleteRoom(r)).withRel("Delete this Room");
                 Link editRoom = linkTo(methodOn(RoomsWebController.class).configureRoom(r.getName(), new RoomDTOMinimal()))
                         .withRel("Edit this Room");
                 r.add(roomSensors);
                 r.add(deleteRoom);
                 r.add(editRoom);
-            } else if (userService.getUsernameFromToken().equals("REGULAR_USER")) {
+            } else
+                if (userService.getUsernameFromToken().equals("REGULAR_USER")) {
                 Link roomTemp = linkTo(methodOn(RoomsWebController.class).getCurrentRoomTemperature(r.getName())).
                         withRel("Get Room Temperature");
                 r.add(roomTemp);
