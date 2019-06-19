@@ -705,6 +705,28 @@ class GeoAreasWebControllerTest {
     }
 
     @Test
+    void seeIfAddAreaTypeWorks2(){
+        // Arrange
+
+        List<AreaTypeDTO> emptyList = new ArrayList<>();
+        AreaTypeDTO emptyTypeDTO = new AreaTypeDTO();
+        emptyTypeDTO.setName("");
+        emptyList.add(emptyTypeDTO);
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+        AreaTypeDTO typeToAdd = new AreaTypeDTO();
+        typeToAdd.setName("Area");
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeToAdd, HttpStatus.OK);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = geoAreasWebController.addAreaType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfAddAreaTypeWorksDuplicate(){
         // Arrange
 
