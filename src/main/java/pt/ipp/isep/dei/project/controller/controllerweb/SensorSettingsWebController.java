@@ -100,7 +100,7 @@ public class SensorSettingsWebController {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("That ID does not belong to any Geographic Area", HttpStatus.NOT_FOUND);
         }
-        if (areaSensorDTO.getName() != null && areaSensorDTO.getSensorId() != null && areaSensorDTO.getType() != null && areaSensorDTO.getDateStartedFunctioning() != null) {
+        if (areaSensorDTO.getSensorId() != "" && areaSensorDTO.getSensorId() != null) {
             if (areaSensorDTO.getName().equals("")) {
                 return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }

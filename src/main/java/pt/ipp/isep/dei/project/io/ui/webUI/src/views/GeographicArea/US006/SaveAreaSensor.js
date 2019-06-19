@@ -34,9 +34,7 @@ class SaveAreaSensor extends Component {
       body: JSON.stringify({sensorId, name, dateStartedFunctioning, typeSensor, latitude, longitude, altitude})
     })
       .then(res => {
-        console.log(res)
         if(res.status === 422) {
-          console.log("ola")
           this.state.error = '422'
         }
         else if (res.status === 409) {
@@ -69,6 +67,13 @@ class SaveAreaSensor extends Component {
         </div>
       )
     }
+    else if(this.state.error === '400') {
+      return (
+      <div>
+          The sensor you are trying to add has an invalid ID.
+        </div>
+      )
+      }
     return (
       <div>
         The new sensor {this.props.error} {this.props.name} was successfully saved with the following ID: {this.props.sensorId}.

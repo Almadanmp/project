@@ -26,7 +26,7 @@ class US006Button extends Component {
   render(){
     return(
       <div>
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Add Sensor</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Save new sensor</Button>
         {!this.state.isHidden && <SaveAreaSensor geographicAreaId={this.props.geographicAreaId} typeSensor={this.props.typeSensor}
                                                  sensorId={this.props.sensorId} name={this.props.name}
                                                  dateStartedFunctioning={this.props.dateStartedFunctioning}

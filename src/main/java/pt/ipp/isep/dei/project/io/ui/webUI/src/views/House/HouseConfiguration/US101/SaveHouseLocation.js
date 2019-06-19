@@ -5,6 +5,7 @@ class SaveHouseLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: '',
       item: [],
     }
   }
@@ -32,7 +33,12 @@ class SaveHouseLocation extends Component {
       },
       body: JSON.stringify({geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude})
     })
-      .then(res => res.json())
+      .then(res => {
+        if(res.status === 422) {
+          this.state.error = '422'
+        }
+        res.json()
+        })
       .then((json) => {
         this.setState({
           item: json,
@@ -42,6 +48,13 @@ class SaveHouseLocation extends Component {
   };
 
   render() {
+    if(this.state.error === '422') {
+      return (
+        <div>
+          Please complete every field before continuing.
+        </div>
+      )
+    }
     return (
       <div>
         <p>The house now has the following parameters:</p>

@@ -48,6 +48,9 @@ public class HouseWebController {
     public ResponseEntity<Object> configureLocation(@RequestBody AddressLocalGeographicAreaIdDTO dto) {
         HouseWithoutGridsDTO houseWithoutGridsDTO = houseRepository.getHouseWithoutGridsDTO();
         houseWithoutGridsDTO.setAddressAndLocalToDTOWithoutGrids(dto);
+        if(!houseWithoutGridsDTO.isAddressDTOValid()) {
+            return new ResponseEntity<>("The house has invalid address parameters. Please try again", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         if (houseRepository.updateHouseDTOWithoutGrids(houseWithoutGridsDTO)) {
             Link link = linkTo(methodOn(HouseWebController.class).getHouse()).withRel("Click here to see the House updated");
             houseWithoutGridsDTO.add(link);

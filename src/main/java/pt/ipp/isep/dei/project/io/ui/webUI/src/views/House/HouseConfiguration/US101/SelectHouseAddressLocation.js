@@ -10,7 +10,7 @@ class SelectHouseAddressLocation extends React.Component {
     this.state = {
       geographicAreaId: this.props.geographicAreaId,
       street: '',
-      number: '',
+      number: 1,
       zip: '',
       town: '',
       country: '',
@@ -59,15 +59,15 @@ class SelectHouseAddressLocation extends React.Component {
         </span>
         <p></p>
         <span> Latitude:
-          <input value={latitude} type="number" name="latitude" placeholder="Latitude"
+          <input value={latitude} type="number" name="latitude" placeholder="0"
                  onChange={this.handleInputChange('latitude')}/>
         </span>
         <span> Longitude:
-          <input value={longitude} type="number" name="longitude" placeholder="Longitude"
+          <input value={longitude} type="number" name="longitude" placeholder="0"
                  onChange={this.handleInputChange('longitude')}/>
         </span>
         <span> Altitude:
-          <input value={altitude} type="number" name="altitude" placeholder="Altitude"
+          <input value={altitude} type="number" name="altitude" placeholder="0"
                  onChange={this.handleInputChange('altitude')}/>
         </span>
         <p></p>
