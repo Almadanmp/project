@@ -67,6 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
                 .antMatchers("/gridSettings/**").hasRole(ADMIN)
                 .antMatchers("/geographic_area_settings/**").hasRole(ADMIN)
+                .antMatchers("/import/**").permitAll()
                 //Regular User Access - US600, US605, US610, US620, US630, US631, US633
                 .antMatchers("/houseMonitoring/**").hasAnyRole(REGULAR_USER, POWER_USER, ROOM_OWNER)
                 .antMatchers("/roomMonitoring/**").hasAnyRole(REGULAR_USER, POWER_USER)

@@ -62,10 +62,20 @@ export default {
       title: true,
       name: 'Extras',
     },
-        {
-          name: 'About',
-          url: '/about',
-          icon: 'icon-star',
-        },
+    {
+      name: 'About',
+      url: '/about',
+      icon: 'icon-star',
+    },
+    {
+      name: 'PleaseLogin',
+      url: '/pleaseLogIn',
+      icon: 'icon-star',
+    },
+    {
+      name: 'Configuration',
+      url: '/configuration',
+      icon: 'icon-star',
+    },
   ],
 };
