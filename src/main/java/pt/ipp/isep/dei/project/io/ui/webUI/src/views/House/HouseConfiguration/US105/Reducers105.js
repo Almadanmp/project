@@ -1,8 +1,8 @@
 import {
-  REMOVE_GRID_ROOM_INFO_FAILURE,
-  REMOVE_GRID_ROOM_INFO_SUCCESS,
-  REMOVE_GRID_ROOM_INFO_STARTED,
-  FETCH_NO_ROOM_GRID_DATA,
+  ADD_ROOM_INFO_FAILURE,
+  ADD_ROOM_INFO_SUCCESS,
+  ADD_ROOM_INFO_STARTED,
+  ADD_ROOM_DATA,
 
 } from './Actions'
 
@@ -15,28 +15,28 @@ const initialstate = {
 
 export default function Reducers105 (state = initialstate, action) {
   switch (action.type) {
-    case REMOVE_GRID_ROOM_INFO_STARTED:
+    case ADD_ROOM_INFO_STARTED:
       return {
         ...state,
         loading: true,
         error: null,
         room: []
       };
-    case REMOVE_GRID_ROOM_INFO_SUCCESS:
+    case ADD_ROOM_INFO_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
         room: [...action.payload.room]
       };
-    case REMOVE_GRID_ROOM_INFO_FAILURE:
+    case ADD_ROOM_INFO_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
         room: "ERROR: " + action.payload.error,
       };
-    case FETCH_NO_ROOM_GRID_DATA:
+    case ADD_ROOM_DATA:
       return {
         ...state,
         loading: false,
