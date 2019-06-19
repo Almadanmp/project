@@ -80,8 +80,7 @@ class ListRooms extends Component {
 
                       <TabContent activeTab={this.state.activeTab}>
                         <TabPane tabId={item.name}>
-
-                          <US250GetSensors roomID={item.name}/>
+                          <US250GetSensors link={item.links.find((hrefs) => hrefs.rel === 'Get Room Sensors')} roomID={item.name}/>
                         </TabPane>
                       </TabContent>
 

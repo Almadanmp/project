@@ -1,20 +1,9 @@
 import React, {Component} from 'react';
-import TableHeader from "../../../House/HouseConfiguration/TableHeader";
 import {
   Badge,
   Card,
-  CardBody,
-  CardHeader,
-  Col,
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemHeading,
-  ListGroupItemText,
-  Row,
-  TabContent,
-  TabPane, Table, Button, Collapse
+  CardBody,Table, Button, Collapse
 } from 'reactstrap';
-import US253 from "../US253/US253";
 import SensorTypesSelect from "../US253/SensorTypesSelect";
 
 
@@ -27,6 +16,7 @@ class US250GetSensors extends Component {
       sensors: false,
       activeTab: 1,
       roomId: 0,
+      link:[],
       collapse: false
     }
     this.toggle = this.toggle.bind(this);
@@ -37,8 +27,9 @@ class US250GetSensors extends Component {
   }
 
   componentDidMount() {
+    const {link} = this.props;
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/roomConfiguration/rooms/' + this.props.roomID + '/sensors', {
+    fetch(link.href, {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,

@@ -10,7 +10,7 @@ export function fetchRooms() {
   return dispatch => {
     dispatch(fetchRoomsStarted());
     axios
-      .get(`https://localhost:8443/houseSettings/houseRooms`, {
+      .get(`https://localhost:8443/rooms/`, {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
