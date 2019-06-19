@@ -3,11 +3,12 @@ import Dropzone from 'react-dropzone'
 import {uploadFile} from "./UploadActions";
 import {Button} from "reactstrap";
 import {connect} from "react-redux";
+import {confirmAlert} from "react-confirm-alert";
 
 class FileUploader extends Component {
   constructor(props) {
     super(props);
-    this.state = {file:{}};
+    this.state = {file: {}};
     this.onDrop = this.onDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,13 +20,26 @@ class FileUploader extends Component {
     let file = acceptedFiles[0]
     formData.append('file', file)
     formData.append('file', file.name)
-     this.setState({file: formData})
+    this.setState({file: formData})
   }
 
-
-  handleSubmit() {
-    this.props.onPostFile(this.state.file);
-  }
+  handleSubmit = () => {
+    confirmAlert({
+      title: 'Confirm to import data',
+      message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.props.onPostFile(this.state.file)
+        },
+        {
+          label: 'No',
+          onClick: () => {
+          }
+        }
+      ]
+    });
+  };
 
   render() {
     const maxSize = 1048576;
