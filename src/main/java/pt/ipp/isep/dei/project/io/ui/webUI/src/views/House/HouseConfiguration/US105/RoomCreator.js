@@ -84,7 +84,7 @@ class RoomCreator extends React.Component {
         <p></p>
 
         <p>The room to be created has the following
-          details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
+          details: {'Name: '+name + ' , ' + 'Floor: '+floor + ', '+ 'Width: '+ width + ', ' + 'Length: '+length + ', '+ 'Height: '+ height + '.'}</p>
         <p></p>
 
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => {
