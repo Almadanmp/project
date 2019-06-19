@@ -37,7 +37,7 @@ class FileUploader extends Component {
           minSize={0}
           maxSize={maxSize}
         >
-          {({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles}) => {
+          {({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles, acceptedFiles}) => {
             const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
             return (
               <div {...getRootProps()}>
@@ -50,6 +50,15 @@ class FileUploader extends Component {
                     File is too large.
                   </div>
                 )}
+                <ul className="list-group mt-2">
+                  {acceptedFiles.length > 0 && acceptedFiles.map(acceptedFile => (
+                    <li className="list-group-item list-group-item-success">
+                      {acceptedFile.name}
+                    </li>
+                  ))}
+                </ul>
+
+
               </div>
 
             )
