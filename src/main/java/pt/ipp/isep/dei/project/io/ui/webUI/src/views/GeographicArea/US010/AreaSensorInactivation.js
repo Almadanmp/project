@@ -4,7 +4,7 @@ import {Button} from "reactstrap";
 import {inactivateSensorFromArea} from "../US010/Actions010";
 import {connect} from 'react-redux';
 import {confirmAlert} from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 class AreaSensorInactivation extends React.Component {
@@ -15,6 +15,7 @@ class AreaSensorInactivation extends React.Component {
     this.state = {
       id: 0,
       sensorId: '',
+      isChecked: null
     };
 
     this.handleInputChange = attribute => event => {
@@ -23,6 +24,10 @@ class AreaSensorInactivation extends React.Component {
       });
     };
 
+  }
+
+  componentWillMount () {
+    this.setState( { isChecked: this.props.isChecked } );
   }
 
   submit = () => {
@@ -47,7 +52,13 @@ class AreaSensorInactivation extends React.Component {
     this.props.onInactivateSensorFromArea(this.state);
   }
 
+  handleChange () {
+    console.log(this.state.isChecked)
+    this.setState( { isChecked: !this.state.isChecked } );
+  }
+
   render() {
+    const isEnabled = this.state.isChecked !== null;
     return (
       <>
 
@@ -62,8 +73,15 @@ class AreaSensorInactivation extends React.Component {
 
         <p>{''}</p>
 
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.submit}> Sensor
-          inactivation</Button>
+        <div className="switch-container">
+          <label>
+            <input ref="switch" checked={this.state.isChecked } onChange={ this.handleChange && this.submit } className="switch" type="checkbox" />
+            <div>
+
+              <div> </div>
+            </div>
+          </label>
+        </div>
       </>
     )
   }
@@ -76,5 +94,6 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 };
+
 
 export default connect(null, mapDispatchToProps)(AreaSensorInactivation);

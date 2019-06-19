@@ -50,7 +50,7 @@ public class EnergyGridsWebController {
         RoomDTO roomDTO = new RoomDTO();
         for (EnergyGrid energyGrid : list) {
             EnergyGridDTO dto = EnergyGridMapper.objectToDTO(energyGrid);
-            if (userService.getUsernameFromToken().equals("ADMIN")) {
+            if (userService.getUsernameFromToken().equals("admin")) {
                 Link link = linkTo(methodOn(EnergyGridsWebController.class).getRoomsWebDtoInGrid(dto.getName())).withRel("1. Get rooms in Grid.");
                 Link linkAttach = linkTo(methodOn(EnergyGridsWebController.class).attachRoomToGrid(roomDTO,dto.getName())).withRel("2. Attach a new room to a Grid.");
                 dto.add(link);
@@ -70,7 +70,7 @@ public class EnergyGridsWebController {
         try {
             List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
             for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
-                if (userService.getUsernameFromToken().equals("ADMIN")) {
+                if (userService.getUsernameFromToken().equals("admin")) {
                     Link linkDelete = linkTo(methodOn(EnergyGridsWebController.class).detachRoomFromGrid(roomDTOMinimal, gridId)).withRel("1. Detach the room from the grid.");
                     roomDTOMinimal.add(linkDelete);
                 }
