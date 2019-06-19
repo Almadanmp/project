@@ -10,15 +10,17 @@ export function uploadFile(fileToUpload) {
   return dispatch => {
     dispatch(postFileStarted()); // antes de fazer o get, coloca o loading a true
     axios
-      .post(`https://localhost:8443/import/importGA`, {
-          headers: {
-            'Authorization': token,
-            "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: fileToUpload
+       .post('https://localhost:8443/import/upload', fileToUpload, {
+        headers: {
+          'Authorization': token,
+                "Access-Control-Allow-Credentials": true,
+                 "Access-Control-Allow-Origin": "*",
+          'Content-Type': 'multipart/form-data'
+        },
+        body: {
+          fileToUpload
         }
-      )
+      })
       .then(response => dispatch(postFileSuccess(response.data)))
       .then(success => {
         // Do something with the successful response

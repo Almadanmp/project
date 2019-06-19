@@ -7,19 +7,24 @@ import {connect} from "react-redux";
 class FileUploader extends Component {
   constructor(props) {
     super(props);
-    this.state = {file: null};
+    this.state = {file:{}};
     this.onDrop = this.onDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onDrop = (acceptedFiles) => {
     console.log(acceptedFiles);
-    this.setState({file: acceptedFiles})
+    const formData = new FormData();
+
+    let file = acceptedFiles[0]
+    formData.append('file', file)
+    formData.append('file', file.name)
+     this.setState({file: formData})
   }
 
 
   handleSubmit() {
-    this.props.onPostFile(this.state);
+    this.props.onPostFile(this.state.file);
   }
 
   render() {
@@ -64,7 +69,7 @@ class FileUploader extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     onPostFile: (file) => {
-      dispatch(uploadFile({file}))
+      dispatch(uploadFile(file))
     }
   }
 };
