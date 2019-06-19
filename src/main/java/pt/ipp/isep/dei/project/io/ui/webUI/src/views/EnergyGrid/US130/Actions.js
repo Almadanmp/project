@@ -12,7 +12,7 @@ export const fetchEnergyGrid = ({name, maxContractedPower}) => {
     const houseID = "01";
     const data = {name, houseID, maxContractedPower};
     axios
-      .post('https://localhost:8443/gridSettings/grids', data,
+      .post('https://localhost:8443/grids/', data,
         {
           headers: {
             'Authorization': token,
