@@ -3,6 +3,7 @@ import axios from 'axios';
 export const REMOVE_GRID_ROOM_INFO_STARTED = 'REMOVE_GRID_ROOM_INFO_STARTED';
 export const REMOVE_GRID_ROOM_INFO_SUCCESS = 'REMOVE_GRID_ROOM_INFO_SUCCESS';
 export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
+export const FETCH_NO_ROOM_GRID_DATA = 'FETCH_NO_ROOM_GRID_DATA';
 
 
 export const fetchRoom = ({name, floor, width, length, height}) => {
@@ -25,7 +26,13 @@ export const fetchRoom = ({name, floor, width, length, height}) => {
         dispatch(fetchRoomInfoSuccess(res.data));
       })
       .catch(err => {
-        dispatch(fetchRoomInfoFailure(err.message));
+        if (err.response === 400) {
+          dispatch(fetchNoData1(err.message))
+        }
+        else {
+          if(err.response !== undefined){
+            dispatch(fetchRoomInfoFailure1(err.response.data));}
+        }
       });
   };
 };
@@ -53,11 +60,20 @@ export function fetchRoomInfoSuccess(data) {
   }
 }
 
-export function fetchRoomInfoFailure(message) {
+export function fetchRoomInfoFailure1(response) {
   return {
     type: REMOVE_GRID_ROOM_INFO_FAILURE,
     payload: {
-      error: message
+      error: response
+    }
+  }
+}
+
+export function fetchNoData1(response) {
+  return {
+    type: FETCH_NO_ROOM_GRID_DATA,
+    payload: {
+      errorData: response
     }
   }
 }

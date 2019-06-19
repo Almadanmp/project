@@ -46,7 +46,6 @@ class GeoAreasWebControllerTest {
     @Test
     void seeIfCreateGeoAreaWorks() {
         // Arrange
-
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
         validGeographicAreaDTO.setLatitude(60D);
@@ -65,15 +64,41 @@ class GeoAreasWebControllerTest {
         validGeographicAreaDTO.add(link);
 
         // Act
-
         ResponseEntity<Object> actualResult = geoAreasWebController.createGeoArea(validGeographicAreaDTO);
 
         // Assert
-
         assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
-
     }
 
+    @Test
+    void seeIfGetAllGeoAreasWorksForNull() {
+        // Arrange
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(null);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
+
+        // Act
+        ResponseEntity<Object> actualResult = geoAreasWebController.getAllGeographicAreas();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAllGeoAreasWorksForEmpty() {
+        // Arrange
+        List<GeographicAreaDTO> emptyDTOList = new ArrayList<>();
+
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(emptyDTOList);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
+
+        // Act
+        ResponseEntity<Object> actualResult = geoAreasWebController.getAllGeographicAreas();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfCreateGeoAreaDoesntWorkIsRepeated() {
@@ -690,6 +715,28 @@ class GeoAreasWebControllerTest {
         // Arrange
 
         List<AreaTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+        AreaTypeDTO typeToAdd = new AreaTypeDTO();
+        typeToAdd.setName("Area");
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeToAdd, HttpStatus.OK);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = geoAreasWebController.addAreaType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaTypeWorks2(){
+        // Arrange
+
+        List<AreaTypeDTO> emptyList = new ArrayList<>();
+        AreaTypeDTO emptyTypeDTO = new AreaTypeDTO();
+        emptyTypeDTO.setName("");
+        emptyList.add(emptyTypeDTO);
         Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
         AreaTypeDTO typeToAdd = new AreaTypeDTO();
         typeToAdd.setName("Area");

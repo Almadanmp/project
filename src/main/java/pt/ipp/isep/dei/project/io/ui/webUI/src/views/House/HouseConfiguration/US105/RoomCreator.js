@@ -4,6 +4,7 @@ import {Button} from "reactstrap";
 import {fetchRoom} from "./Actions";
 import {connect} from 'react-redux';
 import {confirmAlert} from "react-confirm-alert";
+import Message105 from "./Message105";
 
 class RoomCreator extends React.Component {
 
@@ -11,6 +12,7 @@ class RoomCreator extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
+      isHidden: true,
       name: '',
       floor: '',
       width: '',
@@ -25,6 +27,8 @@ class RoomCreator extends React.Component {
     };
 
   }
+
+  toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}))
 
   handleSubmit() {
     this.props.onFetchRoom(this.state);
@@ -83,12 +87,26 @@ class RoomCreator extends React.Component {
           details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
         <p></p>
 
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.submit}>Save new room
-          configuration</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => {
+          this.submit();
+          this.toggleHidden()
+        }}>Save new room
+          configuration</Button>{!this.state.isHidden &&
+      <Message105 name={this.state.name} floor={this.state.floor} width={this.state.width} length={this.state.width}
+                  height={this.state.height}/>}
       </>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+
+    loading: state.Reducers105.loading,
+    room: state.Reducers105.room,
+    error: state.Reducers105.error
+  }
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -98,5 +116,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(RoomCreator);
+export default connect(mapStateToProps, mapDispatchToProps)(RoomCreator);
 
