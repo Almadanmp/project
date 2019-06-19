@@ -44,6 +44,25 @@ class GeoAreasWebControllerTest {
     }
 
     @Test
+    void seeIfGeoAreaPlanLocalDTOSetGetWorks() {
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
+
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+
+        double expectedResultWidth = 100D;
+        double expectedResultLength = 500D;
+
+        // Act
+        double actualResultWidth = validGeographicAreaDTO.getWidth();
+        double actualResultLength = validGeographicAreaDTO.getLength();
+
+        // Assert
+        assertEquals(expectedResultWidth, actualResultWidth);
+        assertEquals(expectedResultLength, actualResultLength);
+    }
+
+    @Test
     void seeIfCreateGeoAreaWorks() {
         // Arrange
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
