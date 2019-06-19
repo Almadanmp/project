@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -44,22 +44,51 @@ class GeoAreasWebControllerTest {
     }
 
     @Test
+    void seeIfGeoAreaPlanLocalDTOSensorListAddRemoveWorks() {
+        // Arrange
+        List<AreaSensorDTO> duplicate = new ArrayList<>();
+
+        GeographicAreaPlainLocalDTO gAPLD = new GeographicAreaPlainLocalDTO();
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setId("1");
+        duplicate.add(areaSensorDTO);
+
+        List<AreaSensorDTO> expectedResultList = duplicate;
+
+        // Act
+        boolean actualResultAddEmpty = gAPLD.addSensor(areaSensorDTO);
+        boolean actualResultAddDuplicate = gAPLD.addSensor(areaSensorDTO);
+        List<AreaSensorDTO> actualResultList = gAPLD.getSensors();
+
+        // Assert
+        assertTrue(actualResultAddEmpty);
+        assertFalse(actualResultAddDuplicate);
+        assertEquals(expectedResultList, actualResultList);
+    }
+    
+    @Test
     void seeIfGeoAreaPlanLocalDTOSetGetWorks() {
+        // Arrange
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
+        validGeographicAreaDTO.setDescription("4rd biggest city");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
 
         double expectedResultWidth = 100D;
         double expectedResultLength = 500D;
+        String expectedResultDescription = "4rd biggest city";
 
         // Act
         double actualResultWidth = validGeographicAreaDTO.getWidth();
         double actualResultLength = validGeographicAreaDTO.getLength();
+        String actualResultDescription = validGeographicAreaDTO.getDescription();
 
         // Assert
         assertEquals(expectedResultWidth, actualResultWidth);
         assertEquals(expectedResultLength, actualResultLength);
+        assertEquals(expectedResultDescription, actualResultDescription);
     }
 
     @Test
