@@ -12,10 +12,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,9 +30,13 @@ public class ReaderJSONGeographicAreas implements Reader {
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             JSONObject areaList = object.getJSONObject("geographical_area_list");
-            return areaList.getJSONArray("geographical_area");
+            JSONArray result = areaList.getJSONArray("geographical_area");
+            stream.close();
+            return result;
         } catch (FileNotFoundException e) {
             UtilsUI.printMessage("The file wasn't found.");
+        } catch (IOException e) {
+            UtilsUI.printMessage("Unable to close file.");
         }
         return new JSONArray();
     }
