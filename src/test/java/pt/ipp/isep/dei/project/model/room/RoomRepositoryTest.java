@@ -174,7 +174,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        boolean actualResult = validRoomRepository.configureRoom(roomDTO);
+        boolean actualResult = validRoomRepository.configureRoom(roomDTO, "Kitchen");
 
         // Assert
 
@@ -196,7 +196,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        boolean actualResult = validRoomRepository.configureRoom(roomDTO);
+        boolean actualResult = validRoomRepository.configureRoom(roomDTO, "Kitchen");
 
         // Assert
 
@@ -222,7 +222,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        boolean actualResult = validRoomRepository.configureRoom(roomDTO);
+        boolean actualResult = validRoomRepository.configureRoom(roomDTO, "Kitchen");
 
         // Assert
 
@@ -343,7 +343,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomDTOMinimal();
+        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomsAsMinimalDTOs();
 
         // Assert
 
@@ -361,7 +361,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomDTOMinimal();
+        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomsAsMinimalDTOs();
 
         // Assert
 
@@ -1479,7 +1479,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        List<RoomDTOMinimal> result = validRoomRepository.getAllDTOWebInformation();
+        List<RoomDTOMinimal> result = validRoomRepository.getAllRoomsAsMinimalDTOs();
 
         // Assert
 
@@ -1500,7 +1500,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        List<RoomDTOMinimal> result = validRoomRepository.getAllDTOWebInformation();
+        List<RoomDTOMinimal> result = validRoomRepository.getAllRoomsAsMinimalDTOs();
 
         // Assert
 
@@ -1512,7 +1512,7 @@ class RoomRepositoryTest {
     void seeIfDoNotRemoveRoomDTO() {
         // Arrange
 
-        validRoomRepository.updateDTORoom(RoomMapper.objectToDTO(validRoom));
+        validRoomRepository.updateRoomDTO(RoomMapper.objectToDTO(validRoom));
 
         // Assert
 
@@ -1608,7 +1608,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertTrue(validRoomRepository.isRoomSensorDTOValid(RoomSensorMapper.objectToDTO(roomSensor)));
+        assertTrue(validRoomRepository.roomSensorDTOIsValid(RoomSensorMapper.objectToDTO(roomSensor)));
 
     }
 
@@ -1622,7 +1622,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
+        assertFalse(validRoomRepository.roomSensorDTOIsValid(roomSensorDTO));
 
     }
 
@@ -1636,7 +1636,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
+        assertFalse(validRoomRepository.roomSensorDTOIsValid(roomSensorDTO));
 
     }
 
@@ -1650,7 +1650,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
+        assertFalse(validRoomRepository.roomSensorDTOIsValid(roomSensorDTO));
 
     }
 
@@ -1664,7 +1664,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
+        assertFalse(validRoomRepository.roomSensorDTOIsValid(roomSensorDTO));
 
     }
 

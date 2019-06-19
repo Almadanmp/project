@@ -64,6 +64,17 @@ public class HouseWithoutGridsDTO extends ResourceSupport {
         setMotherAreaId(dto.getGeographicAreaId());
     }
 
+    /**
+     * This method checks if the parameter Address DTO is valid by checking that every parameter
+     * is not empty
+     *
+     * @return true in case it is valid, false otherwise
+     * **/
+    public boolean isAddressDTOValid() {
+        return this.getAddress().getStreet() != "" && this.getAddress().getCountry() != "" && this.getAddress().getNumber() != ""
+                && this.getAddress().getTown() != "" && this.address.getZip() != "";
+    }
+
     public int getDeviceMeteringPeriod() {
         return deviceMeteringPeriod;
     }

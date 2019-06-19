@@ -327,7 +327,7 @@ class RoomDTOTest {
         roomSensorDTO2.setTypeSensor("test");
         roomSensorDTO2.setDateStartedFunctioning("2/2/2018");
         RoomSensorDTOMinimal roomSensorDTO = new RoomSensorDTOMinimal();
-        roomSensorDTO.setId("test");
+        roomSensorDTO.setSensorId("test");
         roomSensorDTO.setName("test");
         roomSensorDTO.setTypeSensor("test");
         roomSensorDTO.setDateStartedFunctioning("2/2/2018");

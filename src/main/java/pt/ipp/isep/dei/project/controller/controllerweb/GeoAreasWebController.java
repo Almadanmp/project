@@ -21,7 +21,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping(value = "/geographic_area_settings")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
-public class GASettingsWebController {
+public class GeoAreasWebController {
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepo;
@@ -72,14 +72,15 @@ public class GASettingsWebController {
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaPlainLocalDTO dto) {
         if (dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
             if (geographicAreaRepo.addAndPersistPlainDTO(dto)) {
-                Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
+                Link link = linkTo(methodOn(GeoAreasWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
                 dto.add(link);
                 return new ResponseEntity<>(dto, HttpStatus.CREATED);
             } else {
-                return new ResponseEntity<>("The geographic area hasn't been created. That area already exists.", HttpStatus.CONFLICT);
+                return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
             }
         }
-        return new ResponseEntity<>("The geographic area hasn't been created. You have entered an invalid area.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an" +
+                " invalid Area.", HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -117,7 +118,7 @@ public class GASettingsWebController {
         try {
             if (geographicAreaRepo.addChildArea(idAreaChild, idAreaParent)) {
                 result = geographicAreaRepo.getDTOByIdWithParent(idAreaParent);
-                link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
+                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
                 result.add(link);
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } else {
@@ -136,7 +137,7 @@ public class GASettingsWebController {
         try {
             if (geographicAreaRepo.removeChildArea(idAreaChild, idAreaParent)) {
                 result = geographicAreaRepo.getDTOByIdWithParent(idAreaParent);
-                link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
+                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
                 result.add(link);
                 return new ResponseEntity<>(geographicAreaRepo.getDTOByIdWithParent(idAreaParent), HttpStatus.OK);
             } else {

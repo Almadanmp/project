@@ -27,7 +27,7 @@ public class RoomSensorMinimalMapper {
      */
     public static RoomSensor dtoToObject(RoomSensorDTOMinimal dtoToConvert) {
 
-        String objectID = dtoToConvert.getId();
+        String objectID = dtoToConvert.getSensorID();
 
         // Update name
 
@@ -98,7 +98,7 @@ public class RoomSensorMinimalMapper {
         resultDTO.setActive(dtoStatus);
         resultDTO.setName(dtoName);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
-        resultDTO.setId(dtoID);
+        resultDTO.setSensorId(dtoID);
 
         return resultDTO;
     }

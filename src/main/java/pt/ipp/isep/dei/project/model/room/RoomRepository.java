@@ -38,14 +38,13 @@ public class RoomRepository {
      * @return true in case the room is edited, false in case a room with the given
      * ID does not exist in repository
      **/
-    public boolean configureRoom(RoomDTOMinimal roomDTOMinimal) {
-        String roomName = roomDTOMinimal.getName();
+    public boolean configureRoom(RoomDTOMinimal roomDTOMinimal, String roomID) {
         int roomFloor = roomDTOMinimal.getFloor();
         double roomWidth = roomDTOMinimal.getWidth();
         double roomLength = roomDTOMinimal.getLength();
         double roomHeight = roomDTOMinimal.getHeight();
 
-        Optional<Room> optionalRoom = roomCrudRepo.findByRoomName(roomName);
+        Optional<Room> optionalRoom = roomCrudRepo.findByRoomName(roomID);
         if (optionalRoom.isPresent()) {
             Room room = optionalRoom.get();
             room.setHouseFloor(roomFloor);
@@ -101,7 +100,7 @@ public class RoomRepository {
      *
      * @return a list containing all rooms contained in repository
      **/
-    public List<RoomDTOMinimal> getAllRoomDTOMinimal() {
+    public List<RoomDTOMinimal> getAllRoomsAsMinimalDTOs() {
         List<RoomDTOMinimal> finalList = new ArrayList<>();
         List<Room> roomList = roomCrudRepo.findAll();
         if (roomList != null) {
@@ -127,17 +126,6 @@ public class RoomRepository {
             }
         }
         return false;
-    }
-
-
-    public List<RoomDTOMinimal> getAllDTOWebInformation() {
-        List<Room> list = roomCrudRepo.findAll();
-        List<RoomDTOMinimal> finalList = new ArrayList<>();
-        for (Room room : list) {
-            RoomDTOMinimal gaDTO = RoomMinimalMapper.objectToDtoWeb(room);
-            finalList.add(gaDTO);
-        }
-        return finalList;
     }
 
     /**
@@ -194,7 +182,7 @@ public class RoomRepository {
         return true;
     }
 
-    public void updateDTORoom(RoomDTO roomDTO) {
+    public void updateRoomDTO(RoomDTO roomDTO) {
         roomCrudRepo.save(RoomMapper.dtoToObject(roomDTO));
     }
 
@@ -547,8 +535,18 @@ public class RoomRepository {
         return roomDTO.addSensor(roomSensorDTO);
     }
 
-    public boolean isRoomSensorDTOValid(RoomSensorDTO roomSensorDTO) {
+    public boolean roomSensorDTOIsValid(RoomSensorDTO roomSensorDTO) {
         return (roomSensorDTO.getName() != null && roomSensorDTO.getSensorId() != null && roomSensorDTO.getType() != null && roomSensorDTO.getDateStartedFunctioning() != null);
+    }
+
+    public RoomDTOMinimal getRoomDTOMinimalByName(String roomID) throws NullPointerException {
+        List<RoomDTOMinimal> list = this.getAllRoomsAsMinimalDTOs();
+        for (RoomDTOMinimal r : list ){
+            if (r.getName().equals(roomID)){
+                return r;
+            }
+        }
+        throw new NullPointerException();
     }
 }
 

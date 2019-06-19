@@ -2,12 +2,10 @@ package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
@@ -15,6 +13,7 @@ import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/gridSettings")
+@RequestMapping("/grids")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
-public class EnergyGridSettingsWebController {
+public class EnergyGridsWebController {
 
     private static final String NO_GRID = "There is no grid with that ID.";
 
@@ -39,7 +38,11 @@ public class EnergyGridSettingsWebController {
     @Autowired
     private EnergyGridRoomService energyGridRoomService;
 
-    @GetMapping(value = "/grids")
+    @Autowired
+    UserService userService;
+
+
+    @GetMapping(value = "/")
     public @ResponseBody
     ResponseEntity<Object> getAllGrids() {
         List<EnergyGrid> list = energyGridRepository.getAllGrids();
@@ -47,10 +50,12 @@ public class EnergyGridSettingsWebController {
         RoomDTO roomDTO = new RoomDTO();
         for (EnergyGrid energyGrid : list) {
             EnergyGridDTO dto = EnergyGridMapper.objectToDTO(energyGrid);
-            Link link = linkTo(methodOn(EnergyGridSettingsWebController.class).getRoomsWebDtoInGrid(dto.getName())).withRel("1. Get rooms in Grid.");
-            Link linkAttach = linkTo(methodOn(EnergyGridSettingsWebController.class).attachRoomToGrid(roomDTO,dto.getName())).withRel("2. Attach a new room to a Grid.");
-            dto.add(link);
-            dto.add(linkAttach);
+            if (userService.getUsernameFromToken().equals("admin")) {
+                Link link = linkTo(methodOn(EnergyGridsWebController.class).getRoomsWebDtoInGrid(dto.getName())).withRel("1. Get rooms in Grid.");
+                Link linkAttach = linkTo(methodOn(EnergyGridsWebController.class).attachRoomToGrid(roomDTO,dto.getName())).withRel("2. Attach a new room to a Grid.");
+                dto.add(link);
+                dto.add(linkAttach);
+            }
             result.add(dto);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -60,13 +65,15 @@ public class EnergyGridSettingsWebController {
     /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
      * attach/detach rooms from it.
      */
-    @GetMapping(value = "/grids/{energyGridId}")
+    @GetMapping(value = "/{energyGridId}")
     public ResponseEntity<Object> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
         try {
             List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
             for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
-                Link linkDelete = linkTo(methodOn(EnergyGridSettingsWebController.class).detachRoomFromGrid(roomDTOMinimal, gridId)).withRel("1. Detach the room from the grid.");
-                roomDTOMinimal.add(linkDelete);
+                if (userService.getUsernameFromToken().equals("admin")) {
+                    Link linkDelete = linkTo(methodOn(EnergyGridsWebController.class).detachRoomFromGrid(roomDTOMinimal, gridId)).withRel("1. Detach the room from the grid.");
+                    roomDTOMinimal.add(linkDelete);
+                }
             }
             return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);
         } catch (NullPointerException ok) {
@@ -93,7 +100,7 @@ public class EnergyGridSettingsWebController {
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
      * consumption is included in that grid.
      */
-    @PostMapping(value = "/grids/{energyGridId}")
+    @PostMapping(value = "/{energyGridId}")
     public ResponseEntity<Object> attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId) {
         if (roomRepository.findRoomByID(roomDTO.getName()).isPresent()) {
             try {
@@ -114,7 +121,7 @@ public class EnergyGridSettingsWebController {
      * US 130 - As an Administrator, I want to create a energy grid, so that I can define the rooms that are
      * attached to it and the contracted maximum power for that grid.
      */
-    @PostMapping(value = "/grids")
+    @PostMapping(value = "/")
     public ResponseEntity<String> createEnergyGrid(@RequestBody EnergyGridDTO energyGridDTO) {
         if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName() != null) {
             if (energyGridRepository.createEnergyGrid(energyGridDTO)) {
@@ -134,26 +141,13 @@ public class EnergyGridSettingsWebController {
     // USER STORY 149 -  As an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
-    @DeleteMapping(value = "/grids/{energyGridId}")
+    @DeleteMapping(value = "/{energyGridId}")
     public ResponseEntity<String> detachRoomFromGrid(@RequestBody RoomDTOMinimal roomID, @PathVariable("energyGridId") String gridID) {
         try {
             if (energyGridRoomService.removeRoomFromGrid(roomID.getName(), gridID)) {
                 return new ResponseEntity<>("The room was successfully detached from the grid.", HttpStatus.OK);
             }
             return new ResponseEntity<>("There is no room with that ID in this grid.", HttpStatus.NOT_FOUND);
-        } catch (NoSuchElementException ok) {
-            return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    // USER STORY 165 - As an Administrator, I want to add a power source to a house grid, so that the produced energy
-    // may be used by all devices in that grid.
-
-    @PostMapping(value = "/grids/{energyGridId}")
-    public ResponseEntity<Object> addPowerSourceToGrid(@RequestBody PowerSourceDTO powerSourceDTO, @PathVariable("energyGridId") String gridId) {
-        try {
-            PowerSourceDTO addedSource = energyGridRepository.addPowerSource(powerSourceDTO, gridId);
-            return new ResponseEntity<>(addedSource, HttpStatus.OK);
         } catch (NoSuchElementException ok) {
             return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
         }

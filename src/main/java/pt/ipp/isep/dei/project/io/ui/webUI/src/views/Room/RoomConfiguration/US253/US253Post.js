@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {fetchNoData} from "../../../EnergyGrid/US147/Actions";
+import {fetchSensorInfoFailure} from "./Actions";
 
 
 class US253Post extends Component {
@@ -7,6 +9,7 @@ class US253Post extends Component {
     super(props);
     this.state = {
       item: [],
+      error: ''
     }
   }
 
@@ -17,7 +20,6 @@ class US253Post extends Component {
     const name = this.props.name;
     const dateStartedFunctioning = this.props.dateStartedFunctioning;
     const typeSensor = this.props.typeSensor;
-    console.log(this.props);
     fetch('https://localhost:8443/roomConfiguration/rooms/' + this.props.roomID + '/sensors', {
       method: 'post',
       headers: {
@@ -34,18 +36,32 @@ class US253Post extends Component {
           item: json,
         })
       })
-      .catch(console.log);
+      .catch(err => {
+        if (err.response === 400) {
+          this.setState({error: (err.message)})
+        }
+        else {
+          if (err.response !== undefined) {
+            this.setState({error: (err.response.data)});
+          }
+        }
+      })
   };
 
 
   render() {
-    return (
-      <div>
-        <p>The created sensor has the following
-          configuration: {this.props.roomID}, {this.props.sensorId}, {this.props.name},{this.props.dateStartedFunctioning}, {this.props.typeSensor} </p>
-      </div>
-    );
-
+    const {error} = this.state
+    console.log(error)
+    if (error!==undefined){
+      return(<div>{error}</div>)
+    }
+    else {
+      return (
+        <div>
+          <p>The sensor {this.props.name} has been created in the room {this.props.roomID}. </p>
+        </div>
+      );
+    }
 
   }
 }

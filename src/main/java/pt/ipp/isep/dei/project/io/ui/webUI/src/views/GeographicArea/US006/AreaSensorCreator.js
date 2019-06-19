@@ -49,13 +49,13 @@ class AreaSensorCreator extends React.Component {
         </span>
         <p></p>
         <label>Latitude:
-          <input value={latitude} placeholder="Latitude" type="number" name="latitude" onChange={this.handleInputChange('latitude')}/>
+          <input value={latitude} placeholder="0" type="number" name="latitude" onChange={this.handleInputChange('latitude')}/>
         </label>
         <span> Longitude:
-          <input value={longitude} placeholder="Longitude" type="number" name="longitude" onChange={this.handleInputChange('longitude')}/>
+          <input value={longitude} placeholder="0" type="number" name="longitude" onChange={this.handleInputChange('longitude')}/>
         </span>
         <span> Altitude:
-          <input value={altitude} placeholder="Altitude" type="number" name="altitude" onChange={this.handleInputChange('altitude')}/>
+          <input value={altitude} placeholder="0" type="number" name="altitude" onChange={this.handleInputChange('altitude')}/>
         </span>
         <p></p>
         <label>Date it started functioning:

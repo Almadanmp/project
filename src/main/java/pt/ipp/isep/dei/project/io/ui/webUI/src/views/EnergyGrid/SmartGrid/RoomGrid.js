@@ -17,7 +17,7 @@ class RoomGrid extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/gridSettings/grids', {
+    fetch('https://localhost:8443/grids/', {
       headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,
