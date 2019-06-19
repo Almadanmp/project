@@ -60,41 +60,43 @@ class US250GetSensors extends Component {
     var {item} = this.state;
     return (
       <>
-        {item.length > 0  ?
-        <Table responsive>
+        {item.length > 0 ?
+          <Table responsive>
 
-          <thead>
-          <tr>
-            <th>Sensor</th>
-            <th>Id</th>
-            <th>Type</th>
-            <th>Activation</th>
-            <th>State</th>
-          </tr>
-          </thead>
-          <tbody>
+            <thead>
+            <tr>
+              <th>Sensor</th>
+              <th>Id</th>
+              <th>Type</th>
+              <th>Activation</th>
+              <th>State</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        {item.map(item => (
-          <tr key={item.name}>
-            <td>{item.name}</td>
-            <td> {item.id}</td>
-            <td>{item.type}</td>
-            <td>{item.dateStartedFunctioning}</td>
-            <td>{item.active == true ? <Badge color="success"> Active </Badge> : <Badge color="danger"> Inactive </Badge>}</td>
+            {item.map(item => (
+              <tr key={item.name}>
+                <td>{item.name}</td>
+                <td> {item.id}</td>
+                <td>{item.type}</td>
+                <td>{item.dateStartedFunctioning}</td>
+                <td>{item.active == true ? <Badge color="success"> Active </Badge> :
+                  <Badge color="danger"> Inactive </Badge>}</td>
 
-          </tr>
-        ))}
+              </tr>
+            ))}
 
 
-          </tbody>
+            </tbody>
           </Table> : "No sensors on this room."}
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}} class="fa fa-plus-square-o fa-lg mt-4">Add Sensor</Button>
+          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}
+                  class="fa fa-plus-square-o fa-lg mt-4">Add Sensor</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
               <span>
-                <SensorTypesSelect roomID = {this.props.roomID}/>
+                <SensorTypesSelect roomID={this.props.roomID}/>
               </span>
                 <span>
               </span>

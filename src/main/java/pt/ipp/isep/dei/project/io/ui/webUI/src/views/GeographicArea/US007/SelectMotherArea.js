@@ -61,6 +61,7 @@ class SelectSensor extends Component {
                     </option>
                   ))}
                 </Input>
+                <p></p>
                 <SelectChildArea geographicAreaId={this.state.value}/>
               </FormGroup>
             </Form>

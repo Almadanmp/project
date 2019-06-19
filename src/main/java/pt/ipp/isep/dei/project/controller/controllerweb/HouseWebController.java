@@ -4,12 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
+import pt.ipp.isep.dei.project.dto.AddressLocalGeographicAreaIdDTO;
 import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
+import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
+import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
 
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -17,16 +22,59 @@ import java.util.NoSuchElementException;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-@RestController
 @ApplicationScope
-@RequestMapping("/houseMonitoring")
+@RestController
+@RequestMapping("/house")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
-public class HouseMonitoringWebController {
+public class HouseWebController {
+
+    @Autowired
+    private HouseRepository houseRepository;
 
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
 
     private final String periodRetry = "Retry with a different period.";
+
+
+    // USER STORY 101
+
+    /**
+     * This is a PUT method for US101 - change the location of the house
+     *
+     * @param dto is a DTO with the location of the house we want to get changed.
+     */
+    @PutMapping(value = "/")
+    public ResponseEntity<Object> configureLocation(@RequestBody AddressLocalGeographicAreaIdDTO dto) {
+        HouseWithoutGridsDTO houseWithoutGridsDTO = houseRepository.getHouseWithoutGridsDTO();
+        houseWithoutGridsDTO.setAddressAndLocalToDTOWithoutGrids(dto);
+        if(!houseWithoutGridsDTO.isAddressDTOValid()) {
+            return new ResponseEntity<>("The house has invalid address parameters. Please try again", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        if (houseRepository.updateHouseDTOWithoutGrids(houseWithoutGridsDTO)) {
+            Link link = linkTo(methodOn(HouseWebController.class).getHouse()).withRel("Click here to see the House updated");
+            houseWithoutGridsDTO.add(link);
+            return new ResponseEntity<>(houseWithoutGridsDTO, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Method to retrieve the house from the repository
+     *
+     * @return house
+     */
+    @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getHouse() {
+        HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
+        Link grids = linkTo(EnergyGridsWebController.class).withRel("EnergyGrids");
+        Link rooms = linkTo(RoomsWebController.class).withRel("Rooms");
+        Link geoAreas = linkTo(GeoAreasWebController.class).withRel("Areas");
+        house.add(grids);
+        house.add(rooms);
+        house.add(geoAreas);
+        return new ResponseEntity<>(HouseMapper.dtoWithoutGridsToObject(house), HttpStatus.OK);
+    }
 
     /**
      * US600
@@ -60,7 +108,7 @@ public class HouseMonitoringWebController {
             result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date.getDate());
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            link = linkTo(methodOn(HouseMonitoringWebController.class).
+            link = linkTo(methodOn(HouseWebController.class).
                     getTotalRainfallInGivenDay(date)).withRel("No readings available for this date.");
             return new ResponseEntity<>(link, HttpStatus.OK);
         } catch (NoSuchElementException e) {
@@ -96,7 +144,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getLastColdestDay(initialDate, finalDate);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(initialDate, finalDate)).withRel(periodRetry);
+            link = linkTo(methodOn(HouseWebController.class).getLastColdestDay(initialDate, finalDate)).withRel(periodRetry);
             result.add(link);
         } catch (NoSuchElementException | IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -115,7 +163,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getHottestDay(initialDate, finalDate);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(initialDate, finalDate)).withRel(periodRetry);
+            link = linkTo(methodOn(HouseWebController.class).getHottestDay(initialDate, finalDate)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -136,7 +184,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getHighestTemperatureAmplitude(initialDate, finalDate);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(initialDate, finalDate)).withRel(periodRetry);
+            link = linkTo(methodOn(HouseWebController.class).getHighestTemperatureAmplitudeDate(initialDate, finalDate)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -146,4 +194,5 @@ public class HouseMonitoringWebController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 }

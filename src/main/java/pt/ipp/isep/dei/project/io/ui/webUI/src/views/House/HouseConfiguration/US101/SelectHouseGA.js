@@ -46,8 +46,11 @@ class SelectHouseGA extends Component {
     console.log(item);
     this.state.item = Array.from(this.state.item);
     if (!isLoaded) {
-      return <div>Loading
-        ...</div>
+      return (
+        <div className = "spinner-border" role = "status" >
+        <span className = "sr-only" > Loading...</span>
+      </div>
+      )
     } else {
 
       if (!item.error) {
@@ -57,7 +60,7 @@ class SelectHouseGA extends Component {
               <FormGroup>
                 <Label>Select Geographic Area</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  <option value="0" onChange={this.handleChange}>Please select the Geographic Area</option>
                   {item.map(items => (
                     <option value={items.geographicAreaId} key={items.geographicAreaId}>
                       Name: {items.name}

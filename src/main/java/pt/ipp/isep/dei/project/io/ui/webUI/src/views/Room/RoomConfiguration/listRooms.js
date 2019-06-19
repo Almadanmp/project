@@ -48,7 +48,9 @@ class ListRooms extends Component {
 
     const {loading, rooms, error} = this.props;
     if (loading == true) {
-      return <div>Loading...</div>
+      return (<div className = "spinner-border" role = "status" >
+        <span className = "sr-only" > Loading...</span>
+      </div>)
     } else {
       return (
         <>
@@ -59,7 +61,8 @@ class ListRooms extends Component {
               <Card className="card-accent-warning">
                 <CardHeader>
                   <i className="fa fa-align-justify"></i><strong>Room Sensors by Room</strong>
-                  <br></br><small>Please select the room</small>
+                  <br></br>
+                  <small>Please select the room</small>
                   <div className="card-header-actions">
                   </div>
                 </CardHeader>
@@ -75,12 +78,12 @@ class ListRooms extends Component {
                       </Col>
 
 
-                        <TabContent activeTab={this.state.activeTab}>
-                          <TabPane tabId={item.name} >
+                      <TabContent activeTab={this.state.activeTab}>
+                        <TabPane tabId={item.name}>
 
-                        <US250GetSensors roomID={item.name}/>
-                          </TabPane>
-                        </TabContent>
+                          <US250GetSensors roomID={item.name}/>
+                        </TabPane>
+                      </TabContent>
 
                     </Row>
                   ))}

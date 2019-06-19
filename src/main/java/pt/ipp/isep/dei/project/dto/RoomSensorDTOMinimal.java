@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.dto;
 
-public class RoomSensorDTOMinimal {
+import org.springframework.hateoas.ResourceSupport;
+
+public class RoomSensorDTOMinimal extends ResourceSupport {
 
     private String id;
     private String name;
@@ -37,11 +39,11 @@ public class RoomSensorDTOMinimal {
         this.roomID = roomID;
     }
 
-    public String getId() {
+    public String getSensorID() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setSensorId(String id) {
         this.id = id;
     }
 

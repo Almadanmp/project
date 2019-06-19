@@ -1,13 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -133,11 +126,11 @@ class RoomSensorDTOMinimalTest {
         //Arrange
 
         RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
-        houseSensorDTO1.setId("Id");
+        houseSensorDTO1.setSensorId("Id");
 
         //Act
 
-        String actualResult1 = houseSensorDTO1.getId();
+        String actualResult1 = houseSensorDTO1.getSensorID();
 
         //Assert
         assertEquals("Id", actualResult1);

@@ -26,7 +26,11 @@ class US623 extends Component {
     const {loading} = this.props;
     const {rainfall} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
+      return (
+        <div className = "spinner-border" role = "status" >
+        <span className = "sr-only" > Loading...</span>
+        </div>
+      );
     } else {
       return (
         <>

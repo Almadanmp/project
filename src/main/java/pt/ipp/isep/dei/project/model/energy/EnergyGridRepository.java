@@ -1,9 +1,13 @@
 package pt.ipp.isep.dei.project.model.energy;
 
+import com.sun.tools.internal.ws.wsdl.framework.DuplicateEntityException;
+import javassist.bytecode.DuplicateMemberException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
+import pt.ipp.isep.dei.project.dto.mappers.PowerSourceMapper;
 import pt.ipp.isep.dei.project.model.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.model.repository.RoomCrudRepo;
 
@@ -147,5 +151,33 @@ public class EnergyGridRepository {
      **/
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    }
+
+    /**
+     * This method adds a power source to one of the grids in the repository.
+     * @param dtoToAdd Is a DTO of the power source we want to add to the grid.
+     * @param gridID is the ID of the grid to which we want to add a power source.
+     * @return is the added power source as a DTO if it was added, or the existing power source as a DTO if it already
+     * existed.
+     * @throws NoSuchElementException if there is no grid in the repository with the given ID.
+     */
+
+    public PowerSourceDTO addPowerSource(PowerSourceDTO dtoToAdd, String gridID) throws NoSuchElementException{
+        try {
+            EnergyGrid grid = this.getById(gridID);
+            List<PowerSource> powerSources = grid.getPowerSourceList();
+            PowerSource sourceToAdd = PowerSourceMapper.dtoToObject(dtoToAdd);
+            for (PowerSource p : powerSources){
+                if (p.equals(sourceToAdd)){
+                    return PowerSourceMapper.objectToDTO(p);
+                }
+            }
+            powerSources.add(sourceToAdd);
+            this.energyGridCrudRepository.save(grid);
+            return PowerSourceMapper.objectToDTO(sourceToAdd);
+        }
+        catch (NoSuchElementException ok){
+            throw new NoSuchElementException();
+        }
     }
 }

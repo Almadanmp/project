@@ -51,7 +51,9 @@ class SelectRoom extends Component {
     var {isLoaded, item} = this.state;
 
     if (!isLoaded) {
-      return <div>Loading...</div>
+      return (<div className = "spinner-border" role = "status" >
+        <span className = "sr-only" > Loading...</span>
+      </div>)
     } else {
       if (!item.error) {
       return (

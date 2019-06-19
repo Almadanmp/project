@@ -35,8 +35,8 @@ class SaveAreaSensor extends Component {
   render() {
     return (
       <div>
-        <p>The Geographic Area with the following ID: {this.props.childAreaId}, was successfully added to the Geographic
-          Area with the following ID: {this.props.motherAreaId}.</p>
+        <p>The Geographic Area with the ID: {this.props.childAreaId} was successfully
+          added to the Geographic Area with ID: {this.props.motherAreaId}.</p>
       </div>
     );
 

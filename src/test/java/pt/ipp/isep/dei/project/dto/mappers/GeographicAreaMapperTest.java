@@ -251,7 +251,7 @@ class GeographicAreaMapperTest {
 //        dtoToConvert.setTypeArea("Country");
 //        dtoToConvert.setLength(300);
 //        dtoToConvert.setWidth(200);
-//        dtoToConvert.setId(6008L);
+//        dtoToConvert.setSensorId(6008L);
 //        dtoToConvert.setLocal(localDTO);
 //        dtoToConvert.addDaughter(daughterDTO);
 //

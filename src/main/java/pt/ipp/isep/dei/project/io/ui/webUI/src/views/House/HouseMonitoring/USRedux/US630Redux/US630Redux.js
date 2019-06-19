@@ -27,19 +27,25 @@ class US630 extends Component {
     const {loading} = this.props;
     const {cold} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
+      return (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
+        </div>
+      );
     } else {
-        return (
-          <>
-            <Button style={{direction:'right'}} style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
-                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Last coldest
-              day (lower maximum temperature):</Button>
-            <Collapse isOpen={this.state.collapse}>
-                  <h5 key={cold.value}> {cold.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The coldest day was ' + cold.date +' and the temperature was '+ cold.value+ 'ºC'} </h5>
-            </Collapse>
-          </>
-        );
-      }
+      return (
+        <>
+          <Button style={{direction: 'right'}} style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}}
+                  onClick={this.toggle}
+                  style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Last coldest
+            day (lower maximum temperature):</Button>
+          <Collapse isOpen={this.state.collapse}>
+            <h5
+              key={cold.value}> {cold.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The coldest day was ' + cold.date + ' and the temperature was ' + cold.value + 'ºC'} </h5>
+          </Collapse>
+        </>
+      );
+    }
   }
 }
 

@@ -25,29 +25,34 @@ class US108Select extends Component {
 
     const {loading, rooms} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
-    }
-    if (rooms.length >0) {{
       return (
-        <div>
-          <Form action="" method="post" >
-            <FormGroup>
-              <Label>Select Room</Label>
-              <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                <option value="0" onChange={this.handleChange}>Please select</option>
-                {rooms.map(items => (
-                  <option value={items.name}  key={items.name}>
-                    Name: {items.name}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <SensorTypesSelect roomID = {this.state.value}/>
-
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
         </div>
       );
     }
+    if (rooms.length > 0) {
+      {
+        return (
+          <div>
+            <Form action="" method="post">
+              <FormGroup>
+                <Label>Select Room</Label>
+                <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
+                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  {rooms.map(items => (
+                    <option value={items.name} key={items.name}>
+                      Name: {items.name}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
+            </Form>
+            <SensorTypesSelect roomID={this.state.value}/>
+
+          </div>
+        );
+      }
     }
   }
 }
@@ -73,4 +78,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)( US108Select);
+)(US108Select);

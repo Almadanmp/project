@@ -7,8 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
-import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
+import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
@@ -98,7 +100,7 @@ public class SensorSettingsWebController {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("That ID does not belong to any Geographic Area", HttpStatus.NOT_FOUND);
         }
-        if (areaSensorDTO.getName() != null && areaSensorDTO.getSensorId() != null && areaSensorDTO.getType() != null && areaSensorDTO.getDateStartedFunctioning() != null) {
+        if (areaSensorDTO.getSensorId() != "" && areaSensorDTO.getSensorId() != null) {
             if (areaSensorDTO.getName().equals("")) {
                 return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
@@ -170,7 +172,10 @@ public class SensorSettingsWebController {
 
     @PostMapping(value = "/sensorTypes")
     public ResponseEntity<Object> addSensorType(@RequestBody SensorTypeDTO sensorTypeDTO) {
-        if (sensorTypeDTO.getName().equals("") || sensorTypeDTO.getName() == null) {
+        if (sensorTypeDTO.getName() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (sensorTypeDTO.getName().equals("")) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
@@ -194,5 +199,4 @@ public class SensorSettingsWebController {
     public ResponseEntity<Object> getSensorTypes() {
         return new ResponseEntity<>(sensorTypeRepository.getAllSensorTypeDTO(), HttpStatus.OK);
     }
-
 }

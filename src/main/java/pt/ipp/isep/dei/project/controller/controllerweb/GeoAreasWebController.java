@@ -21,7 +21,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping(value = "/geographic_area_settings")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
-public class GASettingsWebController {
+public class GeoAreasWebController {
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepo;
@@ -33,7 +33,10 @@ public class GASettingsWebController {
 
     @PostMapping(value = "/areaTypes")
     public ResponseEntity<Object> addAreaType(@RequestBody AreaTypeDTO typeToAdd) {
-        if (typeToAdd.getName() == null || typeToAdd.getName().equals("")) {
+        if (typeToAdd.getName() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (typeToAdd.getName().equals("")) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<AreaTypeDTO> repoTypes = areaTypeRepository.getAllTypesDTO();
@@ -69,7 +72,7 @@ public class GASettingsWebController {
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaPlainLocalDTO dto) {
         if (dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
             if (geographicAreaRepo.addAndPersistPlainDTO(dto)) {
-                Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
+                Link link = linkTo(methodOn(GeoAreasWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
                 dto.add(link);
                 return new ResponseEntity<>(dto, HttpStatus.CREATED);
             } else {
@@ -91,7 +94,10 @@ public class GASettingsWebController {
     @GetMapping("/areas")
     public ResponseEntity<Object> getAllGeographicAreas() {
         List<GeographicAreaDTO> allDTO = geographicAreaRepo.getAllDTO();
-        if (allDTO == null || allDTO.isEmpty()) {
+        if (allDTO == null) {
+            return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
+        }
+        if (allDTO.isEmpty()) {
             return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(allDTO, HttpStatus.OK);
@@ -105,13 +111,14 @@ public class GASettingsWebController {
      * @return string with info if geoArea was added or not
      */
     @PutMapping("areas/{idParent}/{idChild}")
-    public ResponseEntity<Object> addChildArea(@PathVariable("idChild") long idAreaChild, @PathVariable("idParent") long idAreaParent) {
+    public ResponseEntity<Object> addChildArea(@PathVariable("idChild") long idAreaChild,
+                                               @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
         try {
             if (geographicAreaRepo.addChildArea(idAreaChild, idAreaParent)) {
                 result = geographicAreaRepo.getDTOByIdWithParent(idAreaParent);
-                link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
+                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
                 result.add(link);
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } else {
@@ -123,13 +130,14 @@ public class GASettingsWebController {
     }
 
     @PutMapping("areas/list/{idParent}/{idChild}")
-    public ResponseEntity<Object> removeChildArea(@PathVariable("idChild") long idAreaChild, @PathVariable("idParent") long idAreaParent) {
+    public ResponseEntity<Object> removeChildArea(@PathVariable("idChild") long idAreaChild,
+                                                  @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
         try {
             if (geographicAreaRepo.removeChildArea(idAreaChild, idAreaParent)) {
                 result = geographicAreaRepo.getDTOByIdWithParent(idAreaParent);
-                link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
+                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
                 result.add(link);
                 return new ResponseEntity<>(geographicAreaRepo.getDTOByIdWithParent(idAreaParent), HttpStatus.OK);
             } else {
@@ -146,7 +154,8 @@ public class GASettingsWebController {
      * This method deactivates a sensor selected from a list of sensors of a previously selected geographic area
      */
     @PutMapping("areas/{id}/sensors/{id2}")
-    public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id, @PathVariable("id2") String sensorId) {
+    public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id,
+                                                   @PathVariable("id2") String sensorId) {
         try {
             if (geographicAreaRepo.deactivateAreaSensor(id, sensorId)) {
                 return new ResponseEntity<>("The sensor was successfully deactivated from the selected geographic area.", HttpStatus.OK);

@@ -161,23 +161,6 @@ class SensorSettingsWebControllerTest {
     }
 
     @Test
-    void seeIfCreateAreaSensorFailsBadRequest() throws Exception {
-
-        // Arrange
-
-        // Perform
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
-
-        this.mockMvc.perform(post("/sensorsettings/areas/1/sensors").contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"sensorId\": \"RF12345\",\n" +
-                        "  \"name\": \"Meteo\",\n" +
-                        "  \"typeSensor\": \"temperature\"\n" +
-                        "}"))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     void seeIfRetrieveGAWorks() throws Exception {
 
         // Arrange
@@ -312,31 +295,6 @@ class SensorSettingsWebControllerTest {
     }
 
     @Test
-    void seeIfCreateAreaSensorFailsNullName() {
-
-        // Arrange
-
-        List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(validAreaSensor);
-        validGeographicArea.setAreaSensors(sensors);
-        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        areaSensorDTO.setName(null);
-        areaSensorDTO.setId("RF1234");
-        areaSensorDTO.setUnits("mm");
-        areaSensorDTO.setTypeSensor("temperature");
-        areaSensorDTO.setDateStartedFunctioning("2018-10-12");
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
-
-        // Perform
-
-
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
-
-        assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
-    }
-
-    @Test
     void seeIfCreateAreaSensorFailsNullId() {
 
         // Arrange
@@ -351,59 +309,8 @@ class SensorSettingsWebControllerTest {
         areaSensorDTO.setTypeSensor("temperature");
         areaSensorDTO.setDateStartedFunctioning("2018-10-12");
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
-
         // Perform
 
-
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
-
-        assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
-    }
-
-    @Test
-    void seeIfCreateAreaSensorFailsNullDate() {
-
-        // Arrange
-
-        List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(validAreaSensor);
-        validGeographicArea.setAreaSensors(sensors);
-        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        areaSensorDTO.setName("RF1234");
-        areaSensorDTO.setId("RF1234");
-        areaSensorDTO.setUnits("mm");
-        areaSensorDTO.setTypeSensor("temperature");
-        areaSensorDTO.setDateStartedFunctioning(null);
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
-
-        // Perform
-
-
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
-
-        assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
-    }
-
-    @Test
-    void seeIfCreateAreaSensorFailsNullType() {
-
-        // Arrange
-
-        List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(validAreaSensor);
-        validGeographicArea.setAreaSensors(sensors);
-        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        areaSensorDTO.setName("RF1234");
-        areaSensorDTO.setId("RF1234");
-        areaSensorDTO.setUnits("mm");
-        areaSensorDTO.setTypeSensor(null);
-        areaSensorDTO.setDateStartedFunctioning("2018-10-12");
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
-
-        // Perform
 
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
 
@@ -485,6 +392,30 @@ class SensorSettingsWebControllerTest {
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("rain");
         typeToAdd.setUnits("mm2");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorTypeWorksAlmostDuplicate2() {
+        // Arrange
+
+        List<SensorTypeDTO> repoList = new ArrayList<>();
+        SensorTypeDTO typeInRepo = new SensorTypeDTO();
+        typeInRepo.setName("rain");
+        typeInRepo.setUnits("mm");
+        repoList.add(typeInRepo);
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.OK);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("rain");
+        typeToAdd.setUnits("");
 
         // Act
 

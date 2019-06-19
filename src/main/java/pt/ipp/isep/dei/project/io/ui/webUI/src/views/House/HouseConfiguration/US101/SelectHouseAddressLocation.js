@@ -10,7 +10,7 @@ class SelectHouseAddressLocation extends React.Component {
     this.state = {
       geographicAreaId: this.props.geographicAreaId,
       street: '',
-      number: '',
+      number: 1,
       zip: '',
       town: '',
       country: '',
@@ -40,44 +40,36 @@ class SelectHouseAddressLocation extends React.Component {
           <input value={street} type="text" name="street" placeholder="Street"
                  onChange={this.handleInputChange('street')}/>
         </label>
-        <p></p>
-        <label>Number:
+        <span> Number:
           <input value={number} type="number" name="number" placeholder="Number"
                  onChange={this.handleInputChange('number')}/>
-        </label>
-        <p></p>
-        <label>Zip:
+        </span>
+        <span> Zip:
           <input value={zip} type="number" name="zip" placeholder="Zip"
                  onChange={this.handleInputChange('zip')}/>
-        </label>
+        </span>
         <p></p>
         <label>Town:
           <input value={town} type="text" name="town" placeholder="Town"
                  onChange={this.handleInputChange('town')}/>
         </label>
-        <p></p>
-        <label>Country:
+        <span> Country:
           <input value={country} type="text" name="country" placeholder="Country"
                  onChange={this.handleInputChange('country')}/>
-        </label>
+        </span>
         <p></p>
-        <p></p>
-        <label>Latitude:
-          <input value={latitude} type="number" name="latitude" placeholder="Latitude"
+        <span> Latitude:
+          <input value={latitude} type="number" name="latitude" placeholder="0"
                  onChange={this.handleInputChange('latitude')}/>
-        </label>
-        <p></p>
-        <p></p>
-        <label>Longitude:
-          <input value={longitude} type="number" name="longitude" placeholder="Longitude"
+        </span>
+        <span> Longitude:
+          <input value={longitude} type="number" name="longitude" placeholder="0"
                  onChange={this.handleInputChange('longitude')}/>
-        </label>
-        <p></p>
-        <p></p>
-        <label>Altitude:
-          <input value={altitude} type="number" name="altitude" placeholder="Altitude"
+        </span>
+        <span> Altitude:
+          <input value={altitude} type="number" name="altitude" placeholder="0"
                  onChange={this.handleInputChange('altitude')}/>
-        </label>
+        </span>
         <p></p>
         <US101Button geographicAreaId={this.props.geographicAreaId} street={this.state.street} number={this.state.number} zip={this.state.zip}
                      town={this.state.town} country={this.state.country} latitude={this.state.latitude}

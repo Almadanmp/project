@@ -40,14 +40,12 @@ class HouseConfigurationWebControllerTest {
     HouseRoomService houseRoomService;
     @Mock
     HouseRepository houseRepository;
-    @Mock
-    RoomRepository roomRepository;
     private RoomDTOMinimal roomDTOMinimal;
     private AddressLocalGeographicAreaIdDTO addressAndLocalDTO;
     @Autowired
     private MockMvc mockMvc;
     @InjectMocks
-    private HouseConfigurationWebController webController;
+    private HouseWebController webController;
 
     @BeforeEach
     void insertData() {
@@ -93,7 +91,7 @@ class HouseConfigurationWebControllerTest {
 
 
         //Act
-        webController.configureHouseLocation(addressAndLocalDTO);
+        webController.configureLocation(addressAndLocalDTO);
 
         //Assert
         assertEquals(validDTO.getAddress().getStreet(), addressAndLocalDTO.getStreet());
@@ -114,7 +112,7 @@ class HouseConfigurationWebControllerTest {
         Mockito.when(houseRepository.updateHouseDTOWithoutGrids(validDTO)).thenReturn(true);
 
         //Act
-        webController.configureHouseLocation(addressAndLocalDTO);
+        webController.configureLocation(addressAndLocalDTO);
 
         //Assert
         assertEquals(validDTO.getAddress().getStreet(), addressAndLocalDTO.getStreet());
@@ -136,7 +134,7 @@ class HouseConfigurationWebControllerTest {
 
         //Act
 
-        webController.configureHouseLocation(addressAndLocalDTO);
+        webController.configureLocation(addressAndLocalDTO);
         Link link = validDTO.getLink("Click here to see the House updated");
 
         //Assert
@@ -144,269 +142,6 @@ class HouseConfigurationWebControllerTest {
         assertNotNull(link);
     }
 
-
-    @Test
-    public void seeIfGetHouseRoomsWorks() {
-        //Arrange
-
-        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
-        roomDTOBarebones.add(this.roomDTOMinimal);
-
-        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomDTOMinimal();
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
-
-        //Act
-
-        ResponseEntity<Object> actualResult = webController.getHouseRooms();
-
-        //Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void seeIfGetHouseRoomsAddsLink() {
-        //Arrange
-
-        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
-        roomDTOBarebones.add(this.roomDTOMinimal);
-
-        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomDTOMinimal();
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
-
-        //Act
-
-        webController.getHouseRooms();
-        Link link = roomDTOMinimal.getLink("Click here to delete room.");
-
-        //Assert
-
-        assertNotNull(expectedResult);
-    }
-
-    @Test
-    public void seeIfCreateRoomWorks() {
-        //Arrange
-        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.CREATED);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.createRoom(roomDTOMinimal);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void seeIfCreateRoomAddsLink() {
-        //Arrange
-        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.CREATED);
-
-        //Act
-        webController.createRoom(roomDTOMinimal);
-        Link link = roomDTOMinimal.getLink("Click here to delete room.");
-
-        //Assert
-        assertNotNull(link);
-    }
-
-    @Test
-    public void seeIfCreateRoomWorksIfRoomAlreadyExists() {
-        //Arrange
-        Mockito.doReturn(false).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.createRoom(roomDTOMinimal);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void seeIfConfigureRoomWorks() {
-        //Arrange
-        Mockito.doReturn(true).when(this.roomRepository).configureRoom(roomDTOMinimal);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.OK);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.configureRoom(roomDTOMinimal);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void seeIfConfigureRoomWorksWhenItDoestNotExist() {
-        //Arrange
-        Mockito.doReturn(false).when(this.roomRepository).configureRoom(roomDTOMinimal);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you are trying to edit does not exist in the database.", HttpStatus.NOT_FOUND);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.configureRoom(roomDTOMinimal);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void seeIfConfigureRoomWorksWhenDimensionAreInvalid() {
-        //Arrange
-
-        roomDTOMinimal.setLength(0D);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you entered has invalid parameters.", HttpStatus.UNPROCESSABLE_ENTITY);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.configureRoom(roomDTOMinimal);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfDeleteRoomWorks() {
-        //Arrange
-        Mockito.when(this.roomRepository.deleteRoom(roomDTOMinimal)).thenReturn(true);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.OK);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.deleteRoom(roomDTOMinimal);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfDeleteRoomWorksIfRoomAlreadyExists() {
-        //Arrange
-        Mockito.when(this.roomRepository.deleteRoom(roomDTOMinimal)).thenReturn(false);
-
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you are trying to delete does not exist in the database.", HttpStatus.NOT_FOUND);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.deleteRoom(roomDTOMinimal);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfCreateRoomWorksWithMvc() throws Exception {
-        //Arrange
-        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
-
-        Gson gson = new Gson();
-        String requestJson = gson.toJson(roomDTOMinimal);
-
-        //Act
-
-        this.mockMvc.perform(post("/houseSettings/room")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson))
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
-        //Arrange
-
-        Mockito.doReturn(false).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
-
-        Gson gson = new Gson();
-        String requestJson = gson.toJson(roomDTOMinimal);
-
-        //Act
-
-        this.mockMvc.perform(post("/houseSettings/room")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson))
-                .andExpect(status().isConflict());
-    }
-
-    @Test
-    void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
-        //Arrange
-
-        RoomDTOMinimal invalidDTO = new RoomDTOMinimal();
-        invalidDTO.setHeight(2D);
-        invalidDTO.setLength(0.0D);
-        invalidDTO.setWidth(4D);
-        invalidDTO.setName("InvalidDimensionsRoom");
-        invalidDTO.setFloor(1);
-
-        //Arrange
-
-        Gson gson = new Gson();
-        String requestJson = gson.toJson(invalidDTO);
-
-        //Act
-
-        this.mockMvc.perform(post("/houseSettings/room")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson))
-                .andExpect(status().isUnprocessableEntity());
-    }
-
-    @Test
-    void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
-        //Arrange
-
-        RoomDTOMinimal invalidDTO = new RoomDTOMinimal();
-        invalidDTO.setHeight(2D);
-        invalidDTO.setLength(5D);
-        invalidDTO.setWidth(4D);
-        invalidDTO.setName(null);
-        invalidDTO.setFloor(1);
-
-        //Arrange
-
-        Gson gson = new Gson();
-        String requestJson = gson.toJson(invalidDTO);
-
-        //Act
-
-        this.mockMvc.perform(post("/houseSettings/room")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void seeIfGetHouseRoomsWorksWithMvc() throws Exception {
-        //Arrange
-
-        RoomDTOMinimal roomDTOMinimal2 = new RoomDTOMinimal();
-        roomDTOMinimal2.setHeight(2D);
-        roomDTOMinimal2.setLength(4D);
-        roomDTOMinimal2.setWidth(4D);
-        roomDTOMinimal2.setName("roomDTOMinimal2");
-        roomDTOMinimal2.setFloor(1);
-
-        List<RoomDTOMinimal> expectedResult = new ArrayList<>();
-        expectedResult.add(roomDTOMinimal);
-        expectedResult.add(roomDTOMinimal2);
-
-        Mockito.doReturn(expectedResult).when(this.roomRepository).getAllRoomDTOMinimal();
-
-        //Arrange
-
-        Gson gson = new Gson();
-        String requestJson = gson.toJson(expectedResult);
-
-        //Act
-
-        this.mockMvc.perform(get("/houseSettings/houseRooms").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andExpect(status().isOk()).andReturn();
-    }
 
     @Test
     public void seeIfConfigureHouseLocationWorks() throws Exception {
@@ -422,7 +157,7 @@ class HouseConfigurationWebControllerTest {
         Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
         Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(true);
 
-        mockMvc.perform(put("/houseSettings/house")
+        mockMvc.perform(put("/house/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isOk());
@@ -443,7 +178,7 @@ class HouseConfigurationWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
 
         //Act
-        ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
+        ResponseEntity<Object> actualResult = webController.configureLocation(addressAndLocalDTO);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -462,7 +197,7 @@ class HouseConfigurationWebControllerTest {
         Mockito.doReturn(true).when(houseRepository).updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse));
 
         //Act
-        ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
+        ResponseEntity<Object> actualResult = webController.configureLocation(addressAndLocalDTO);
 
         //Assert
         assertEquals(HttpStatus.OK, actualResult.getStatusCode());
@@ -482,7 +217,7 @@ class HouseConfigurationWebControllerTest {
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(validHouse, HttpStatus.OK);
 
         //Act
-        ResponseEntity<Object> actualResult = webController.retrieveHouse();
+        ResponseEntity<Object> actualResult = webController.getHouse();
 
         //Assert
         assertEquals(expectedResult, actualResult);
