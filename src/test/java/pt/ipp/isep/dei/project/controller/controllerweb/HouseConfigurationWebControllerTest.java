@@ -98,6 +98,40 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
+    void seeIfConfigureHouseLocalWithoutValidAddressWorks() {
+        //Arrange
+        AddressLocalGeographicAreaIdDTO newAd = new AddressLocalGeographicAreaIdDTO();
+
+        newAd.setNumber("");
+        newAd.setCountry("");
+        newAd.setZip("");
+        newAd.setTown("");
+        newAd.setStreet("");
+
+        newAd.setAltitude(20);
+        newAd.setLongitude(20);
+        newAd.setLatitude(20);
+
+        newAd.setGeographicAreaId(2L);
+
+        House validHouse = new House("01", new Address("rua jose peixoto", "431",
+                "4245-072", "Lisboa", "Portugal"),
+                new Local(21, 25, 65), 60,
+                180, new ArrayList<>());
+
+        HouseWithoutGridsDTO validDTO = HouseMapper.objectToWithoutGridsDTO(validHouse);
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(validDTO);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The house has invalid address parameters. Please try again", HttpStatus.UNPROCESSABLE_ENTITY);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.configureLocation(newAd);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfConfigureHouseLocalChangesLocal() {
         //Arrange
 

@@ -99,7 +99,10 @@ public class GeoAreasWebController {
     @GetMapping("/")
     public ResponseEntity<Object> getAllGeographicAreas() {
         List<GeographicAreaDTO> allDTO = geographicAreaRepo.getAllDTO();
-        if (allDTO == null || allDTO.isEmpty()) {
+        if (allDTO == null) {
+            return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
+        }
+        if (allDTO.isEmpty()) {
             return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
         }
         for (GeographicAreaDTO g : allDTO) {

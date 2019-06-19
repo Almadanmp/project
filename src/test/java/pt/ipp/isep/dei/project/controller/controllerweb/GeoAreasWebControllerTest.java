@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -55,9 +55,56 @@ class GeoAreasWebControllerTest {
     }
 
     @Test
+    void seeIfGeoAreaPlanLocalDTOSensorListAddRemoveWorks() {
+        // Arrange
+        List<AreaSensorDTO> duplicate = new ArrayList<>();
+
+        GeographicAreaPlainLocalDTO gAPLD = new GeographicAreaPlainLocalDTO();
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setId("1");
+        duplicate.add(areaSensorDTO);
+
+        List<AreaSensorDTO> expectedResultList = duplicate;
+
+        // Act
+        boolean actualResultAddEmpty = gAPLD.addSensor(areaSensorDTO);
+        boolean actualResultAddDuplicate = gAPLD.addSensor(areaSensorDTO);
+        List<AreaSensorDTO> actualResultList = gAPLD.getSensors();
+
+        // Assert
+        assertTrue(actualResultAddEmpty);
+        assertFalse(actualResultAddDuplicate);
+        assertEquals(expectedResultList, actualResultList);
+    }
+    
+    @Test
+    void seeIfGeoAreaPlanLocalDTOSetGetWorks() {
+        // Arrange
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
+
+        validGeographicAreaDTO.setDescription("4rd biggest city");
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+
+        double expectedResultWidth = 100D;
+        double expectedResultLength = 500D;
+        String expectedResultDescription = "4rd biggest city";
+
+        // Act
+        double actualResultWidth = validGeographicAreaDTO.getWidth();
+        double actualResultLength = validGeographicAreaDTO.getLength();
+        String actualResultDescription = validGeographicAreaDTO.getDescription();
+
+        // Assert
+        assertEquals(expectedResultWidth, actualResultWidth);
+        assertEquals(expectedResultLength, actualResultLength);
+        assertEquals(expectedResultDescription, actualResultDescription);
+    }
+
+    @Test
     void seeIfCreateGeoAreaWorks() {
         // Arrange
-
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
         validGeographicAreaDTO.setLatitude(60D);
@@ -76,15 +123,41 @@ class GeoAreasWebControllerTest {
         validGeographicAreaDTO.add(link);
 
         // Act
-
         ResponseEntity<Object> actualResult = geoAreasWebController.createGeoArea(validGeographicAreaDTO);
 
         // Assert
-
         assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
-
     }
 
+    @Test
+    void seeIfGetAllGeoAreasWorksForNull() {
+        // Arrange
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(null);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
+
+        // Act
+        ResponseEntity<Object> actualResult = geoAreasWebController.getAllGeographicAreas();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAllGeoAreasWorksForEmpty() {
+        // Arrange
+        List<GeographicAreaDTO> emptyDTOList = new ArrayList<>();
+
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(emptyDTOList);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
+
+        // Act
+        ResponseEntity<Object> actualResult = geoAreasWebController.getAllGeographicAreas();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfCreateGeoAreaDoesntWorkIsRepeated() {
@@ -702,6 +775,28 @@ class GeoAreasWebControllerTest {
         // Arrange
 
         List<AreaTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+        AreaTypeDTO typeToAdd = new AreaTypeDTO();
+        typeToAdd.setName("Area");
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeToAdd, HttpStatus.OK);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = geoAreasWebController.addAreaType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaTypeWorks2(){
+        // Arrange
+
+        List<AreaTypeDTO> emptyList = new ArrayList<>();
+        AreaTypeDTO emptyTypeDTO = new AreaTypeDTO();
+        emptyTypeDTO.setName("");
+        emptyList.add(emptyTypeDTO);
         Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
         AreaTypeDTO typeToAdd = new AreaTypeDTO();
         typeToAdd.setName("Area");
