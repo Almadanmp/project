@@ -2,16 +2,12 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTOMinimal;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +32,7 @@ class RoomSensorMinimalMapperTest {
         roomSensor = new RoomSensor("SensorDTO1", "test", "Temperature", date);
         validRoomSensorDTO = new RoomSensorDTOMinimal();
         validRoomSensorDTO.setActive(true);
-        validRoomSensorDTO.setId("12");
+        validRoomSensorDTO.setSensorId("12");
         validRoomSensorDTO.setName("test");
         validRoomSensorDTO.setTypeSensor("Temperature");
         validRoomSensorDTO.setUnits("Celsius");

@@ -472,12 +472,12 @@ class EnergyConsumptionControllerTest {
 //        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
 //        House house = new House("ISEP", address, new Local(20, 20, 20),
 //                60, 180, deviceTypeString);
-//        house.setMotherAreaID(validArea.getId());
+//        house.setMotherAreaID(validArea.getSensorID());
 //        roomList.add(validRoom2);
 //        roomList.add(validRoom1);
 //        List<String> rlist = new ArrayList<>();
-//        rlist.add(validRoom1.getId());
-//        rlist.add(validRoom2.getId());
+//        rlist.add(validRoom1.getSensorID());
+//        rlist.add(validRoom2.getSensorID());
 //        validGrid.setRooms(rlist);
 //        double expectedResult = 86;
 //
@@ -500,7 +500,7 @@ class EnergyConsumptionControllerTest {
 //        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
 //        House house = new House("ISEP", address, new Local(20, 20, 20),
 //                60, 180, deviceTypeString);
-//        house.setMotherAreaID(validArea.getId());
+//        house.setMotherAreaID(validArea.getSensorID());
 //
 //        List<Room> roomService = new ArrayList<>();
 //        validGrid.setRooms(roomService);

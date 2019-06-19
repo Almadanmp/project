@@ -31,7 +31,7 @@ class HouseMonitoringWebControllerTest {
     @Mock
     GeographicAreaHouseService geographicAreaHouseService;
     @InjectMocks
-    HouseMonitoringWebController houseMonitoringWebController;
+    HouseWebController houseMonitoringWebController;
 
     private Date date1; // Date 01/01/2020
     private Date date2; // Date 01/01/2019
@@ -150,7 +150,7 @@ class HouseMonitoringWebControllerTest {
 
         DateDTO dateDTO = new DateDTO(date1);
 
-        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallInGivenDay(dateDTO)).withRel("No readings available for this date.");
+        Link link = linkTo(methodOn(HouseWebController.class).getTotalRainfallInGivenDay(dateDTO)).withRel("No readings available for this date.");
 
         // Act
 

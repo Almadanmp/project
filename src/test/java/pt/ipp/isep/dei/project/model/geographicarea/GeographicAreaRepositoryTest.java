@@ -856,9 +856,9 @@ class GeographicAreaRepositoryTest {
 //        // Arrange
 //
 //        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
-//        area.setId(25L);
+//        area.setSensorId(25L);
 //        area.setChildAreas(firstValidArea.getSensorId());
-//        firstValidArea.setId(23L);
+//        firstValidArea.setSensorId(23L);
 //        GeographicAreaDTO geographicAreaDTO =GeographicAreaMapper.objectToDTO(firstValidArea);
 //        Optional<GeographicArea> opt = Optional.of(area);
 //        Mockito.when(geographicAreaCrudRepo.findById(25L)).thenReturn(opt);
