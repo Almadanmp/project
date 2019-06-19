@@ -496,6 +496,30 @@ class SensorSettingsWebControllerTest {
     }
 
     @Test
+    void seeIfAddSensorTypeWorksAlmostDuplicate2() {
+        // Arrange
+
+        List<SensorTypeDTO> repoList = new ArrayList<>();
+        SensorTypeDTO typeInRepo = new SensorTypeDTO();
+        typeInRepo.setName("rain");
+        typeInRepo.setUnits("mm");
+        repoList.add(typeInRepo);
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.OK);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("rain");
+        typeToAdd.setUnits("");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfAddSensorTypeWorksInvalidInputEmpty() {
         // Arrange
 
