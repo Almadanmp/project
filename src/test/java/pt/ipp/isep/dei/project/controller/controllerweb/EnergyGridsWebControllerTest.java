@@ -75,7 +75,7 @@ class EnergyGridsWebControllerTest {
 
         Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(any(EnergyGridDTO.class));
 
-        this.mockMvc.perform(post("/gridSettings/grids")
+        this.mockMvc.perform(post("/grids/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"B building\",\n" +
                         "  \"houseID\": \"7\",\n" +

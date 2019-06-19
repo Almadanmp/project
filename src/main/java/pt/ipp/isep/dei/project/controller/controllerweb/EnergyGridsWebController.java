@@ -23,7 +23,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/gridSettings")
+@RequestMapping("/grids")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 public class EnergyGridsWebController {
 
@@ -42,16 +42,19 @@ public class EnergyGridsWebController {
     UserService userService;
 
 
-    @GetMapping(value = "/grids")
+    @GetMapping(value = "/")
     public @ResponseBody
     ResponseEntity<Object> getAllGrids() {
         List<EnergyGrid> list = energyGridRepository.getAllGrids();
         List<EnergyGridDTO> result = new ArrayList<>();
+        RoomDTO roomDTO = new RoomDTO();
         for (EnergyGrid energyGrid : list) {
             EnergyGridDTO dto = EnergyGridMapper.objectToDTO(energyGrid);
             if (userService.getUsernameFromToken().equals("ADMIN")) {
                 Link link = linkTo(methodOn(EnergyGridsWebController.class).getRoomsWebDtoInGrid(dto.getName())).withRel("1. Get rooms in Grid.");
+                Link linkAttach = linkTo(methodOn(EnergyGridsWebController.class).attachRoomToGrid(roomDTO,dto.getName())).withRel("2. Attach a new room to a Grid.");
                 dto.add(link);
+                dto.add(linkAttach);
             }
             result.add(dto);
         }
@@ -62,7 +65,7 @@ public class EnergyGridsWebController {
     /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
      * attach/detach rooms from it.
      */
-    @GetMapping(value = "/grids/{energyGridId}")
+    @GetMapping(value = "/{energyGridId}")
     public ResponseEntity<Object> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
         try {
             List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
@@ -97,7 +100,7 @@ public class EnergyGridsWebController {
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
      * consumption is included in that grid.
      */
-    @PostMapping(value = "/grids/{energyGridId}")
+    @PostMapping(value = "/{energyGridId}")
     public ResponseEntity<Object> attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId) {
         if (roomRepository.findRoomByID(roomDTO.getName()).isPresent()) {
             try {
@@ -118,7 +121,7 @@ public class EnergyGridsWebController {
      * US 130 - As an Administrator, I want to create a energy grid, so that I can define the rooms that are
      * attached to it and the contracted maximum power for that grid.
      */
-    @PostMapping(value = "/grids")
+    @PostMapping(value = "/")
     public ResponseEntity<String> createEnergyGrid(@RequestBody EnergyGridDTO energyGridDTO) {
         if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName() != null) {
             if (energyGridRepository.createEnergyGrid(energyGridDTO)) {
@@ -138,7 +141,7 @@ public class EnergyGridsWebController {
     // USER STORY 149 -  As an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
-    @DeleteMapping(value = "/grids/{energyGridId}")
+    @DeleteMapping(value = "/{energyGridId}")
     public ResponseEntity<String> detachRoomFromGrid(@RequestBody RoomDTOMinimal roomID, @PathVariable("energyGridId") String gridID) {
         try {
             if (energyGridRoomService.removeRoomFromGrid(roomID.getName(), gridID)) {
