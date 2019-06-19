@@ -14,7 +14,7 @@ public class GeographicAreaPlainLocalDTO extends ResourceSupport {
     private Double latitude;
     private Double longitude;
     private Double altitude;
-    private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
+    private final List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
     private String description;
 
 

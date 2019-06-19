@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-export const REMOVE_GRID_ROOM_INFO_STARTED = 'REMOVE_GRID_ROOM_INFO_STARTED';
-export const REMOVE_GRID_ROOM_INFO_SUCCESS = 'REMOVE_GRID_ROOM_INFO_SUCCESS';
-export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
+export const ADD_ROOM_INFO_STARTED = 'ADD_ROOM_INFO_STARTED';
+export const ADD_ROOM_INFO_SUCCESS = 'ADD_ROOM_INFO_SUCCESS';
+export const ADD_ROOM_INFO_FAILURE = 'ADD_ROOM_INFO_FAILURE';
+export const ADD_ROOM_DATA = 'ADD_ROOM_DATA';
 
 
 export const fetchRoom = ({name, floor, width, length, height}) => {
@@ -25,7 +26,13 @@ export const fetchRoom = ({name, floor, width, length, height}) => {
         dispatch(fetchRoomInfoSuccess(res.data));
       })
       .catch(err => {
-        dispatch(fetchRoomInfoFailure(err.message));
+        if (err.response === 400) {
+          dispatch(fetchRoomNoData(err.message))
+        }
+        else {
+          if(err.response !== undefined){
+            dispatch(fetchInfoFailure(err.response.data));}
+        }
       });
   };
 };
@@ -33,7 +40,7 @@ export const fetchRoom = ({name, floor, width, length, height}) => {
 
 export function fetchRoomInfo(name, floor, width, length, height) {
   return {
-    type: REMOVE_GRID_ROOM_INFO_STARTED,
+    type: ADD_ROOM_INFO_STARTED,
     payload: {
       name: name,
       floor: floor,
@@ -46,18 +53,27 @@ export function fetchRoomInfo(name, floor, width, length, height) {
 
 export function fetchRoomInfoSuccess(data) {
   return {
-    type: REMOVE_GRID_ROOM_INFO_SUCCESS,
+    type: ADD_ROOM_INFO_SUCCESS,
     payload: {
       room: data
     }
   }
 }
 
-export function fetchRoomInfoFailure(message) {
+export function fetchInfoFailure(response) {
   return {
-    type: REMOVE_GRID_ROOM_INFO_FAILURE,
+    type: ADD_ROOM_INFO_FAILURE,
     payload: {
-      error: message
+      error: response
+    }
+  }
+}
+
+export function fetchRoomNoData(response) {
+  return {
+    type: ADD_ROOM_DATA,
+    payload: {
+      errorData: response
     }
   }
 }

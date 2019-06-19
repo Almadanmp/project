@@ -23,7 +23,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @ApplicationScope
-@RequestMapping("/sensorsettings")
+@RequestMapping("/sensors")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 public class SensorSettingsWebController {
 
@@ -33,31 +33,7 @@ public class SensorSettingsWebController {
     @Autowired
     private SensorTypeRepository sensorTypeRepository;
 
-    // Part 0 - Main menu
-
-    /**
-     * Shows all the possible operations relatable to sensors and the respective link.
-     */
-    @GetMapping("")
-    public String intro() {
-        return "Welcome to the Sensor Settings Menu: \nGET[/sensorsettings/areas] \nGET[/sensorsettings/areas/{id}] " +
-                "\nGET[/sensorsettings/areas/{id}/sensors] \nPOST[/areas/{id}/sensors] \nPUT[/sensorsettings/areas/{id}/sensors/{id2}] " +
-                "\nDELETE[/sensorsettings/areas/{id}/sensors/{id2}]";
-    }
-
     // Part 1 - Geographical Areas
-
-    /**
-     * Shows all the Geographical Areas present in the database.
-     *
-     * @return OK status and a list of Geographic Area DTO.
-     */
-    @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> retrieveAllGeographicAreas() {
-        List<GeographicAreaWebDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTOWebInformation();
-        return new ResponseEntity<>(geographicAreaDTOList, HttpStatus.OK);
-    }
-
     /**
      * Shows a Geographical Area selected by it's ID, given that it is present in the database.
      *
@@ -72,17 +48,6 @@ public class SensorSettingsWebController {
 
     // Part 2 - Sensors
 
-    /**
-     * Shows the area sensors present in a given Geographical Area
-     *
-     * @param id is the geographical area id.
-     * @return OK status and a list of Area Sensor DTOs.
-     */
-    @GetMapping("/areas/{id}/sensors")
-    public ResponseEntity<List<AreaSensorDTO>> retrieveAllSensors(@PathVariable long id) {
-        List<AreaSensorDTO> areaSensorDTOList = geographicAreaRepository.getDTOById(id).getSensors();
-        return new ResponseEntity<>(areaSensorDTOList, HttpStatus.OK);
-    }
 
     /**
      * US006 Web Controller:

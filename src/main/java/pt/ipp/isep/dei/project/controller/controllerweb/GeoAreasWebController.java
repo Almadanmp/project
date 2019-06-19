@@ -5,12 +5,14 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.user.UserService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,9 +21,12 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping(value = "/geographic_area_settings")
+@RequestMapping(value = "/geoAreas")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 public class GeoAreasWebController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepo;
@@ -68,7 +73,7 @@ public class GeoAreasWebController {
      *
      * @return ResponseEntity
      */
-    @PostMapping(value = "/areas")
+    @PostMapping(value = "/")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaPlainLocalDTO dto) {
         if (dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
             if (geographicAreaRepo.addAndPersistPlainDTO(dto)) {
@@ -91,7 +96,7 @@ public class GeoAreasWebController {
      * @return ResponseEntity with all the geographic areas and their type information.
      */
 
-    @GetMapping("/areas")
+    @GetMapping("/")
     public ResponseEntity<Object> getAllGeographicAreas() {
         List<GeographicAreaDTO> allDTO = geographicAreaRepo.getAllDTO();
         if (allDTO == null) {
@@ -100,7 +105,39 @@ public class GeoAreasWebController {
         if (allDTO.isEmpty()) {
             return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
         }
+        for (GeographicAreaDTO g : allDTO) {
+            if (userService.getUsernameFromToken().equals("admin")) {
+                Link addChildArea = linkTo(methodOn(GeoAreasWebController.class).addChildArea(0
+                        , g.getGeographicAreaId())).withRel("Add child area.");
+                Link removeChildArea = linkTo(methodOn(GeoAreasWebController.class).removeChildArea(0,
+                        g.getGeographicAreaId())).withRel("Remove Child Area");
+                Link sensors = linkTo(methodOn(GeoAreasWebController.class).getAreaSensors(g.getGeographicAreaId())).
+                        withRel("List area sensors.");
+                g.add(addChildArea);
+                g.add(removeChildArea);
+                g.add(sensors);
+            }
+        }
         return new ResponseEntity<>(allDTO, HttpStatus.OK);
+    }
+
+    /**
+     * Shows the area sensors present in a given Geographical Area
+     *
+     * @param id is the geographical area id.
+     * @return OK status and a list of Area Sensor DTOs.
+     */
+    @GetMapping("/areas/{id}/sensors")
+    public ResponseEntity<List<AreaSensorDTO>> getAreaSensors(@PathVariable long id) {
+        List<AreaSensorDTO> areaSensorDTOList = geographicAreaRepo.getDTOById(id).getSensors();
+        for (AreaSensorDTO s : areaSensorDTOList) {
+            if (userService.getUsernameFromToken().equals("admin")) {
+                Link deleteSelf = linkTo(methodOn(SensorSettingsWebController.class).removeAreaSensor(id, s.getSensorId())).
+                        withRel("Delete this Sensor");
+                s.add(deleteSelf);
+            }
+        }
+        return new ResponseEntity<>(areaSensorDTOList, HttpStatus.OK);
     }
 
     /**
@@ -110,7 +147,7 @@ public class GeoAreasWebController {
      * @param idAreaParent of the geoArea with the daughter area
      * @return string with info if geoArea was added or not
      */
-    @PutMapping("areas/{idParent}/{idChild}")
+    @PutMapping("/{idParent}/{idChild}")
     public ResponseEntity<Object> addChildArea(@PathVariable("idChild") long idAreaChild,
                                                @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
@@ -129,7 +166,7 @@ public class GeoAreasWebController {
         }
     }
 
-    @PutMapping("areas/list/{idParent}/{idChild}")
+    @PutMapping("/list/{idParent}/{idChild}")
     public ResponseEntity<Object> removeChildArea(@PathVariable("idChild") long idAreaChild,
                                                   @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
@@ -153,7 +190,7 @@ public class GeoAreasWebController {
     /**
      * This method deactivates a sensor selected from a list of sensors of a previously selected geographic area
      */
-    @PutMapping("areas/{id}/sensors/{id2}")
+    @PutMapping("/{id}/sensors/{id2}")
     public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id,
                                                    @PathVariable("id2") String sensorId) {
         try {
@@ -172,7 +209,7 @@ public class GeoAreasWebController {
     /**
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
      */
-    @DeleteMapping("areas/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeSensor(@PathVariable("id") long id, @RequestBody String sensorId) {
         try {
             if (geographicAreaRepo.removeSensorById(id, sensorId)) {
@@ -190,7 +227,7 @@ public class GeoAreasWebController {
      * @param id mother area id
      * @return list of daughter areas on a mother area
      */
-    @GetMapping("areas/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getGeographicArea(@PathVariable("id") long id) {
         return new ResponseEntity<>(geographicAreaRepo.getDTOByIdWithParent(id), HttpStatus.OK);
     }

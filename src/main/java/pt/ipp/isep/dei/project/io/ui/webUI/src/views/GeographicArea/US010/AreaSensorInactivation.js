@@ -1,6 +1,5 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
-import {Button} from "reactstrap";
 import {inactivateSensorFromArea} from "../US010/Actions010";
 import {connect} from 'react-redux';
 import {confirmAlert} from 'react-confirm-alert'; // Import
@@ -15,7 +14,7 @@ class AreaSensorInactivation extends React.Component {
     this.state = {
       id: 0,
       sensorId: '',
-      isChecked: null
+      isChecked: false
     };
 
     this.handleInputChange = attribute => event => {
@@ -31,6 +30,7 @@ class AreaSensorInactivation extends React.Component {
   }
 
   submit = () => {
+    this.setState( { isChecked: true } );
     confirmAlert({
       title: 'Confirm inactivation',
       message: 'Are you sure to inactivate ' + this.state.sensorId + ' from ' + this.state.id + '?',
@@ -42,6 +42,8 @@ class AreaSensorInactivation extends React.Component {
         {
           label: 'No',
           onClick: () => {
+            this.setState( { isChecked: false } );
+
           }
         }
       ]
@@ -52,18 +54,14 @@ class AreaSensorInactivation extends React.Component {
     this.props.onInactivateSensorFromArea(this.state);
   }
 
-  handleChange () {
-    console.log(this.state.isChecked)
-    this.setState( { isChecked: !this.state.isChecked } );
-  }
 
   render() {
-    const isEnabled = this.state.isChecked !== null;
+    const isEnabled = this.state.isChecked != null;
     return (
       <>
 
         <label> Geographic area Id:
-          <input value={this.state.id} type="number" name="id" onChange={this.handleInputChange('id')}/>
+          <input value={this.state.id} type="number" placeholder={0} name="id" onChange={this.handleInputChange('id')}/>
         </label>
 
         <label> Area Sensor Id:
@@ -75,7 +73,7 @@ class AreaSensorInactivation extends React.Component {
 
         <div className="switch-container">
           <label>
-            <input ref="switch" checked={this.state.isChecked } onChange={ this.handleChange && this.submit } className="switch" type="checkbox" />
+            <input ref="switch" checked={this.state.isChecked } disabled={isEnabled} onChange={ this.submit } className="switch" type="checkbox" />
             <div>
 
               <div> </div>

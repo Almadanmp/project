@@ -26,6 +26,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
+import pt.ipp.isep.dei.project.model.user.UserService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 class SensorSettingsWebControllerTest {
+
+    @Mock
+    UserService userService;
 
     @Mock
     GeographicAreaRepository geographicAreaRepository;
@@ -69,38 +73,6 @@ class SensorSettingsWebControllerTest {
     }
 
     @Test
-    void seeIfIntroWorks() {
-        //Arrange
-
-        String expectedResult = "Welcome to the Sensor Settings Menu: \nGET[/sensorsettings/areas] \nGET[/sensorsettings/areas/{id}] " +
-                "\nGET[/sensorsettings/areas/{id}/sensors] \nPOST[/areas/{id}/sensors] \nPUT[/sensorsettings/areas/{id}/sensors/{id2}] " +
-                "\nDELETE[/sensorsettings/areas/{id}/sensors/{id2}]";
-
-        //Act
-
-        String actualResult = sensorSettingsWebController.intro();
-
-        //Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfIntroFails() {
-        //Arrange
-
-        String expectedResult = "Welcome to the Sensor Settings Menu:";
-
-        //Act
-
-        String actualResult = sensorSettingsWebController.intro();
-
-        //Assert
-
-        assertNotEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfRemoveAreaSensorWorks() throws Exception {
         // Arrange
 
@@ -115,7 +87,7 @@ class SensorSettingsWebControllerTest {
         Mockito.doNothing().when(this.geographicAreaRepository).updateAreaDTO(GeographicAreaMapper.objectToDTO(validGeographicArea));
 
         // Act & Assert
-        this.mockMvc.perform(delete("/sensorsettings/areas/1/sensors/RF12345", validAreaSensor))
+        this.mockMvc.perform(delete("/sensors/areas/1/sensors/RF12345", validAreaSensor))
                 .andExpect(status().isOk());
     }
 
@@ -161,7 +133,7 @@ class SensorSettingsWebControllerTest {
     }
 
     @Test
-    void seeIfRetrieveGAWorks() throws Exception {
+    void seeIfGetGAWorks() throws Exception {
 
         // Arrange
 
@@ -169,31 +141,7 @@ class SensorSettingsWebControllerTest {
 
         // Perform
 
-        this.mockMvc.perform(get("/sensorsettings/areas/1"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void seeIfRetrieveAllSensorsWorks() throws Exception {
-
-        // Arrange
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
-
-        // Perform
-
-        this.mockMvc.perform(get("/sensorsettings/areas/1/sensors"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void seeIfRetrieveAllGeographicAreasWorks() throws Exception {
-
-        // Arrange
-
-        // Perform
-
-        this.mockMvc.perform(get("/sensorsettings/areas"))
+        this.mockMvc.perform(get("/sensors/areas/1"))
                 .andExpect(status().isOk());
     }
 
