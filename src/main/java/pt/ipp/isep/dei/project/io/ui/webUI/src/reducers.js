@@ -23,6 +23,7 @@ export default combineReducers({
   Reducer002,
   Reducers003,
   Reducers004,
+  Reducers101,
   Reducers105,
   Reducer108,
   Reducers600,

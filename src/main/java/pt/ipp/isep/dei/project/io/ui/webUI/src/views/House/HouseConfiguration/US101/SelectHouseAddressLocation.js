@@ -10,7 +10,7 @@ class SelectHouseAddressLocation extends React.Component {
     this.state = {
       geographicAreaId: this.props.geographicAreaId,
       street: '',
-      number: 1,
+      number: '',
       zip: '',
       town: '',
       country: '',
