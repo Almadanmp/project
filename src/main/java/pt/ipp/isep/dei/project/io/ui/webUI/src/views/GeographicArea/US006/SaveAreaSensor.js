@@ -23,7 +23,7 @@ class SaveAreaSensor extends Component {
     const altitude = this.props.altitude;
 
     console.log(this.props);
-    fetch('https://localhost:8443/sensorsettings/areas/' + this.props.geographicAreaId + '/sensors', {
+    fetch('https://localhost:8443/sensors/areas/' + this.props.geographicAreaId + '/sensors', {
       method: 'post',
       headers: {
         'Authorization': token,

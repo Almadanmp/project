@@ -107,7 +107,7 @@ public class GeoAreasWebController {
         }
         AreaSensorDTO sensorDTO = new AreaSensorDTO();
         for (GeographicAreaDTO g : allDTO) {
-            if (userService.getUsernameFromToken().equals("admin")) {
+          //  if (userService.getUsernameFromToken().equals("admin")) {
                 Link getChildAreas = linkTo(methodOn(GeoAreasWebController.class).getChildAreas(g.getGeographicAreaId())).
                         withRel("List child areas.");
                 Link addChildArea = linkTo(methodOn(GeoAreasWebController.class).addChildArea(0
@@ -121,7 +121,7 @@ public class GeoAreasWebController {
                 g.add(getChildAreas);
                 g.add(sensors);
                 g.add(addSensor);
-            }
+           // }
         }
         return new ResponseEntity<>(allDTO, HttpStatus.OK);
     }

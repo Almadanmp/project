@@ -11,7 +11,7 @@ export function addAreaType(typeName) {
   return dispatch => {
     dispatch(addAreaTypeStarted(typeName));
     axios
-      .post(`https://localhost:8443/geographic_area_settings/areaTypes`, data, {
+      .post(`https://localhost:8443/geoAreas/areaTypes`, data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,

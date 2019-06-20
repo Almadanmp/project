@@ -14,7 +14,7 @@ class SaveAreaSensor extends Component {
     const childAreaId = this.props.childAreaId;
 
     console.log(this.props);
-    fetch('https://localhost:8443/geographic_area_settings/areas/' + motherAreaId + '/' + childAreaId,{
+    fetch('https://localhost:8443/geoAreas/' + motherAreaId + '/' + childAreaId,{
       method: 'put',
       headers: {
         'Authorization': token,

@@ -11,7 +11,7 @@ export function inactivateSensorFromArea({id, sensorId}) {
     dispatch(inactivateSensorStarted());
     const data = {id, sensorId};
     axios
-      .put('https://localhost:8443/geographic_area_settings/areas/' + id + '/sensors/' + sensorId, data, {
+      .put('https://localhost:8443/geoAreas/' + id + '/sensors/' + sensorId, data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,

@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
-import {Button} from "reactstrap";
-import RemoveFromGrid from "./gridRedux/RemoveFromGrid"
-import {deleteRoomFromGrid} from "../US149/Actions149Hateoas";
 import connect from "react-redux/es/connect/connect";
 
 class TableBody extends Component {
@@ -11,14 +8,12 @@ class TableBody extends Component {
     super(props);
     this.state = {
       item: [],
-      grid: '',
     }
   }
 
   componentDidMount() {
-    console.log(this.props.link);
     const token = localStorage.getItem('loginToken');
-    fetch(this.props.link.href, {
+    fetch('https://localhost:8443/geoAreas/', {
       headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,
@@ -33,46 +28,38 @@ class TableBody extends Component {
         })
       })
       .catch(console.log)
+    console.log(this.state.item);
+
   }
 
   render() {
     const headers = {
-      name: "Rooms",
-      floor: "Floor",
+      name: "Name",
+      type: "Type",
       description: "Description",
-      height: "Height (m)",
-      length: "Length (m)",
-      width: "Width (m)",
-      remove: "Remove from grid",
+      sensors: "Sensors",
+      children: "Child Areas",
     };
     var {item} = this.state;
     return (
       <>
         <TableHeader headers={headers}/>
         {item.map(item => (
-          <tr key={item.name}>
+          <tr key={item.id}>
             <td style={{
               textAlign: "center"
             }}> {item.name}</td>
             <td style={{
               textAlign: "center"
+            }}>{item.typeArea} </td>
+            <td style={{
+              textAlign: "center"
             }}>{item.description} </td>
             <td style={{
               textAlign: "center"
-            }}>{item.floor} </td>
-            {/*<td style={{*/}
-              {/*textAlign: "center"*/}
-            {/*}}> {item.height}</td>*/}
-            {/*<td style={{*/}
-              {/*textAlign: "center"*/}
-            {/*}}> {item.length} </td>*/}
-            {/*<td style={{*/}
-              {/*textAlign: "center"*/}
-            {/*}}> {item.width} </td>*/}
-            <td style={{
-              textAlign: "center"
             }}>
-              <RemoveFromGrid link={item.links.map(hrefs => (hrefs.rel.indexOf("1.")!=-1 ? hrefs.href : "No link available"))} grid={this.props.grid} name={item.name}/>
+              {/*<GetSensors link={item.links.map(hrefs => (hrefs.rel.indexOf("1.")!=-1 ? hrefs.href : "No link available"))} grid={this.props.grid} name={item.name}/>*/}
+              {/*<GetChildren link={item.links.map(hrefs => (hrefs.rel.indexOf("1.")!=-1 ? hrefs.href : "No link available"))} grid={this.props.grid} name={item.name}/>*/}
             </td>
           </tr>
         ))}
@@ -83,12 +70,5 @@ class TableBody extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onDeleteRoomFromGrid: (name, grid) => {
-      dispatch(deleteRoomFromGrid({name, grid}))
-    }
-  }
-};
 
-export default connect(null, mapDispatchToProps)(TableBody);
+export default TableBody;

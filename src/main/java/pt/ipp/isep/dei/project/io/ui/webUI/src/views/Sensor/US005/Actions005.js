@@ -11,7 +11,7 @@ export function addSensorType(name, units) {
   return dispatch => {
     dispatch(addSensorTypeStarted(name, units));
     axios
-      .post(`https://localhost:8443/sensorsettings/sensorTypes`, data, {
+      .post(`https://localhost:8443/sensors/sensorTypes`, data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,
