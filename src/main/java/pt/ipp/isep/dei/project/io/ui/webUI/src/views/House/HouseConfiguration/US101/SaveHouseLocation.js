@@ -23,7 +23,7 @@ class SaveHouseLocation extends Component {
     const altitude = this.props.altitude
 
     console.log(this.props);
-    fetch('https://localhost:8443/houseSettings/house', {
+    fetch('https://localhost:8443/house/', {
       method: 'put',
       headers: {
         'Authorization': token,

@@ -5,34 +5,34 @@ export const FETCH_LOCATION_SUCCESS = 'FETCH_LOCATION_SUCCESS';
 export const FETCH_LOCATION_FAILURE = 'FETCH_LOCATION_FAILURE';
 
 
-export const fetchLocation = ({geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude}) => {
+export const fetchLocation = ({geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude}) => {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchLocationStarted(geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude));
-    const data = {geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude};
+    dispatch(fetchLocationStarted(geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude));
+    const data = {geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude};
     axios
-      .post('https://localhost:8443/houseSettings/house', data, {
+      .put('https://localhost:8443/house/', data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude})
+          body: {geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude}
         }
       )
       .then(res => {
+        console.log("ola")
         dispatch(fetchLocationSuccess(res.data));
       })
       .catch(err => {
-        if (err.response !== undefined) {
-          dispatch(fetchLocationFailure(err.response.data));
-        }
-      });
+        dispatch(fetchLocationFailure(err.message))
+      })
+
   };
 };
 
-export function fetchLocationStarted(geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude) {
+export function fetchLocationStarted(geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude) {
   return {
     type: FETCH_LOCATION_STARTED,
     payload: {
