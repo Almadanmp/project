@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
-import {uploadFile} from "./UploadGAActions";
+import {uploadFile} from "./ImportGAActions";
 import {Alert, Button} from "reactstrap";
 import {connect} from "react-redux";
 import {confirmAlert} from "react-confirm-alert";
 
-class UploadGA extends Component {
+class GADropzone extends Component {
   constructor(props) {
     super(props);
     this.state = {file: {}};
@@ -55,7 +55,6 @@ class UploadGA extends Component {
 
   render() {
     const maxSize = 1048576;
-    const {loading, results, fileResults} = this.props;
     return (
       <div className="text-center mt-5">
         <Dropzone
@@ -103,9 +102,9 @@ class UploadGA extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.ReducersUpload.loading,
-    error: state.ReducersUpload.error,
-    fileResults: state.ReducersUpload.fileResults,
+    loading: state.ReducersImportGA.loading,
+    error: state.ReducersImportGA.error,
+    fileResults: state.ReducersImportGA.fileResults,
   }
 };
 
@@ -120,4 +119,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UploadGA);
+)(GADropzone);

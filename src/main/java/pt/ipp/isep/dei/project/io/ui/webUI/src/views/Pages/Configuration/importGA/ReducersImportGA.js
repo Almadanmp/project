@@ -1,4 +1,4 @@
-import {POST_FILE_FAILURE, POST_FILE_STARTED, POST_FILE_SUCCESS} from "./UploadGAActions";
+import {POST_FILE_FAILURE, POST_FILE_STARTED, POST_FILE_SUCCESS} from "./ImportGAActions";
 
 const initialState = {
   loading: false,
@@ -7,7 +7,7 @@ const initialState = {
 };
 
 
-export default function ReducersUpload(state = initialState, action) {
+export default function ReducersImportGA(state = initialState, action) {
   switch (action.type) {
     case POST_FILE_STARTED:
       return {

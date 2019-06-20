@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import FileUploaderOne from "./uploadGA/UploadGA";
-import {Button, Card, CardBody, CardHeader, Col, Collapse, Row} from "reactstrap";
+import ImportGeographicAreas from "./ImportGA";
+import ImportAreaReadings from "./ImportGAReadings";
 
 class Configuration extends Component {
   constructor(props) {
@@ -17,34 +17,19 @@ class Configuration extends Component {
 
   render() {
     return (
-      <div>
-
+      <>
         <h2>Welcome to the Application Configuration Menu </h2>
         <p></p>
         <h5>Please select the option you want to run:</h5>
         <p></p>
         <p></p>
         <p></p>
-        <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}
-                  class="fa fa-plus-square-o fa-lg mt-4">Import geographic areas and sensors</Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody>
-              <span>
-              <FileUploaderOne/>
-              </span>
-                <span>
-              </span>
-              </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-      </div>
+        <ImportGeographicAreas/>
+        <ImportAreaReadings/>
+      </>
     );
   }
 }
-
 
 export default Configuration;
 
