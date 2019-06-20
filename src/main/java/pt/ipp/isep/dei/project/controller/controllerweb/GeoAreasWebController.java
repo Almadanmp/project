@@ -105,21 +105,46 @@ public class GeoAreasWebController {
         if (allDTO.isEmpty()) {
             return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
         }
+        AreaSensorDTO sensorDTO = new AreaSensorDTO();
         for (GeographicAreaDTO g : allDTO) {
             if (userService.getUsernameFromToken().equals("admin")) {
+                Link getChildAreas = linkTo(methodOn(GeoAreasWebController.class).getChildAreas(g.getGeographicAreaId())).
+                        withRel("List child areas.");
                 Link addChildArea = linkTo(methodOn(GeoAreasWebController.class).addChildArea(0
                         , g.getGeographicAreaId())).withRel("Add child area.");
-                Link removeChildArea = linkTo(methodOn(GeoAreasWebController.class).removeChildArea(0,
-                        g.getGeographicAreaId())).withRel("Remove Child Area");
+
                 Link sensors = linkTo(methodOn(GeoAreasWebController.class).getAreaSensors(g.getGeographicAreaId())).
                         withRel("List area sensors.");
+                Link addSensor = linkTo(methodOn(SensorSettingsWebController.class).createAreaSensor(sensorDTO,g.getGeographicAreaId())).
+                        withRel("Add a new area sensors.");
                 g.add(addChildArea);
-                g.add(removeChildArea);
+                g.add(getChildAreas);
                 g.add(sensors);
+                g.add(addSensor);
             }
         }
         return new ResponseEntity<>(allDTO, HttpStatus.OK);
     }
+
+    /**
+     * Shows the area sensors present in a given Geographical Area
+     *
+     * @param id is the geographical area id.
+     * @return OK status and a list of Area Sensor DTOs.
+     */
+    @GetMapping("/areas/{id}/children")
+    public ResponseEntity<List<GeographicAreaDTO>> getChildAreas(@PathVariable long id) {
+        List<GeographicAreaDTO> childAreaDTOList = geographicAreaRepo.getDTOById(id).getDaughterAreas();
+        for (GeographicAreaDTO g : childAreaDTOList) {
+            if (userService.getUsernameFromToken().equals("admin")) {
+                Link removeChildArea = linkTo(methodOn(GeoAreasWebController.class).removeChildArea(g.getGeographicAreaId(),
+                        g.getGeographicAreaId())).withRel("Remove Child Area");
+                g.add(removeChildArea);
+            }
+        }
+        return new ResponseEntity<>(childAreaDTOList, HttpStatus.OK);
+    }
+
 
     /**
      * Shows the area sensors present in a given Geographical Area
@@ -134,7 +159,10 @@ public class GeoAreasWebController {
             if (userService.getUsernameFromToken().equals("admin")) {
                 Link deleteSelf = linkTo(methodOn(SensorSettingsWebController.class).removeAreaSensor(id, s.getSensorId())).
                         withRel("Delete this Sensor");
+                Link deactivateSelf = linkTo(methodOn(SensorSettingsWebController.class).deactivateAreaSensor(id, s.getSensorId())).
+                        withRel("Deactivate this Sensor");
                 s.add(deleteSelf);
+                s.add(deactivateSelf);
             }
         }
         return new ResponseEntity<>(areaSensorDTOList, HttpStatus.OK);
