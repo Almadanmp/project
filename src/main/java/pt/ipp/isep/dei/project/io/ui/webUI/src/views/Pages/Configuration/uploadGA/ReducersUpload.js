@@ -3,7 +3,7 @@ import {POST_FILE_FAILURE, POST_FILE_STARTED, POST_FILE_SUCCESS} from "./UploadG
 const initialState = {
   loading: false,
   error: null,
-  file: null,
+  fileResults: null,
 };
 
 
@@ -14,7 +14,7 @@ export default function ReducersUpload(state = initialState, action) {
         ...state,
         loading: true,
         error: null,
-        file: null,
+        fileResults: null,
         results: null,
       };
     case POST_FILE_SUCCESS:
@@ -22,7 +22,7 @@ export default function ReducersUpload(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
-        file: action.payload.data,
+        fileResults: action.payload.data,
         results: 'success'
       };
     case POST_FILE_FAILURE:

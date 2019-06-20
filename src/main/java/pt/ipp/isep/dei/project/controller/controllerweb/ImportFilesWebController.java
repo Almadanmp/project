@@ -34,8 +34,8 @@ public class ImportFilesWebController {
     @Autowired
     InputHelperUI inputHelperUI;
 
-    @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(
+    @PostMapping("/uploadGA")
+    public ResponseEntity<?> uploadGAFile(
             @RequestPart("file") MultipartFile file) {
 
         logger.debug("Single file upload!");

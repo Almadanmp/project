@@ -24,9 +24,8 @@ class UploadGA extends Component {
   }
 
   handleSubmit = () => {
-    console.log('daniela')
-    console.log(this.state.file.name)
-    if (this.state.file.name) {
+    if (this.state.file instanceof FormData) {
+
       confirmAlert({
         title: 'Confirm to import data',
         message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
@@ -42,8 +41,7 @@ class UploadGA extends Component {
           }
         ]
       });
-    }
-    else{
+    } else {
       //TODO improve alert Box
       alert('Unable to submit: a file must be selected')
     }
@@ -51,7 +49,7 @@ class UploadGA extends Component {
 
   render() {
     const maxSize = 1048576;
-    const {loading, file, results} = this.props;
+    const {loading, results, fileResults} = this.props;
     return (
       <div className="text-center mt-5">
         <Dropzone
@@ -101,7 +99,7 @@ const mapStateToProps = (state) => {
     loading: state.ReducersUpload.loading,
     error: state.ReducersUpload.error,
     results: state.ReducersUpload.results,
-    file: state.ReducersUpload.file
+    fileResults: state.ReducersUpload.fileResults,
   }
 };
 
