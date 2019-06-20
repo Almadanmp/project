@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
+import {Badge} from "reactstrap";
 class TableBody extends Component {
 
   constructor(props) {
@@ -10,7 +11,8 @@ class TableBody extends Component {
   }
 
   componentDidMount() {
-    const{link} =this.props;
+    const{link} =this.props
+    console.log(link)
     const token = localStorage.getItem('loginToken');
     fetch(link.href, {
       headers: {
@@ -33,35 +35,34 @@ class TableBody extends Component {
   }
 
   render() {
-    const headers = {
-      name: "Name",
-      type: "Type",
-      description: "Description",
-      remove: "remove",
-    };
+
     var {item} = this.state;
     return (
       <>
-        <TableHeader headers={headers}/>
-        {item.map(item => (
-          <tr key={item.id}>
-            <td style={{
-              textAlign: "center"
-            }}> {item.name}</td>
-            <td style={{
-              textAlign: "center"
-            }}>{item.typeArea} </td>
-            <td style={{
-              textAlign: "center"
-            }}>{item.description} </td>
+        <thead>
+        <tr>
+          <th>Sensor</th>
+          <th>Type</th>
+          <th>Activation</th>
+          <th>State</th>
+          <th>Deactivate</th>
+          <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
 
-            <td style={{
-              textAlign: "center"
-            }}>
-              Remove
-            </td>
+        {item.map(item => (
+          <tr key={item.name}>
+            <td>{item.name}</td>
+            <td>{item.type}</td>
+            <td>{item.dateStartedFunctioning}</td>
+            <td>{item.active == true ? <Badge color="success"> Active </Badge> :
+              <Badge color="danger"> Inactive </Badge>}</td>
           </tr>
         ))}
+
+
+        </tbody>
       </>
     );
   }
