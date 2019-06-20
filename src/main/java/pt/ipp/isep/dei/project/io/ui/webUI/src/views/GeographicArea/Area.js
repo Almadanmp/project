@@ -25,7 +25,7 @@ class Area extends Component {
     return (
       <div>
         <h2>Welcome to the Geographic Area Menu</h2>
-        <h4>Please select the option you want to run</h4>
+        <p></p>
         <AreasList/>
         <US001/>
         <US002/>

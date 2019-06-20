@@ -67,5 +67,10 @@ export default {
           url: '/about',
           icon: 'icon-star',
         },
+    {
+      name: 'The Team',
+      url: '/team',
+      icon: 'icon-star',
+    },
   ],
 };

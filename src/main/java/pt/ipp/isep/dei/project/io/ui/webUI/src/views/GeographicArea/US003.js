@@ -18,7 +18,9 @@ class US003 extends Component {
       <div>
         <Button onClick={this.toggle} className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}><i className="fa fa-plus-square-o fa-lg"/></Button>
         <Collapse isOpen={this.state.collapse}>
-          <Card>
+          <Card style={{
+            textAlign: "center"
+          }}>
             <CardBody>
               <US003Redux/>
             </CardBody>
