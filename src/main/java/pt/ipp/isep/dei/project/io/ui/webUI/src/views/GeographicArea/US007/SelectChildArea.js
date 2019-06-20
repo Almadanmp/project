@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
 import US007Button from "./US007Button";
 
-class SelectSensor extends Component {
+class SelectChildArea extends Component {
 
   constructor(props) {
     super(props);
@@ -76,4 +76,4 @@ class SelectSensor extends Component {
   }
 }
 
-export default SelectSensor;
+export default SelectChildArea;

@@ -180,6 +180,11 @@ public class GeoAreasWebController {
                                                @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
+        Long parentLong = idAreaParent;
+        Long childLong = idAreaChild;
+        if(parentLong.compareTo(childLong) == 0){
+            return new ResponseEntity<>("You can't add a Geographic Area to itself.", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         try {
             if (geographicAreaRepo.addChildArea(idAreaChild, idAreaParent)) {
                 result = geographicAreaRepo.getDTOByIdWithParent(idAreaParent);
