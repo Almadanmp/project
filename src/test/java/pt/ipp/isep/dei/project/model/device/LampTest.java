@@ -120,7 +120,7 @@ class LampTest {
     void seeIfPrintDeviceWorks() {
         // Arrange
 
-        String expectedResult = "The device Name is validLampOne, and its nominal power is 30.0 kW.\n";
+        String expectedResult = "The device Name is validLampOne, and its NominalPower is 30.0 kW.\n";
 
         // Act
 

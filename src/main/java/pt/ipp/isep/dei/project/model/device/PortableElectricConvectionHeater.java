@@ -9,61 +9,29 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class PortableElectricConvectionHeater implements Device, Metered {
+public class PortableElectricConvectionHeater extends CommonDeviceAttributes implements Device, Metered {
     private static final String NOT_SUPPORTED = "At the moment, this operation is not supported.";
 
-    private String name;
-    private double nominalPower;
     private final PortableElectricConvectionHeaterSpec deviceSpecs;
-    private boolean active;
 
 
     public PortableElectricConvectionHeater(PortableElectricConvectionHeaterSpec portableElectricConvectionHeaterSpec) {
+        super();
         this.deviceSpecs = portableElectricConvectionHeaterSpec;
-        this.active = true;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getType() {
         return "PortableElectricConvectionHeater";
     }
 
-    public void setNominalPower(double nominalPower) {
-        this.nominalPower = nominalPower;
-    }
-
-    public double getNominalPower() {
-        return this.nominalPower;
-    }
-
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public boolean deactivate() {
-        if (isActive()) {
-            this.active = false;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public String buildString() {
-        return "The device Name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
-    }
 
     /**
      * This method returns the Device LogList.
      *
      * @return Device LogList.
      */
+    @Override
     public LogList getLogList() {
         throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
@@ -73,6 +41,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      *
      * @return true if LogList is empty, false otherwise
      */
+    @Override
     public boolean isLogListEmpty() {
         return true;
     }
@@ -83,6 +52,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @param log - Parameter which will be used to addWithoutPersisting to the Device LogList.
      * @return true if log was added
      */
+    @Override
     public boolean addLog(Log log) {
         throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
@@ -94,10 +64,12 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @param finalTime   is the end time of the interval.
      * @return is the number of valid data logs in the given interval.
      */
+    @Override
     public int countLogsInInterval(Date initialTime, Date finalTime) {
         throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
+    @Override
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
@@ -109,6 +81,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @param finalTime   - Ending of the interval
      * @return total consumption within the defined interval
      */
+    @Override
     public double getConsumptionInInterval(Date initialTime, Date finalTime) {
         throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
@@ -119,6 +92,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
      * @param time the desired time
      * @return the energy consumed in the given time
      */
+    @Override
     public double getEnergyConsumption(float time) {
         throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
@@ -150,7 +124,7 @@ public class PortableElectricConvectionHeater implements Device, Metered {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(name, device.getName());
+        return Objects.equals(this.getName(), device.getName());
     }
 
     @Override

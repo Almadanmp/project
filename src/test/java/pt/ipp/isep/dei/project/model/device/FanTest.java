@@ -117,7 +117,7 @@ class FanTest {
     void seeIfBuildString(){
         // Arrange
 
-        String expectedResult = "The fan name is Fan and its nominal power is: 150.0";
+        String expectedResult = "The device Name is Fan, and its NominalPower is 150.0 kW.\n";
 
         // Act
 

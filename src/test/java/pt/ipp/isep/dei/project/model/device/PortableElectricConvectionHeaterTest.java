@@ -50,7 +50,7 @@ class PortableElectricConvectionHeaterTest {
 
         validHeater.setName("NewHeater");
         validHeater.setNominalPower(35);
-        String expectedResult = "The device Name is NewHeater, and its nominal power is 35.0 kW.\n";
+        String expectedResult = "The device Name is NewHeater, and its NominalPower is 35.0 kW.\n";
 
         // Act
 
@@ -154,7 +154,7 @@ class PortableElectricConvectionHeaterTest {
 
         validHeater.setName("Heater");
         validHeater.setNominalPower(200);
-        String expectedResult = "The device Name is Heater, and its nominal power is 200.0 kW.\n";
+        String expectedResult = "The device Name is Heater, and its NominalPower is 200.0 kW.\n";
 
         // Act
 

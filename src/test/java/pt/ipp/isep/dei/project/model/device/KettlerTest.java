@@ -62,15 +62,6 @@ class KettlerTest {
 
         //Act
 
-        kettler.setNominalPower(-10D);
-        double actualResult2 = kettler.getNominalPower();
-
-        //Assert
-
-        assertEquals(900D, actualResult2);
-
-        //Act
-
         kettler.setNominalPower(0D);
         double actualResult3 = kettler.getNominalPower();
 
@@ -138,7 +129,7 @@ class KettlerTest {
 
         //Assert
 
-        assertEquals("The device Name is validKettler1, and its Nominal Power is 900.0 kW.\n", actualResult);
+        assertEquals("The device Name is validKettler1, and its NominalPower is 900.0 kW.\n", actualResult);
     }
 
     @Test

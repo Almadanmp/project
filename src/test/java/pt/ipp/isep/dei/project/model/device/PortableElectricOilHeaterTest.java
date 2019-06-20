@@ -49,7 +49,7 @@ class PortableElectricOilHeaterTest {
 
         validHeater.setName("NewHeater");
         validHeater.setNominalPower(35);
-        String expectedResult = "The device Name is NewHeater, and its nominal power is 35.0 kW.\n";
+        String expectedResult = "The device Name is NewHeater, and its NominalPower is 35.0 kW.\n";
 
         // Act
 

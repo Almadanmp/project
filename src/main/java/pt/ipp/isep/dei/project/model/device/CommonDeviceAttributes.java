@@ -5,13 +5,13 @@ import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
 
-public class CommonDeviceAttributes {
+public abstract class CommonDeviceAttributes {
     private String name;
     private double nominalPower;
     private boolean active;
     private final LogList logList;
 
-    CommonDeviceAttributes(){
+    CommonDeviceAttributes() {
         logList = new LogList();
         this.active = true;
     }
@@ -25,6 +25,9 @@ public class CommonDeviceAttributes {
     }
 
     public void setNominalPower(double nominalPower) {
+        if (nominalPower <= -1) {
+            throw new IllegalArgumentException("Invalid nominal power. Number should be positive");
+        }
         this.nominalPower = nominalPower;
     }
 
@@ -45,14 +48,14 @@ public class CommonDeviceAttributes {
         }
     }
 
-    public void setActive(boolean active){
+    public void setActive(boolean active) {
         this.active = active;
     }
 
 
     public String buildString() {
         String result;
-        result =  "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        result = "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
         return result;
     }
 
@@ -67,9 +70,10 @@ public class CommonDeviceAttributes {
 
     /**
      * Method checks if device LogList is empty
+     *
      * @return true if LogList is empty, false otherwise
-     * */
-    public boolean isLogListEmpty(){
+     */
+    public boolean isLogListEmpty() {
         return this.logList.isEmpty();
     }
 
@@ -116,6 +120,7 @@ public class CommonDeviceAttributes {
 
     /**
      * Energy consumption = energy consumption of the program (kWh)
+     *
      * @param time the desired time
      * @return the energy consumed in the given time
      */

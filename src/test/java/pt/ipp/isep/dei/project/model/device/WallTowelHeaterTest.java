@@ -117,7 +117,7 @@ class WallTowelHeaterTest {
     void seeIfBuildStringWorks() {
         // Arrange
 
-        String expectedResult = "The device name is WallTowelHeater, and its nominal power is 20.0 kW.\n";
+        String expectedResult = "The device Name is WallTowelHeater, and its NominalPower is 20.0 kW.\n";
 
         // Act
 
