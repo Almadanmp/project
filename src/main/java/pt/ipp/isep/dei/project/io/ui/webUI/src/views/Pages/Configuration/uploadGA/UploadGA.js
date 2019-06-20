@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
 import {uploadFile} from "./UploadGAActions";
-import {Button} from "reactstrap";
+import {Alert, Button} from "reactstrap";
 import {connect} from "react-redux";
 import {confirmAlert} from "react-confirm-alert";
 
@@ -23,29 +23,35 @@ class UploadGA extends Component {
     this.setState({file: formData})
   }
 
-  handleSubmit = () => {
-    if (this.state.file instanceof FormData) {
+  //TODO not to remove - check tomorrow if it doesnt move in someonelses pc
 
-      confirmAlert({
-        title: 'Confirm to import data',
-        message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => this.props.onPostFile(this.state.file)
-          },
-          {
-            label: 'No',
-            onClick: () => {
-            }
-          }
-        ]
-      });
-    } else {
-      //TODO improve alert Box
-      alert('Unable to submit: a file must be selected')
-    }
+  // handleSubmit = () => {
+  //   if (this.state.file instanceof FormData) {
+  //     confirmAlert({
+  //       title: 'Confirm to import data',
+  //       message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
+  //       buttons: [
+  //         {
+  //           label: 'Yes',
+  //           onClick: () => this.props.onPostFile(this.state.file)
+  //         },
+  //         {
+  //           label: 'No',
+  //           onClick: () => {
+  //           }
+  //         }
+  //       ]
+  //     });
+  //   } else {
+  //     //TODO improve alert Box
+  //     alert('Unable to submit: a file must be selected')
+  //   }
+  // };
+
+  handleSubmit () {
+   this.props.onPostFile(this.state.file)
   };
+
 
   render() {
     const maxSize = 1048576;
@@ -64,7 +70,7 @@ class UploadGA extends Component {
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 {!isDragActive && 'Click here or drop a file to upload!'}
-                {isDragActive && !isDragReject && "Drop it like it's hot!"}
+                {isDragActive && !isDragReject && "Drop it!"}
                 {isDragReject && "File type not accepted, sorry!"}
                 {isFileTooLarge && (
                   <div className="text-danger mt-2">
@@ -78,6 +84,7 @@ class UploadGA extends Component {
                     </li>
                   ))}
                 </ul>
+                <div className="help-block"><Alert color="white">{this.props.fileResults}</Alert></div>
               </div>
 
             )
@@ -98,7 +105,6 @@ const mapStateToProps = (state) => {
   return {
     loading: state.ReducersUpload.loading,
     error: state.ReducersUpload.error,
-    results: state.ReducersUpload.results,
     fileResults: state.ReducersUpload.fileResults,
   }
 };

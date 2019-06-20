@@ -36,7 +36,7 @@ public class ImportFilesWebController {
     @Autowired
     InputHelperUI inputHelperUI;
 
-    @PostMapping("/uploadGA")
+    @PostMapping("/importGA")
     public ResponseEntity<?> importGAFile(
             @RequestPart("file") MultipartFile file) {
         String result;
@@ -58,14 +58,14 @@ public class ImportFilesWebController {
                 result = areas + " Geographic Areas have been successfully imported. \n"  +IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
             }
             else {
-                result ="\"No Geographic Areas were imported."; //TODO dar acesso aos logs?
+                result ="\nNo Geographic Areas were imported."; //TODO dar acesso aos logs?
             }
             Files.delete(path);
         } catch (IOException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Successfully uploaded - " +
-                filename + "\n" + result, new HttpHeaders(), HttpStatus.OK);
+                filename + ".\n" + result, new HttpHeaders(), HttpStatus.OK);
     }
 
     private Path saveUploadedFiles(MultipartFile file) throws IOException {

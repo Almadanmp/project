@@ -15,22 +15,19 @@ export default function ReducersUpload(state = initialState, action) {
         loading: true,
         error: null,
         fileResults: null,
-        results: null,
       };
     case POST_FILE_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        fileResults: action.payload.data,
-        results: 'success'
+        fileResults: action.payload.fileResults,
       };
     case POST_FILE_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        results: 'failure'
       };
     default:
       return state;

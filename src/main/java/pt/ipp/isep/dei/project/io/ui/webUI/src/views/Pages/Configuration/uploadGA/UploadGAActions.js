@@ -21,10 +21,9 @@ export function uploadFile(fileToUpload) {
           fileToUpload
         }
       })
-      .then(response => dispatch(postFileSuccess(response.data)))
-      .then(success => {
-        // Do something with the successful response
-      })
+      .then(response => dispatch(postFileSuccess(response.data))
+
+      )
       .catch(error => dispatch(postFileFailure(error.message.data))
       );
   }
@@ -40,7 +39,7 @@ export function postFileSuccess(data) { // cria uma açao
   return {
     type: POST_FILE_SUCCESS,
     payload: {
-      file: data.message //passa o array com os dados
+      fileResults: data //passa o array com os dados
     }
   }
 }

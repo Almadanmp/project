@@ -25,14 +25,6 @@ export class LogInPage extends Component {
     this.setState({credentials: credentials})
   }
 
-  isLoggedIn() {
-    if (this.state.loggedIn === true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   onSave = async event => {
     event.preventDefault();
     logInUser(this.state.credentials.username, this.state.credentials.password)
