@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import ImportGeographicAreas from "./ImportGA";
-import ImportAreaReadings from "./ImportGAReadings";
+import ImportGeographicAreas from "./importGA/ImportGA";
+import ImportAreaReadings from "./importAreaReadings/ImportGAReadings";
 
 class Configuration extends Component {
   constructor(props) {

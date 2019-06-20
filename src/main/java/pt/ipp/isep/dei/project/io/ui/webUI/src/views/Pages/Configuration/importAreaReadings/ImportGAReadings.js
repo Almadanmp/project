@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, Collapse} from "reactstrap";
-import GADropzone from "./importGA/GADropzone";
+import ImportAreaReadingsDropzone from "./AreaReadingsDropzone";
 
-class ImportGA extends Component {
+class ImportGAReadings extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.state = {collapse: false, name: 'geographicAreasAndSensors'};
+    this.state = {collapse: false, name: 'area readings'};
   }
 
   toggle() {
@@ -17,12 +17,12 @@ class ImportGA extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}
-                class="fa fa-plus-square-o fa-lg mt-4">Import geographic areas and sensors</Button>
+                class="fa fa-plus-square-o fa-lg mt-4">Import Area Readings </Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
               <span>
-              <GADropzone/>
+              <ImportAreaReadingsDropzone/>
               </span>
             </CardBody>
           </Card>
@@ -32,4 +32,4 @@ class ImportGA extends Component {
   }
 }
 
-export default ImportGA;
+export default ImportGAReadings;
