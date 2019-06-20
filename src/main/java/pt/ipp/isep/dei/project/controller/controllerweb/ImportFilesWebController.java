@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pt.ipp.isep.dei.project.io.ui.commandline.GASettingsUI;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -32,9 +33,10 @@ public class ImportFilesWebController {
     SensorTypeRepository sensorTypeRepository;
     @Autowired
     AreaTypeRepository areaTypeRepository;
-
     @Autowired
     InputHelperUI inputHelperUI;
+    @Autowired
+    GASettingsUI gaSettingsUI;
 
     @PostMapping("/importGA")
     public ResponseEntity<?> importGAFile(
@@ -67,6 +69,29 @@ public class ImportFilesWebController {
         return new ResponseEntity<>("Successfully uploaded - " +
                 filename + ".\n" + result, new HttpHeaders(), HttpStatus.OK);
     }
+
+
+    @PostMapping("/importAreaReadings")
+    public ResponseEntity<?> importGAReadings(
+            @RequestPart("file") MultipartFile file) {
+        String result;
+        String filename;
+        if (file.isEmpty()) {
+            return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+        }
+        try {
+            Path path = saveUploadedFiles(file);
+            String pathToFile = path.toString();
+            filename = file.getOriginalFilename();
+            result = gaSettingsUI.selectImportGAReadingsMethod(pathToFile);
+            Files.delete(path);
+        } catch (IOException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Successfully uploaded - " +
+                filename + ".\n" + result, new HttpHeaders(), HttpStatus.OK);
+    }
+
 
     private Path saveUploadedFiles(MultipartFile file) throws IOException {
         Path path;

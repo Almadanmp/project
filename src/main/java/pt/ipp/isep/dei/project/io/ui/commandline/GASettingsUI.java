@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Service
-class GASettingsUI {
+public class GASettingsUI {
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private static final String IMPORT_TIME = "Import time: ";
     private static final String MILLISECONDS = " millisecond(s).";
@@ -408,46 +408,60 @@ class GASettingsUI {
      */
     private void runUS20v3() {
         String filePath = InputHelperUI.getInputJsonXmlCsv();
-        if (filePath.endsWith(".csv")) {
-            importReadingsFromCSV(filePath);
-        } else if (filePath.endsWith(".json")) {
-            importReadingsFromJSON(filePath);
-        } else if (filePath.endsWith(".xml")) {
-            importReadingsFromXML(filePath);
-        }
+        selectImportGAReadingsMethod(filePath);
     }
 
-    private void importReadingsFromCSV(String filePath) {
-        int result = 0;
+    public String selectImportGAReadingsMethod(String filePath) {
+        if (filePath.endsWith(".csv")) {
+            return importReadingsFromCSV(filePath);
+        } else if (filePath.endsWith(".json")) {
+            return importReadingsFromJSON(filePath);
+        } else if (filePath.endsWith(".xml")) {
+            return importReadingsFromXML(filePath);
+        }
+        return "ERROR: File type not valid";
+    }
+
+    private String importReadingsFromCSV(String filePath) {
+        String output;
+        int result;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
         long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
             result = addReadingsToAreaSensors(list);
         } catch (IllegalArgumentException illegal) {
-            System.out.println("The CSV file is invalid. Please fix before continuing.");
+            output = "The CSV file is invalid. Please fix before continuing.";
+            System.out.println(output);
+            return output;
         }
-        System.out.println(result + READINGS_IMPORTED);
         long stopTime = System.currentTimeMillis();
-        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
+        output = result + READINGS_IMPORTED + "\n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
+        System.out.println(output);
+        return output;
     }
 
-    void importReadingsFromJSON(String filePath) {
-        int result = 0;
+    String importReadingsFromJSON(String filePath) {
+        String output;
+        int result;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
             result = addReadingsToAreaSensors(list);
         } catch (IllegalArgumentException illegal) {
-            System.out.println("The JSON file is invalid. Please fix before continuing.");
+            output = "The JSON file is invalid. Please fix before continuing.";
+            System.out.println(output);
+            return output;
         }
-        System.out.println(result + READINGS_IMPORTED);
         long stopTime = System.currentTimeMillis();
-        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
+        output = result + READINGS_IMPORTED + "\n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
+        System.out.println(output);
+        return output;
     }
 
-    private void importReadingsFromXML(String filePath) {
+    private String importReadingsFromXML(String filePath) {
+        String output;
         int result = 0;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
         long startTime = System.currentTimeMillis();
@@ -455,11 +469,13 @@ class GASettingsUI {
             List<ReadingDTO> list = readerXML.readFile(filePath);
             result = addReadingsToAreaSensors(list);
         } catch (IllegalArgumentException illegal) {
-            System.out.println("The XML file is invalid. Please fix before continuing.");
+            output = "The XML file is invalid. Please fix before continuing.";
+            System.out.println(output);
         }
-        System.out.println(result + READINGS_IMPORTED);
         long stopTime = System.currentTimeMillis();
-        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
+        output = result + READINGS_IMPORTED + "\n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
+        System.out.println(output);
+        return output;
     }
 
     private int addReadingsToAreaSensors(List<ReadingDTO> readings) {
