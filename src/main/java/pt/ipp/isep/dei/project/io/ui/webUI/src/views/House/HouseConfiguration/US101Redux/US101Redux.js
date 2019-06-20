@@ -20,9 +20,9 @@ class US101Redux extends React.Component {
       zip: '',
       town: '',
       country: '',
-      latitude: '',
-      longitude: '',
-      altitude: ''
+      latitude: 0,
+      longitude: 0,
+      altitude: 0
     };
 
     this.handleInputChange = attribute => event => {
@@ -59,7 +59,7 @@ class US101Redux extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({typeArea: event.target.value});
+    this.setState({geographicAreaId: event.target.value});
   }
 
   handleSubmit() {
@@ -71,14 +71,7 @@ class US101Redux extends React.Component {
     const {item} = this.state;
     const {location, error} = this.props;
 
-    if ((location.toString()).indexOf("ERROR") !== -1) {
-      return (
-        <div>
-          <div className="help-block"><Alert color="danger">ERROR: {error}</Alert></div>
 
-        </div>
-      )
-    } else {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Configure the house location</Button>
@@ -147,7 +140,6 @@ class US101Redux extends React.Component {
         </div>
       );
     }
-  }
 }
 
 const mapStateToProps = (state) => {
@@ -161,8 +153,8 @@ const mapStateToProps = (state) => {
 const
   mapDispatchToProps = (dispatch) => {
     return {
-      onFetchLocation: ({geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude}) => {
-        dispatch(fetchLocation({geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude}))
+      onFetchLocation: ({geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude}) => {
+        dispatch(fetchLocation({geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude}))
       }
     }
   };

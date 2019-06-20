@@ -17,16 +17,15 @@ class CreateLocation extends React.Component {
     console.log(location)
     const {geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude} = this.props;
 
-    if ((location.toString()).indexOf("ERROR") != -1) {
+    if ((location.toString()).indexOf("422") != -1) {
       return (
         <div>
-          <div className="help-block"><Alert color="danger">ERROR: {error}</Alert></div>
-
+          <div className="help-block"><Alert color="danger">Please complete every field before continuing.</Alert></div>
         </div>
       )
     } else {
       return (
-        <div>
+        <div className="help-block"><Alert color="success">
           <p>The house now has the following parameters:</p>
           <ul>
             <li>
@@ -48,7 +47,7 @@ class CreateLocation extends React.Component {
               Altitude: {altitude}
             </li>
           </ul>
-        </div>
+        </Alert></div>
       );
     }
 
