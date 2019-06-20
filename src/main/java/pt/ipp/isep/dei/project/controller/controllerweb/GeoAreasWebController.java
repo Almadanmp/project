@@ -133,7 +133,7 @@ public class GeoAreasWebController {
      * @return OK status and a list of Area Sensor DTOs.
      */
     @GetMapping("/areas/{id}/children")
-    public ResponseEntity<List<GeographicAreaDTO>> getChildAreas(@PathVariable long id) {
+    public ResponseEntity<Object> getChildAreas(@PathVariable long id) {
         List<GeographicAreaDTO> childAreaDTOList = geographicAreaRepo.getDTOById(id).getDaughterAreas();
         for (GeographicAreaDTO g : childAreaDTOList) {
             if (userService.getUsernameFromToken().equals("admin")) {

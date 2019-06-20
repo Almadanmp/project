@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
-import connect from "react-redux/es/connect/connect";
-import GetChildren from "../ChildAreas/GetChildren.js";
 class TableBody extends Component {
 
   constructor(props) {
@@ -12,8 +10,9 @@ class TableBody extends Component {
   }
 
   componentDidMount() {
+    const{link} =this.props
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/geoAreas/', {
+    fetch(link.href, {
       headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,
@@ -30,6 +29,7 @@ class TableBody extends Component {
       .catch(console.log)
     console.log(this.state.item);
 
+
   }
 
   render() {
@@ -37,8 +37,7 @@ class TableBody extends Component {
       name: "Name",
       type: "Type",
       description: "Description",
-      sensors: "Sensors",
-      children: "Child Areas",
+      remove: "remove",
     };
     var {item} = this.state;
     return (
@@ -55,17 +54,11 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>{item.description} </td>
-            <td style={{
-              textAlign: "center"
-            }}>
-              {/*<GetSensors link={item.links.map(hrefs => (hrefs.rel.indexOf("List area sensors.")!=-1 ? hrefs.href : "No link available"))} grid={this.props.grid} name={item.name}/>*/}
-
-            </td>
 
             <td style={{
               textAlign: "center"
             }}>
-              <GetChildren link={item.links.find((hrefs) => hrefs.rel === 'List child areas.')} />
+              Remove
             </td>
           </tr>
         ))}

@@ -63,7 +63,7 @@ public class GeographicAreaRepository {
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
         }
-        return GeographicAreaMapper.objectToDTO(aux.get());
+        return GeographicAreaMapper.objectToDTOWithMother(aux.get());
     }
 
     /**

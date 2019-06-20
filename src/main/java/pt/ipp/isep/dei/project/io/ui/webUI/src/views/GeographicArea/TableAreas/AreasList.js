@@ -14,7 +14,7 @@ class RoomGrid extends Component {
 
     return (
       <>
-        <Col xs="12" lg="6">
+        <Col xs="12" lg="10">
           <Card>
             <CardHeader>
               <i className="fa fa-align-justify"></i><strong>Geographic Area</strong>
@@ -22,7 +22,7 @@ class RoomGrid extends Component {
             <CardBody style={{
               textAlign: "right"
             }}>
-              <Table responsive>
+              <Table>
                 <TableBody/>
               </Table>
               <US003/>
