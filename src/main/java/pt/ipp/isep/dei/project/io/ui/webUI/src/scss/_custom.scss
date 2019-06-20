@@ -553,14 +553,12 @@ $baby-blue: #f8faff;
 
 
 .switch-container {
-  position: absolute;
-  top: 44%; left: 52.5%;
+  top: 50%; left: 52.5%;
   -webkit-transform: translate3d( -50%, -50%, 0 );
   transform: translate3d( -50%, -50%, 0 );
 }
 
 input[type="checkbox"].switch  {
-  position: absolute;
   opacity: 0;
 }
 
@@ -581,7 +579,7 @@ input[type="checkbox"].switch + div span {
   position: absolute;
   font-size: 1.6rem;
   color: white;
-  margin-top: 12px;
+  margin-top: 100px;
 }
 
 input[type="checkbox"].switch + div span:nth-child( 1 ) {
@@ -641,4 +639,5 @@ input[type="checkbox"].switch:checked + div > div {
   -webkit-transform: translate3d(24px, 0, 0);
   transform: translate3d(24px, 0, 0);
 }
+
 
