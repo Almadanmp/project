@@ -71,8 +71,6 @@ public class SensorSettingsWebController {
             }
             if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
                 geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
-                Link link = linkTo(methodOn(SensorSettingsWebController.class).removeAreaSensor(id, areaSensorDTO.getSensorId())).withRel("Delete the created sensor");
-                areaSensorDTO.add(link);
                 return new ResponseEntity<>(areaSensorDTO, HttpStatus.CREATED);
             }
             return new ResponseEntity<>("The sensor already exists in the database", HttpStatus.CONFLICT);
