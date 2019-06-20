@@ -49,7 +49,6 @@ class CreateLocation extends React.Component {
             </li>
           </ul>
         </div>
-        </>
       );
     }
 

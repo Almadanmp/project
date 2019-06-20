@@ -11,7 +11,7 @@ export const fetchLocation = ({geographicAreaId, street, number, zip, town, coun
     dispatch(fetchLocationStarted(geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude));
     const data = {geographicAreaId, street, number, zip, town, country, latitude, longitude , altitude};
     axios
-      .post('https://localhost:8443/houseSettings/house', data, {
+      .post('https://localhost:8443/houseSettings/house/', data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,
