@@ -11,7 +11,7 @@ const initialstate = {
   location: []
 };
 
-export default function ReducerUS101(state = initialstate, action) {
+export default function Reducers101(state = initialstate, action) {
   switch (action.type) {
     case FETCH_LOCATION_STARTED:
       return {
