@@ -231,6 +231,12 @@ primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.d
   background-color: #cd817f;
 }
 
+.btn-secondary {
+  color: #23282c;
+  background-color: #d8c2a5;
+  border-color: #d8c2a5;
+}
+
 
 // ANDRE lixo //
 
@@ -550,3 +556,4 @@ input[type="checkbox"].switch:checked + div > div {
   -webkit-transform: translate3d(24px, 0, 0);
   transform: translate3d(24px, 0, 0);
 }
+
