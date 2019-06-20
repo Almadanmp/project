@@ -168,6 +168,8 @@ primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.d
   left: 25%;
 }
 
+//Cárina
+
 .div {
   position: absolute;
   height: 200px;
@@ -185,6 +187,95 @@ primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.d
   right: 18%;
   margin-right: 50px;
 }
+
+.divEagle {
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  text-align: center;
+  top: 26%;
+  right: 15%;
+  margin-left: 10px;
+}
+
+.divFox {
+   position: absolute;
+   height: 200%;
+   width: 100%;
+   text-align: center;
+   top: 26%;
+   right: 0%;
+   margin-left: 10px;
+ }
+
+.divHedgehog {
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  text-align: center;
+  top: 26%;
+  left: 15%;
+  margin-left: 10px;
+}
+
+.divLion {
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  text-align: center;
+  top: 60%;
+  right: 15%;
+  margin-left: 10px;
+}
+
+.divSnake {
+   position: absolute;
+   height: 200%;
+   width: 100%;
+   text-align: center;
+   top: 60%;
+   right: 0%;
+   margin-left: 10px;
+ }
+
+.divTurtle {
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  text-align: center;
+  top: 60%;
+  left: 15%;
+  margin-left: 10px;
+}
+
+.divDog {
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  text-align: center;
+  top: 90%;
+  right: 15%;
+  margin-left: 10px;
+}
+
+.divKoala {
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  text-align: center;
+  top: 90%;
+  right: 0%;
+  margin-left: 10px;
+}
+.divHorse {
+   position: absolute;
+   height: 200%;
+   width: 100%;
+   text-align: center;
+   top: 90%;
+   left: 15%;
+   margin-left: 10px;
+ }
 
 .second_div {
   position: absolute;

@@ -26,7 +26,7 @@ class CreateLocation extends React.Component {
     } else {
       return (
         <div className="help-block"><Alert color="success">
-          <p>The house now has the following parameters:</p>
+          <p>House's updated location:</p>
           <ul>
             <li>
               Geographic Area ID: {geographicAreaId}

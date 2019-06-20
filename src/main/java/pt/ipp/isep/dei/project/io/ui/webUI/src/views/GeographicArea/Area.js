@@ -5,6 +5,7 @@ import US003 from './US003';
 import US004 from './US004';
 import US006 from './US006';
 import US007 from './US007';
+import US007Redux from './US007Redux/US007Redux';
 import US010 from './US010';
 import US011 from './US011';
 import AreasList from './TableAreas/AreasList';
@@ -24,13 +25,13 @@ class Area extends Component {
     return (
       <div>
         <h2>Welcome to the Geographic Area Menu</h2>
-        <h4>Please select the option you want to run</h4>
+        <p></p>
         <AreasList/>
         <US001/>
         <US002/>
         <US004/>
         <US006/>
-        <US007/>
+        <US007Redux/>
         <US010/>
         <US011/>
       </div>

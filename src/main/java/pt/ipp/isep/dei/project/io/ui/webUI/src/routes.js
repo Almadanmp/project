@@ -12,7 +12,7 @@ const EnergyGrid = React.lazy(() => import('./views/EnergyGrid/EnergyGrid'));
 const Area = React.lazy(() => import('./views/GeographicArea/Area'));
 const Sensor = React.lazy(() => import('./views/Sensor/SensorMenu'));
 const PleaseLogin = React.lazy(() => import('./views/Pages/PleaseLogin'));
-
+const TheTeam = React.lazy(() => import('./views/TheTeam'));
 const UnderMaintenance = React.lazy(() => import('./views/UnderMaintenance'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -27,6 +27,7 @@ const routes = [
   {path: '/energy', name: 'Energy', component: EnergyGrid},
   {path: '/sensor', name: 'Sensor', component: Sensor},
   {path: '/maintenance', name: 'UnderMaintenance', component: UnderMaintenance},
+  {path: '/team', name: 'The Team', component: TheTeam},
   //Pages
   {path: '/about', name: 'About', component: About},
   {path: '/pleaseLogIn', name: 'PleaseLogin', component: PleaseLogin},
