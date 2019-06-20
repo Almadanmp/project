@@ -10,7 +10,7 @@ export function uploadFile(fileToUpload) {
   return dispatch => {
     dispatch(postFileStarted()); // antes de fazer o get, coloca o loading a true
     axios
-       .post('https://localhost:8443/import/uploadGA', fileToUpload, {
+       .post('https://localhost:8443/import/importGA', fileToUpload, {
         headers: {
           'Authorization': token,
                 "Access-Control-Allow-Credentials": true,

@@ -22,6 +22,8 @@ import java.nio.file.Paths;
 @RequestMapping("/import")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 public class ImportFilesWebController {
+    private static final String IMPORT_TIME = "Import time: ";
+    private static final String MILLISECONDS = " millisecond(s).";
     private static String UPLOADED_FOLDER = "src/test/resources/temp/";
     private final Logger logger = LoggerFactory.getLogger(ImportFilesWebController.class);
     @Autowired
@@ -35,11 +37,12 @@ public class ImportFilesWebController {
     InputHelperUI inputHelperUI;
 
     @PostMapping("/uploadGA")
-    public ResponseEntity<?> uploadGAFile(
+    public ResponseEntity<?> importGAFile(
             @RequestPart("file") MultipartFile file) {
-
+        String result;
         logger.debug("Single file upload!");
         String filename;
+
         if (file.isEmpty()) {
             return new ResponseEntity<>("please select a file!", HttpStatus.OK);
         }
@@ -48,14 +51,21 @@ public class ImportFilesWebController {
             Path path = saveUploadedFiles(file);
             String pathToFile = path.toString();
             filename = file.getOriginalFilename();
-            inputHelperUI.acceptPathJSONorXMLAndReadFile(pathToFile, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
+            long startTime = System.currentTimeMillis();
+            int areas = inputHelperUI.acceptPathJSONorXMLAndReadFile(pathToFile, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
+            if (areas > 0) {
+                long stopTime = System.currentTimeMillis();
+                result = areas + " Geographic Areas have been successfully imported. \n"  +IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
+            }
+            else {
+                result ="\"No Geographic Areas were imported."; //TODO dar acesso aos logs?
+            }
             Files.delete(path);
         } catch (IOException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Successfully uploaded - " +
-                filename, new HttpHeaders(), HttpStatus.OK);
-
+                filename + "\n" + result, new HttpHeaders(), HttpStatus.OK);
     }
 
     private Path saveUploadedFiles(MultipartFile file) throws IOException {
