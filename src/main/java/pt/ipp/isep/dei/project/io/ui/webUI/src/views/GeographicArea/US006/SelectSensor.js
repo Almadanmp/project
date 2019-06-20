@@ -16,7 +16,7 @@ class SelectSensor extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/geographic_area_settings/areas',{
+    fetch('https://localhost:8443/geoAreas/',{
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,

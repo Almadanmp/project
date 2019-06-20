@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchGABTs} from './Actions004';
-import {remove} from "lodash/array";
 
 class US004Redux extends Component {
   constructor(props) {

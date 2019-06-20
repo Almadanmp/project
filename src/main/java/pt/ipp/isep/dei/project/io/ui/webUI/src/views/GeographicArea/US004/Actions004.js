@@ -10,7 +10,7 @@ export function fetchGABTs() {
   return dispatch => {
     dispatch(fetchGABTsStarted());
     axios
-      .get(`https://localhost:8443/geographic_area_settings/areas`, {
+      .get(`https://localhost:8443/geoAreas/`, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,

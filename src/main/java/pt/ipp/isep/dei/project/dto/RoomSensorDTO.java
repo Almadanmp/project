@@ -13,7 +13,7 @@ public class RoomSensorDTO extends ResourceSupport {
     private String units;
     private String dateStartedFunctioning;
     private String roomID;
-    private boolean active;
+    private boolean active = true;
     private List<ReadingDTO> readingList;
 
     public RoomSensorDTO() {

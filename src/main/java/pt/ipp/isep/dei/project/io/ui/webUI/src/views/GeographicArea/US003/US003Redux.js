@@ -32,7 +32,7 @@ class US003Redux extends React.Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/geographic_area_settings/areaTypes', {
+    fetch('https://localhost:8443/geoAreas/areaTypes', {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,

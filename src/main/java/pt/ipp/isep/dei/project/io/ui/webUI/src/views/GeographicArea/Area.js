@@ -7,6 +7,7 @@ import US006 from './US006';
 import US007 from './US007';
 import US010 from './US010';
 import US011 from './US011';
+import AreasList from './TableAreas/AreasList';
 
 class Area extends Component {
   constructor(props) {
@@ -24,9 +25,9 @@ class Area extends Component {
       <div>
         <h2>Welcome to the Geographic Area Menu</h2>
         <h4>Please select the option you want to run</h4>
+        <AreasList/>
         <US001/>
         <US002/>
-        <US003/>
         <US004/>
         <US006/>
         <US007/>

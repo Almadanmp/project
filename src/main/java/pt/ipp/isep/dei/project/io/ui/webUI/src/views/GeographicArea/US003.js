@@ -16,7 +16,7 @@ class US003 extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add geographic area</Button>
+        <Button onClick={this.toggle} className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}><i className="fa fa-plus-square-o fa-lg"/></Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>

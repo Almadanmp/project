@@ -11,7 +11,7 @@ export const fetchGA = ({name, typeArea, length, width, latitude, longitude, alt
     dispatch(fetchGAStarted(name, typeArea, length, width, latitude, longitude, altitude, description));
     const data = {name, typeArea, length, width, latitude, longitude, altitude, description};
     axios
-      .post(`https://localhost:8443/geographic_area_settings/areas`, data, {
+      .post(`https://localhost:8443/geoAreas/`, data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,

@@ -10,7 +10,7 @@ export const deleteSensorFromArea = ({id, sensorId}) => {
   return dispatch => {
     dispatch(fetchSensorFromAreaInfo(id, sensorId));
     axios
-      .delete('https://localhost:8443/geographic_area_settings/areas/' + id,
+      .delete('https://localhost:8443/geoAreas/' + id,
         {
           headers: {
             'Authorization': token,

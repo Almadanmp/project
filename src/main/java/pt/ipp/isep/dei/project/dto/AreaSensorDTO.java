@@ -15,7 +15,7 @@ public class AreaSensorDTO extends ResourceSupport {
     private double longitude;
     private double altitude;
     private String dateStartedFunctioning;
-    private boolean active;
+    private boolean active = true;
     private List<ReadingDTO> readingDTOS;
 
     public AreaSensorDTO() {
