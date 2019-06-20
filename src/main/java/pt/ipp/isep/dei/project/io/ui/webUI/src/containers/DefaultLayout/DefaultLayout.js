@@ -183,9 +183,11 @@ class DefaultLayout extends Component {
                     <AppSidebarNav navConfig={navigationRegular} {...this.props} router={router}/>
                   </Suspense>
                   <AppHeaderDropdown direction="left">
-                    <DropdownToggle navigationRegular>
+                    <DropdownToggle navigationRegular style={{color:'#23282c',
+                      backgroundColor: '#d8c2a5',
+                      borderColor: '#d8c2a5'}}>
                       <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar"
-                           alt="admin@bootstrapmaster.com"/>
+                           alt="user" />
                     </DropdownToggle>
                     <DropdownMenu right style={{right: 'auto'}}>
                       <DropdownItem> User: {localStorage.getItem("user")}</DropdownItem>
