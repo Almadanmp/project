@@ -22,7 +22,6 @@ export const fetchLocation = ({geographicAreaId, street, number, zip, town, coun
         }
       )
       .then(res => {
-        console.log("ola")
         dispatch(fetchLocationSuccess(res.data));
       })
       .catch(err => {

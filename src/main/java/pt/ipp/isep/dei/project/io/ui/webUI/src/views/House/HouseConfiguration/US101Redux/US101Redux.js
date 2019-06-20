@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchLocation} from './ActionsUS101';
-import {Alert, Button, Card, CardBody, Collapse, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Card, CardBody, Collapse, Form, FormGroup, Input, Label} from "reactstrap";
 import CreateLocation from './CreateLocation';
-import SelectHouseGA from "../US101";
 
 class US101Redux extends React.Component {
   constructor(props) {
