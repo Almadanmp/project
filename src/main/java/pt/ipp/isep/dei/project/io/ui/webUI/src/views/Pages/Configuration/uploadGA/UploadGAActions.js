@@ -40,7 +40,7 @@ export function postFileSuccess(data) { // cria uma açao
   return {
     type: POST_FILE_SUCCESS,
     payload: {
-      file: data //passa o array com os dados
+      file: data.message //passa o array com os dados
     }
   }
 }

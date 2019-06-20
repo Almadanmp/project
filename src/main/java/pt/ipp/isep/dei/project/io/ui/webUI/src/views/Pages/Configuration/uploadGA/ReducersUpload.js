@@ -1,4 +1,4 @@
-import {POST_FILE_FAILURE, POST_FILE_STARTED, POST_FILE_SUCCESS} from "./UploadActions";
+import {POST_FILE_FAILURE, POST_FILE_STARTED, POST_FILE_SUCCESS} from "./UploadGAActions";
 
 const initialState = {
   loading: false,
@@ -15,20 +15,22 @@ export default function ReducersUpload(state = initialState, action) {
         loading: true,
         error: null,
         file: null,
+        results: null,
       };
     case POST_FILE_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        file: action.payload.data
+        file: action.payload.data,
+        results: 'success'
       };
     case POST_FILE_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        temp: "ERROR: NO DATA Available"
+        results: 'failure'
       };
     default:
       return state;

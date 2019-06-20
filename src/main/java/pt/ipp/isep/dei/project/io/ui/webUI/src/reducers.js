@@ -16,6 +16,7 @@ import Reducers633 from './views/House/HouseMonitoring/USRedux/US633Redux/Reduce
 import Reducer005extra from './views/Sensor/US005Extra/Reducers005extra'
 import ReducersUserRole from "./user/ReducersUserRole";
 import ReducersGetRoomsNotInGrid from './views/EnergyGrid/US147/ReducersGetRoomsNotInGrid'
+import ReducersUpload from "./views/Pages/Configuration/uploadGA/ReducersUpload";
 
 export default combineReducers({
 
@@ -34,6 +35,7 @@ export default combineReducers({
   Reducers633,
   Reducer005extra,
   ReducersUserRole,
+  ReducersUpload,
 
   ReducersGetRoomsNotInGrid,
 })

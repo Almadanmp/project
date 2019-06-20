@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
-import {uploadFile} from "./UploadActions";
+import {uploadFile} from "./UploadGAActions";
 import {Button} from "reactstrap";
 import {connect} from "react-redux";
 import {confirmAlert} from "react-confirm-alert";
 
-class FileUploader extends Component {
+class UploadGA extends Component {
   constructor(props) {
     super(props);
     this.state = {file: {}};
@@ -24,25 +24,34 @@ class FileUploader extends Component {
   }
 
   handleSubmit = () => {
-    confirmAlert({
-      title: 'Confirm to import data',
-      message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => this.props.onPostFile(this.state.file)
-        },
-        {
-          label: 'No',
-          onClick: () => {
+    console.log('daniela')
+    console.log(this.state.file.name)
+    if (this.state.file.name) {
+      confirmAlert({
+        title: 'Confirm to import data',
+        message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => this.props.onPostFile(this.state.file)
+          },
+          {
+            label: 'No',
+            onClick: () => {
+            }
           }
-        }
-      ]
-    });
+        ]
+      });
+    }
+    else{
+      //TODO improve alert Box
+      alert('Unable to submit: a file must be selected')
+    }
   };
 
   render() {
     const maxSize = 1048576;
+    const {loading, file, results} = this.props;
     return (
       <div className="text-center mt-5">
         <Dropzone
@@ -71,8 +80,6 @@ class FileUploader extends Component {
                     </li>
                   ))}
                 </ul>
-
-
               </div>
 
             )
@@ -89,6 +96,15 @@ class FileUploader extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.ReducersUpload.loading,
+    error: state.ReducersUpload.error,
+    results: state.ReducersUpload.results,
+    file: state.ReducersUpload.file
+  }
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onPostFile: (file) => {
@@ -98,6 +114,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(FileUploader);
+)(UploadGA);
