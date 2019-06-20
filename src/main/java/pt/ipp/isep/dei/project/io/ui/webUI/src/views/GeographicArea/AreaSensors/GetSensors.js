@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, CardHeader, Col, Collapse, Table} from "reactstrap";
-import TableBody from "../ChildAreas/TableBody";
+import TableBody from "./TableBody";
 
-class GetChildren extends Component {
+class GetSensors extends Component {
 
   constructor(props) {
     super(props);
@@ -18,11 +18,11 @@ class GetChildren extends Component {
 
     return (
       <>
-        <Button onClick={this.toggle} style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}}>Child Areas</Button>
+        <Button onClick={this.toggle} style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}}>Get Sensors</Button>
         <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardHeader>
-                <strong>Child Geographic Area</strong>
+                <strong>Area Sensors from: {this.props.area}</strong>
               </CardHeader>
               <CardBody style={{
                 textAlign: "right"
@@ -30,7 +30,7 @@ class GetChildren extends Component {
                 <Table responsive>
                   <TableBody link={this.props.link}/>
                 </Table>
-                {/*<RemoveChildArea/>*/}
+                {/*<AddSensor/>*/}
               </CardBody>
             </Card>
         </Collapse>
@@ -42,4 +42,4 @@ class GetChildren extends Component {
 }
 
 
-export default GetChildren;
+export default GetSensors;

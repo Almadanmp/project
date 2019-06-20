@@ -16,14 +16,31 @@ class CreateLocation extends React.Component {
     const {location, error} = this.props;
     console.log(location)
     const {motherId, childId} = this.props;
-    if ((location.toString()).indexOf("409") != -1) {
+    if ((location.toString()).indexOf("409") !== -1) {
       return (
         <div>
           <div className="help-block"><Alert color="danger">Geographic area with ID: {childId} already belongs to
             geographic with ID: {motherId}.</Alert></div>
         </div>
       )
-    } else {
+    }
+    else if ((location.toString()).indexOf("422") !== -1) {
+      return (
+        <div>
+          <div className="help-block"><Alert color="danger">You can't add a Geographic Area to itself.</Alert></div>
+        </div>
+      )
+    }
+    else if ((location.toString()).indexOf("403") !== -1 || (location.toString()).indexOf("404") !== -1 ||
+      (location.toString()).indexOf("405") !== -1) {
+      return (
+        <div>
+          <div className="help-block"><Alert color="danger">Please select both
+            Geographic Areas.</Alert></div>
+        </div>
+      )
+    }
+    else {
       return (
         <div className="help-block"><Alert color="success">
           <p>Geographic area with ID: {childId} was added to geographic are with ID: {motherId}.</p>

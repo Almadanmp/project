@@ -10,7 +10,7 @@ class TableBody extends Component {
   }
 
   componentDidMount() {
-    const{link} =this.props
+    const{link} =this.props;
     const token = localStorage.getItem('loginToken');
     fetch(link.href, {
       headers: {

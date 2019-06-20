@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
 import connect from "react-redux/es/connect/connect";
 import GetChildren from "../ChildAreas/GetChildren.js";
+import GetSensors from "../AreaSensors/GetSensors.js";
 class TableBody extends Component {
 
   constructor(props) {
@@ -58,8 +59,7 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>
-              {/*<GetSensors link={item.links.map(hrefs => (hrefs.rel.indexOf("List area sensors.")!=-1 ? hrefs.href : "No link available"))} grid={this.props.grid} name={item.name}/>*/}
-
+            <GetSensors link={item.links.find((hrefs) => hrefs.rel === 'List area sensors.')} area={item.name}/>
             </td>
 
             <td style={{
