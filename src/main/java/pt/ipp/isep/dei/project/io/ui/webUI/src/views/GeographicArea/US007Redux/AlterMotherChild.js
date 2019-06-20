@@ -31,6 +31,15 @@ class CreateLocation extends React.Component {
         </div>
       )
     }
+    else if ((location.toString()).indexOf("403") !== -1 || (location.toString()).indexOf("404") !== -1 ||
+      (location.toString()).indexOf("405") !== -1) {
+      return (
+        <div>
+          <div className="help-block"><Alert color="danger">Please select both
+            Geographic Areas.</Alert></div>
+        </div>
+      )
+    }
     else {
       return (
         <div className="help-block"><Alert color="success">

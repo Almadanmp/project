@@ -126,8 +126,7 @@ class US101Redux extends React.Component {
                  onChange={this.handleInputChange('altitude')}/>
         </span>
                 <p></p>
-                <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new
-                  location
+                <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save changes
                 </Button>
                 {this.state.isHidden === false ?
                   <CreateLocation geographicAreaId={this.state.geographicAreaId} street={this.state.street} number={this.state.number}

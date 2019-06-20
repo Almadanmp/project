@@ -16,7 +16,8 @@ class US007Redux extends React.Component {
       isHidden: true,
       item: [],
       motherId: '',
-      childId: ''
+      childId: '',
+      count: 0,
     };
   }
 
@@ -96,11 +97,10 @@ class US007Redux extends React.Component {
                 </FormGroup>
               </Form>
               <p></p>
-              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new
-                location
+              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save changes
               </Button>
-              {this.state.isHidden === false ?
-                <AlterMotherChild motherId={this.state.motherId} childId={this.state.childId}/> : ''}
+              {(this.state.isHidden === false ?
+                <AlterMotherChild motherId={this.state.motherId} childId={this.state.childId}/> : '')}
             </CardBody>
           </Card>
         </Collapse>
