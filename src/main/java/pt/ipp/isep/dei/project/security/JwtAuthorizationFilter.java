@@ -20,7 +20,7 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private UserRepository userRepository;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
+     JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
         this.userRepository = userRepository;
     }
@@ -60,8 +60,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             if (userName != null) {
                 User user = userRepository.findByUsername(userName);
                 UserPrincipal principal = new UserPrincipal(user);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
-                return auth;
+                return new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
             }
             return null;
         }
