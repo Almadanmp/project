@@ -172,10 +172,21 @@ class SensorSettingsWebControllerTest {
 
     @Test
     void seeIfCreateAreaSensorFailsWithConflict() {
+        //Arrange
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        geographicAreaDTO.setId(12L);
 
         AreaSensorDTO areaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor);
 
+        Mockito.when(geographicAreaRepository.getDTOById(12L)).thenReturn(geographicAreaDTO);
+        Mockito.when(geographicAreaRepository.sensorExists(areaSensorDTO2.getSensorId())).thenReturn(true);
+
+        //Act
+
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO2, 12L);
+
+        //Assert
 
         assertEquals(HttpStatus.CONFLICT, actualResult.getStatusCode());
     }

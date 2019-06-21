@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {addSensorType} from './Actions005';
 import {Button} from "reactstrap";
+import CardBody from "reactstrap/es/CardBody";
+import Card from "reactstrap/es/Card";
 
 class US005Redux extends React.Component {
 
@@ -28,20 +30,22 @@ class US005Redux extends React.Component {
   render() {
     const {name, units} = this.state;
     return (
-      <>
-        <label className="form-style-10"> Name:<span>  </span>
+      <div className="animated fadeIn">
+        <Card><CardBody> Name:<span>  </span>
           <input  value={this.state.name} type="text" name="name" placeholder="Name of the new sensor type"
                  onChange={this.handleInputChange('name')}/>
-        </label>
+
         <p></p>
-        <label className="form-style-10"> Units:<span>  </span>
+        <label> Units:<span>  </span>
           <input value={this.state.units} type="text" name="units" placeholder="Unit measure used for this type"
                  onChange={this.handleInputChange('units')}/>
         </label>
         <p/>
-        <button className="bubbly-button" onClick={this.handleSubmit}>Add sensor
-          type</button>
-      </>
+        <Button style={{ marginBottom: '1rem'}} onClick={this.handleSubmit}>Add sensor
+          type</Button>
+        </CardBody>
+        </Card>
+      </div>
     );
   }
 }
