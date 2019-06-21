@@ -6,17 +6,12 @@ import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
-public class WallElectricHeater extends CommonDeviceAttributes implements Device, Metered {
+public class WallElectricHeater extends CommonDevice implements Device, Metered {
     private static final String NOT_SUPPORTED = "At the moment, this operation is not supported.";
 
-    private final WallElectricHeaterSpec deviceSpecs;
-
     public WallElectricHeater(WallElectricHeaterSpec wallElectricHeaterSpec) {
-        super();
-        this.deviceSpecs = wallElectricHeaterSpec;
+        super(wallElectricHeaterSpec);
     }
 
 
@@ -96,38 +91,4 @@ public class WallElectricHeater extends CommonDeviceAttributes implements Device
         throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
-
-    // WRAPPER METHODS TO DEVICE SPECS
-    public List<String> getAttributeNames() {
-        return deviceSpecs.getAttributeNames();
-    }
-
-    public Object getAttributeValue(String attributeName) {
-        return deviceSpecs.getAttributeValue(attributeName);
-    }
-
-    public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
-    }
-
-    public Object getAttributeUnit(String attributeName) {
-        return deviceSpecs.getAttributeUnit(attributeName);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Device device = (Device) o;
-        return Objects.equals(this.getName(), device.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
 }

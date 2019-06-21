@@ -3,16 +3,10 @@ package pt.ipp.isep.dei.project.model.device;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 
-import java.util.List;
-import java.util.Objects;
-
-public class Kettler extends CommonDeviceAttributes implements Device, Metered {
-
-    private final KettlerSpec kettlerSpec;
+public class Kettler extends CommonDevice implements Device, Metered {
 
     public Kettler(KettlerSpec kettlerSpec) {
-        super();
-        this.kettlerSpec = kettlerSpec;
+        super(kettlerSpec);
     }
 
     /**
@@ -34,8 +28,8 @@ public class Kettler extends CommonDeviceAttributes implements Device, Metered {
     @Override
     public double getEnergyConsumption(float time) {
         double specificHeat = 1.163;
-        double heatingVolume = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.VOLUME_WATER);
-        double pRatio = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.PERFORMANCE_RATIO);
+        double heatingVolume = (double) this.getAttributeValue(KettlerSpec.VOLUME_WATER);
+        double pRatio = (double) this.getAttributeValue(KettlerSpec.PERFORMANCE_RATIO);
 
         double dT = dTemperature();
 
@@ -51,7 +45,7 @@ public class Kettler extends CommonDeviceAttributes implements Device, Metered {
      * @return cold water and boiling water temperature difference
      ***/
     double dTemperature() {
-        double coldWaterTemperature = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
+        double coldWaterTemperature = (double) this.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
 
         if (coldWaterTemperature > 99.0) {
             return 0;
@@ -59,67 +53,4 @@ public class Kettler extends CommonDeviceAttributes implements Device, Metered {
         return 100.0 - coldWaterTemperature;
     }
 
-    /**
-     * This method returns a list of every attributes names.
-     *
-     * @return list of strings containing all attributes names.
-     **/
-    @Override
-    public List<String> getAttributeNames() {
-        return this.kettlerSpec.getAttributeNames();
-    }
-
-    /**
-     * This method receives a string of an attribute name
-     * and returns the attribute value correspondent to that name.
-     *
-     * @param attributeName a string of a class attribute's name.
-     * @return attribute value object.
-     **/
-    @Override
-    public Object getAttributeValue(String attributeName) {
-        return this.kettlerSpec.getAttributeValue(attributeName);
-    }
-
-    /**
-     * This method receives an attribute name and an object,
-     * and sets the value object as a class parameter (which name corresponds to
-     * the name given).
-     *
-     * @param attributeName a string of a class attribute's name.
-     * @return true in case the value is set as parameter, false otherwise.
-     **/
-    @Override
-    public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return this.kettlerSpec.setAttributeValue(attributeName, attributeValue);
-    }
-
-    /**
-     * This method receives an attribute name and gets the attribute's with the given name
-     * measurement unit.
-     *
-     * @param attributeName a string of a class attribute's name.
-     * @return a string with the attribute's measurement unit.
-     **/
-    @Override
-    public Object getAttributeUnit(String attributeName) {
-        return this.kettlerSpec.getAttributeUnit(attributeName);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Kettler device = (Kettler) o;
-        return Objects.equals(this.getName(), device.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
 }
