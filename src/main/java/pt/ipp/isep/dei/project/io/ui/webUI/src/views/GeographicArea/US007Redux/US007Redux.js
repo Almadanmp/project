@@ -15,6 +15,7 @@ class US007Redux extends React.Component {
       isHidden: true,
       item: [],
       childId: '',
+      idMother: 0,
       count: 0,
     };
   }
@@ -45,13 +46,13 @@ class US007Redux extends React.Component {
   }
 
   handleChange2(event) {
-    this.setState({childId: event.target.value});
+    this.setState({id: event.target.value});
   }
 
   handleSubmit() {
-    this.props.onFetchMotherChild(this.props.linkAdd,this.state.childId);
-    console.log(this.props.linkAdd)
-    console.log(this.state.childId)
+    this.props.onFetchMotherChild(this.props.geographicAreaId,this.state.id);
+    console.log(this.props.geographicAreaId)
+    console.log(this.state.id)
     this.setState({isHidden: false})
   }
 
@@ -61,13 +62,13 @@ class US007Redux extends React.Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add Geographic Area
-          into another Geographic Area</Button>
+          into {this.props.id}</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
               <Form action="" method="post">
                 <FormGroup>
-                  <Label>Select Geographic Area</Label>
+                  <Label>Select Geographic Area Child</Label>
                   <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange2}>
                     <option value="" onChange={this.handleChange2}>Please select the child Geographic Area</option>
                     {item.map(items => (
@@ -82,7 +83,7 @@ class US007Redux extends React.Component {
               <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save changes
               </Button>
               {(this.state.isHidden === false ?
-                <AlterMotherChild childId={this.state.childId}/> : '')}
+                <AlterMotherChild childId={this.state.id}/> : '')}
             </CardBody>
           </Card>'
         </Collapse>
@@ -102,8 +103,8 @@ const mapStateToProps = (state) => {
 const
   mapDispatchToProps = (dispatch) => {
     return {
-      onFetchMotherChild: (linkAdd,  id) => {
-        dispatch(fetchMotherChild({linkAdd, id}))
+      onFetchMotherChild: (geographicAreaId,  id) => {
+        dispatch(fetchMotherChild({geographicAreaId, id}))
       }
     }
   };

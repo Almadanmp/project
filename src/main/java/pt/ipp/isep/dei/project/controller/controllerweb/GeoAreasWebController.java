@@ -106,12 +106,11 @@ public class GeoAreasWebController {
             return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
         }
         AreaSensorDTO sensorDTO = new AreaSensorDTO();
-        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
         for (GeographicAreaDTO g : allDTO) {
           //  if (userService.getUsernameFromToken().equals("admin")) {
                 Link getChildAreas = linkTo(methodOn(GeoAreasWebController.class).getChildAreas(g.getGeographicAreaId())).
                         withRel("List child areas.");
-                Link addChildArea = linkTo(methodOn(GeoAreasWebController.class).addChildArea(geographicAreaDTO
+                Link addChildArea = linkTo(methodOn(GeoAreasWebController.class).addChildArea(0L
                         , g.getGeographicAreaId())).withRel("Add child area.");
 
                 Link sensors = linkTo(methodOn(GeoAreasWebController.class).getAreaSensors(g.getGeographicAreaId())).
@@ -176,20 +175,21 @@ public class GeoAreasWebController {
      * @param idAreaParent of the geoArea with the daughter area
      * @return string with info if geoArea was added or not
      */
-    @PutMapping("/{idParent}")
-    public ResponseEntity<Object> addChildArea(@RequestBody GeographicAreaDTO areaChild,
+    @PutMapping("/{idParent}/{idChild}")
+    public ResponseEntity<Object> addChildArea(@PathVariable("idChild")long areaChild,
                                                @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
         Long parentLong = idAreaParent;
-        Long childLong = areaChild.getGeographicAreaId();
+        Long childLong = areaChild;
+
         if(parentLong.compareTo(childLong) == 0){
             return new ResponseEntity<>("You can't add a Geographic Area to itself.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
         try {
-            if (geographicAreaRepo.addChildArea(areaChild.getGeographicAreaId(), idAreaParent)) {
+            if (geographicAreaRepo.addChildArea(childLong, idAreaParent)) {
                 result = geographicAreaRepo.getDTOByIdWithParent(idAreaParent);
-                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(areaChild.getGeographicAreaId())).withRel("See geographic area");
+                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(childLong)).withRel("See geographic area");
                 result.add(link);
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } else {
