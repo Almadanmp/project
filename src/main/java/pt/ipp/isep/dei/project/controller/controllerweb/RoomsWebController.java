@@ -42,6 +42,8 @@ public class RoomsWebController {
     @Autowired
     UserService userService;
 
+    private static final String ADMIN = "admin";
+
 
     /**
      * Shows all the Rooms present in the database.
@@ -59,7 +61,7 @@ public class RoomsWebController {
             if (userService.getUsernameFromToken() == null){
                 break;
             }
-            if (userService.getUsernameFromToken().equals("admin")) {
+            if (userService.getUsernameFromToken().equals(ADMIN)) {
                 Link roomSensors = linkTo(methodOn(RoomsWebController.class).getSensors(r.getName())).withRel("Get Room Sensors");
                 Link deleteRoom = linkTo(methodOn(RoomsWebController.class).deleteRoom(r)).withRel("Delete this Room");
                 Link editRoom = linkTo(methodOn(RoomsWebController.class).configureRoom(r.getName(), new RoomDTOMinimal()))
@@ -183,7 +185,7 @@ public class RoomsWebController {
     @DeleteMapping(value = "/")
     public ResponseEntity<Object> deleteRoom(@RequestBody RoomDTOMinimal roomDTOMinimal) {
         if (roomRepository.deleteRoom(roomDTOMinimal)) {
-            if (userService.getUsernameFromToken().equals("admin")) {
+            if (userService.getUsernameFromToken().equals(ADMIN)) {
                 Link addRoom = linkTo(methodOn(RoomsWebController.class).createRoom(roomDTOMinimal)).withRel("Re-add the deleted room.");
                 roomDTOMinimal.add(addRoom);
             }
@@ -241,7 +243,7 @@ public class RoomsWebController {
     public ResponseEntity<List<RoomSensorDTOMinimal>> getSensors(@PathVariable String roomId) {
         List<RoomSensorDTOMinimal> roomSensorDTOList = roomRepository.getRoomDTOByName(roomId).getSensorDTOMinimalistList();
         for (RoomSensorDTOMinimal s : roomSensorDTOList) {
-            if (userService.getUsernameFromToken().equals("admin")) {
+            if (userService.getUsernameFromToken().equals(ADMIN)) {
                 Link deleteSelf = linkTo(methodOn(RoomsWebController.class).removeRoomSensor(roomId, s.getSensorID())).
                         withRel("Delete this Sensor");
                 s.add(deleteSelf);
