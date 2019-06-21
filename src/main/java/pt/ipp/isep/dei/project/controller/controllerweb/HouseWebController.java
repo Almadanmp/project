@@ -34,7 +34,7 @@ public class HouseWebController {
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
 
-    private final String periodRetry = "Retry with a different period.";
+    private static final String periodRetry = "Retry with a different period.";
 
 
     // USER STORY 101

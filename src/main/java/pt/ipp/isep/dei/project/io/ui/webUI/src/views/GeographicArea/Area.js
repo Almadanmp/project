@@ -28,7 +28,6 @@ class Area extends Component {
         <US001/>
         <US002/>
         <US004/>
-        <US006/>
         <US007Redux/>
         <US010/>
         <US011/>
