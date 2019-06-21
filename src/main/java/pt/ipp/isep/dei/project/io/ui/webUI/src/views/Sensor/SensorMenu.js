@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import US005extra from "./US005extra";
-import US005 from "./US005";
 import Row from "reactstrap/es/Row";
 import US005extraRedux from "./US005Extra/US005extraRedux";
 import Col from "reactstrap/es/Col";

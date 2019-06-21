@@ -4,6 +4,7 @@ import {addSensorType} from './Actions005';
 import {Button} from "reactstrap";
 import CardBody from "reactstrap/es/CardBody";
 import Card from "reactstrap/es/Card";
+import {confirmAlert} from "react-confirm-alert";
 
 class US005Redux extends React.Component {
 
@@ -23,6 +24,24 @@ class US005Redux extends React.Component {
 
   }
 
+  submit = () => {
+    confirmAlert({
+      title: 'Confirm your new sensor',
+      message: 'The new sensor has the following new configuration: Name: ' + this.state.name + '. | Units: ' + this.state.units + 'm. Do you want to proceed?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.handleSubmit()
+        },
+        {
+          label: 'No',
+          onClick: () => {
+          }
+        }
+      ]
+    });
+  };
+
   handleSubmit() {
     this.props.onPostType(this.state);
   }
@@ -32,17 +51,17 @@ class US005Redux extends React.Component {
     return (
       <div className="animated fadeIn">
         <Card><CardBody> Name:<span>  </span>
-          <input  value={this.state.name} type="text" name="name" placeholder="Name of the new sensor type"
+          <input value={this.state.name} type="text" name="name" placeholder="Name of the new sensor type"
                  onChange={this.handleInputChange('name')}/>
 
-        <p></p>
-        <label> Units:<span>  </span>
-          <input value={this.state.units} type="text" name="units" placeholder="Unit measure used for this type"
-                 onChange={this.handleInputChange('units')}/>
-        </label>
-        <p/>
-        <Button style={{ marginBottom: '1rem'}} onClick={this.handleSubmit}>Add sensor
-          type</Button>
+          <p></p>
+          <label> Units:<span>  </span>
+            <input value={this.state.units} type="text" name="units" placeholder="Unit measure used for this type"
+                   onChange={this.handleInputChange('units')}/>
+          </label>
+          <p/>
+          <Button style={{marginBottom: '1rem'}} onClick={this.submit()}>Add sensor
+            type</Button>
         </CardBody>
         </Card>
       </div>

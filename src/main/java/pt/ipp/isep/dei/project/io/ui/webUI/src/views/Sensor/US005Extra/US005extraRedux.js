@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchSensorTypes} from './Actions005extra';
-import Card from "reactstrap/es/Card";
-import CardBody from "reactstrap/es/CardBody";
+import {
+  CardBody,
+  Card,
+} from 'reactstrap';
 import US005 from "../US005";
 
 class US005extraRedux extends Component {

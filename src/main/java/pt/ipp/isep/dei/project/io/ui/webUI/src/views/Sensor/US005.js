@@ -16,14 +16,13 @@ class US005 extends Component {
 
   render() {
     return (
-      <div style={{float:'left'}}>
-        <Button className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}} onClick={this.toggle} ><i className="fa fa-plus-square-o fa-lg"/></Button>
+      <div style={{float: 'left'}}>
+        <Button className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}} onClick={this.toggle}><i
+          className="fa fa-plus-square-o fa-lg"/></Button>
         <Collapse isOpen={this.state.collapse}>
-
-            <CardBody>
-              <US005Redux/>
-            </CardBody>
-
+          <CardBody>
+            <US005Redux/>
+          </CardBody>
         </Collapse>
       </div>
     );

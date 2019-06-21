@@ -5,7 +5,6 @@ import {
   Button,
   CardBody,
   Card,
-  CardHeader, Alert,
 } from 'reactstrap';
 
 class US105 extends Component {
