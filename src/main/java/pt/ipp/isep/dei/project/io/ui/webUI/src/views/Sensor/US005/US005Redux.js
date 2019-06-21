@@ -6,12 +6,14 @@ import CardBody from "reactstrap/es/CardBody";
 import Card from "reactstrap/es/Card";
 import {confirmAlert} from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import Message005 from "../US005Extra/Message005";
 class US005Redux extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
+      isHidden: true,
       name: '',
       units: ''
     };
@@ -23,6 +25,7 @@ class US005Redux extends React.Component {
     };
 
   }
+  toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}))
 
   submit = () => {
     confirmAlert({
@@ -61,8 +64,13 @@ class US005Redux extends React.Component {
                    onChange={this.handleInputChange('units')}/>
           </label>
           <p/>
-          <Button style={{marginBottom: '1rem'}} onClick={this.submit}>Add sensor
+          <Button style={{marginBottom: '1rem'}} onClick={(event) => {
+            this.submit();
+            this.toggleHidden()
+          }}>Add sensor
             type</Button>
+          {!this.state.isHidden &&
+          <Message005 name={this.state.name} units={this.state.units}/>}
         </CardBody>
         </Card>
       </div>
@@ -70,6 +78,16 @@ class US005Redux extends React.Component {
   }
 }
 
+
+
+const mapStateToProps = (state) => {
+  return {
+
+    loading: state.Reducers005.loading,
+    listSensorTypes: state.Reducers005.listSensorTypes,
+    error: state.Reducers005.error
+  }
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -80,6 +98,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(US005Redux);

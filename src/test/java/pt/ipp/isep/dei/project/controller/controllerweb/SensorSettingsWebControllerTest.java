@@ -323,7 +323,7 @@ class SensorSettingsWebControllerTest {
         typeInRepo.setUnits("mm");
         repoList.add(typeInRepo);
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The sensor already exists.", HttpStatus.CONFLICT);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("rain");
         typeToAdd.setUnits("mm");
@@ -347,7 +347,7 @@ class SensorSettingsWebControllerTest {
         typeInRepo.setUnits("mm");
         repoList.add(typeInRepo);
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The sensor already exists.", HttpStatus.CONFLICT);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("rain");
         typeToAdd.setUnits("mm2");
@@ -367,7 +367,7 @@ class SensorSettingsWebControllerTest {
 
         List<SensorTypeDTO> emptyList = new ArrayList<>();
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("");
 
@@ -386,7 +386,7 @@ class SensorSettingsWebControllerTest {
 
         List<SensorTypeDTO> emptyList = new ArrayList<>();
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("Null.", HttpStatus.BAD_REQUEST);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName(null);
 
