@@ -70,7 +70,7 @@ public class RoomsWebController {
                 r.add(deleteRoom);
                 r.add(editRoom);
             } else
-                if (userService.getUsernameFromToken().equals("REGULAR_USER")) {
+                if (userService.getUsernameFromToken().equals("regularUser")) {
                 Link roomTemp = linkTo(methodOn(RoomsWebController.class).getCurrentRoomTemperature(r.getName())).
                         withRel("Get Room Temperature");
                 r.add(roomTemp);

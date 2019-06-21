@@ -67,7 +67,7 @@ class SensorSettings extends Component {
                 </Input>
               </FormGroup>
             </Form>
-            <AreaSensorCreator geographicAreaId={this.props.geographicAreaId} typeSensor={this.state.value}/>
+            <AreaSensorCreator linkAdd={this.props.linkAdd} typeSensor={this.state.value}/>
           </div>
         );
       } else {
