@@ -26,7 +26,7 @@ class RoomSensorCreator extends React.Component {
 
 
   handleSubmit(){
-    this.props.onFetchSensor(this.state);
+    this.props.onFetchSensor(this.props.link.href,this.state.typeSensor,this.state.name,this.state.sensorId,this.state.dateStartedFunctioning);
   }
 
 
@@ -53,8 +53,8 @@ class RoomSensorCreator extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchSensor: ({roomID, typeSensor,name,sensorId,dateStartedFunctioning}) => {
-      dispatch(fetchSensor({roomID, typeSensor,name,sensorId,dateStartedFunctioning}))
+    onFetchSensor: (link, typeSensor,name,sensorId,dateStartedFunctioning) => {
+      dispatch(fetchSensor({link, typeSensor,name,sensorId,dateStartedFunctioning}))
     }
   }
 };

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   Badge,
   Card,
-  CardBody,Table, Button, Collapse
+  CardBody, Table, Button, Collapse
 } from 'reactstrap';
 import SensorTypesSelect from "../US253/SensorTypesSelect";
 
@@ -16,7 +16,7 @@ class US250GetSensors extends Component {
       sensors: false,
       activeTab: 1,
       roomId: 0,
-      link:[],
+      link: [],
       collapse: false
     }
     this.toggle = this.toggle.bind(this);
@@ -27,9 +27,8 @@ class US250GetSensors extends Component {
   }
 
   componentDidMount() {
-    const {link} = this.props;
     const token = localStorage.getItem('loginToken');
-    fetch(link.href, {
+    fetch(this.props.link.href, {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
@@ -73,20 +72,23 @@ class US250GetSensors extends Component {
                   <Badge color="danger"> Inactive </Badge>}</td>
 
               </tr>
+
+
             ))}
-
-
             </tbody>
           </Table> : "No sensors on this room."}
         <div style={{
           textAlign: "right"
         }}>
-          <Button onClick={this.toggle} className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}><i className="fa fa-plus-square-o fa-lg"/> Add Sensor</Button>
+          <Button onClick={this.toggle} className={"btn-pill"}
+                  style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}><i
+            className="fa fa-plus-square-o fa-lg"/> Add Sensor</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
               <span>
-                <SensorTypesSelect roomID={this.props.roomID}/>
+                  <SensorTypesSelect roomID={this.props.roomID} linkAdd={this.props.linkAdd}
+                                                />
               </span>
                 <span>
               </span>

@@ -6,13 +6,13 @@ export const FETCH_SENSOR_INFO_SUCCESS = 'FETCH_SENSOR_INFO_SUCCESS';
 export const FETCH_SENSOR_INFO_FAILURE = 'FETCH_SENSOR_INFO_FAILURE';
 
 
-export const fetchSensor = ({roomID, typeSensor,name,sensorId,dateStartedFunctioning}) => {
+export const fetchSensor = ({link, typeSensor,name,sensorId,dateStartedFunctioning}) => {
   const token = localStorage.getItem('loginToken')
   return dispatch => {
-    dispatch(fetchSensorInfo(roomID, typeSensor, name, sensorId, dateStartedFunctioning)); // antes de fazer o get, coloca o loading a true
-    const data = {roomID, typeSensor, name, sensorId, dateStartedFunctioning};
+    dispatch(fetchSensorInfo(link, typeSensor, name, sensorId, dateStartedFunctioning)); // antes de fazer o get, coloca o loading a true
+    const data = {link, typeSensor, name, sensorId, dateStartedFunctioning};
     axios
-      .post('https://localhost:8443/rooms/'+roomID+'/sensors', data, //falta autorização
+      .post(link, data, //falta autorização
         {
           headers: {
             'Authorization': token,

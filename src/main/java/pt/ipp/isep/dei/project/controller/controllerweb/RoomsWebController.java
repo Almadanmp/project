@@ -57,6 +57,7 @@ public class RoomsWebController {
             List<RoomDTOMinimal> empty = new ArrayList<>();
             return new ResponseEntity<>(empty, HttpStatus.OK);
         }
+        RoomSensorDTO roomSensorDTO = new RoomSensorDTO();
         for (RoomDTOMinimal r : roomDTOList) {
             if (userService.getUsernameFromToken() == null){
                 break;
@@ -66,8 +67,10 @@ public class RoomsWebController {
                 Link deleteRoom = linkTo(methodOn(RoomsWebController.class).deleteRoom(r)).withRel("Delete this Room");
                 Link editRoom = linkTo(methodOn(RoomsWebController.class).configureRoom(r.getName(), new RoomDTOMinimal()))
                         .withRel("Edit this Room");
+                Link addSensor = linkTo(methodOn(RoomsWebController.class).createRoomSensor(roomSensorDTO,r.getName())).withRel("Add a new Room Sensor");
                 r.add(roomSensors);
                 r.add(deleteRoom);
+                r.add(addSensor);
                 r.add(editRoom);
             } else
                 if (userService.getUsernameFromToken().equals("regularUser")) {
@@ -242,6 +245,7 @@ public class RoomsWebController {
     @GetMapping("/{roomId}/sensors")
     public ResponseEntity<List<RoomSensorDTOMinimal>> getSensors(@PathVariable String roomId) {
         List<RoomSensorDTOMinimal> roomSensorDTOList = roomRepository.getRoomDTOByName(roomId).getSensorDTOMinimalistList();
+        RoomSensorDTO roomSensorDTO =new RoomSensorDTO();
         for (RoomSensorDTOMinimal s : roomSensorDTOList) {
             if (userService.getUsernameFromToken().equals(ADMIN)) {
                 Link deleteSelf = linkTo(methodOn(RoomsWebController.class).removeRoomSensor(roomId, s.getSensorID())).
