@@ -145,9 +145,10 @@ public class SensorSettingsWebController {
         List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
         for (SensorTypeDTO a : repoTypes) {
             if (a.getName().equals(sensorTypeDTO.getName())) {
-                if (a.getUnits().equals(sensorTypeDTO.getUnits())) {
-                    return new ResponseEntity<>(a, HttpStatus.CONFLICT);
-                }
+                return new ResponseEntity<>(a, HttpStatus.CONFLICT);
+            }
+            if (a.getUnits().equals(sensorTypeDTO.getUnits())) {
+                return new ResponseEntity<>(a, HttpStatus.CONFLICT);
             }
         }
         sensorTypeRepository.add(SensorTypeMapper.dtoToObject(sensorTypeDTO));
