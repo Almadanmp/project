@@ -3,6 +3,7 @@ import {Collapse, CardBody, Card} from 'reactstrap';
 import US005extraRedux from "./US005Extra/US005extraRedux";
 
 import './button.js'
+import Button from "reactstrap/es/Button";
 
 class US005extra extends Component {
   constructor(props) {
@@ -17,8 +18,8 @@ class US005extra extends Component {
 
   render() {
     return (
-      <div>
-        <button className="bubbly-button" onClick={this.toggle} >List of sensor types</button>
+      <div style={{float:'left'}}>
+        <Button style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}} onClick={this.toggle} >List of sensor types</Button>
         <Collapse isOpen={this.state.collapse}>
             <CardBody>
               <US005extraRedux/>

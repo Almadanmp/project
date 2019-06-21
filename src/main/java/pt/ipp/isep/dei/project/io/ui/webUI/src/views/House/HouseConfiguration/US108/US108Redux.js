@@ -35,9 +35,7 @@ class US108Redux extends Component {
     if (rooms.length > 0) {
       {
         return (
-          <div className="animated fadeIn">
-            <Row>
-              <Col xs="12" lg="5">
+          <div style={{float:'left'}} className="animated fadeIn">
                 <Card>
                   <CardBody>
                     <Table responsive>
@@ -45,8 +43,6 @@ class US108Redux extends Component {
                     </Table>
                   </CardBody>
                 </Card>
-              </Col>
-            </Row>
           </div>
         );
       }
