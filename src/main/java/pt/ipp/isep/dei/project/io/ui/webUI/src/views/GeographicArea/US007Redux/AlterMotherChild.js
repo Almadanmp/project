@@ -13,10 +13,10 @@ class CreateLocation extends React.Component {
   }
 
   render() {
-    const {location, error} = this.props;
-    console.log(location)
+    const {added, error} = this.props;
+    console.log(added)
     const {motherId, childId} = this.props;
-    if ((location.toString()).indexOf("409") !== -1) {
+    if ((added.toString()).indexOf("409") !== -1) {
       return (
         <div>
           <div className="help-block"><Alert color="danger">Geographic area with ID: {childId} already belongs to
@@ -24,15 +24,15 @@ class CreateLocation extends React.Component {
         </div>
       )
     }
-    else if ((location.toString()).indexOf("422") !== -1) {
+    else if ((added.toString()).indexOf("422") !== -1) {
       return (
         <div>
           <div className="help-block"><Alert color="danger">You can't add a Geographic Area to itself.</Alert></div>
         </div>
       )
     }
-    else if ((location.toString()).indexOf("403") !== -1 || (location.toString()).indexOf("404") !== -1 ||
-      (location.toString()).indexOf("405") !== -1) {
+    else if ((added.toString()).indexOf("403") !== -1 || (added.toString()).indexOf("Network Error") !== -1
+      || (added.toString()).indexOf("404") !== -1 || (added.toString()).indexOf("405") !== -1) {
       return (
         <div>
           <div className="help-block"><Alert color="danger">Please select both
@@ -54,7 +54,7 @@ class CreateLocation extends React.Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.Reducers007.loading,
-    location: state.Reducers007.location,
+    added: state.Reducers007.added,
     error: state.Reducers007.error
   }
 };

@@ -8,7 +8,7 @@ import {
 const initialstate = {
   loading: false,
   error: null,
-  location: []
+  added: []
 };
 
 export default function Reducers007(state = initialstate, action) {
@@ -18,21 +18,21 @@ export default function Reducers007(state = initialstate, action) {
         ...state,
         loading: true,
         error: null,
-        location: []
+        added: []
       };
     case FETCH_MOTHERCHILD_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        location: [action.payload.location]
+        added: [action.payload.added]
       };
     case FETCH_MOTHERCHILD_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        location: "ERROR: " + action.payload.error
+        added: "ERROR: " + action.payload.error
       };
 
     default:

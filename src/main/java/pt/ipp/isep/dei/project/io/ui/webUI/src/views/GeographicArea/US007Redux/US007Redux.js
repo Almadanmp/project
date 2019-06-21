@@ -73,7 +73,7 @@ class US007Redux extends React.Component {
                 <FormGroup>
                   <Label>Select Geographic Area</Label>
                   <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange1}>
-                    <option value="0" onChange={this.handleChange1}>Please select the mother Geographic Area</option>
+                    <option value="" onChange={this.handleChange1}>Please select the mother Geographic Area</option>
                     {item.map(items => (
                       <option value={items.geographicAreaId} key={items.geographicAreaId}>
                         {items.name}
@@ -87,7 +87,7 @@ class US007Redux extends React.Component {
                 <FormGroup>
                   <Label>Select Geographic Area</Label>
                   <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange2}>
-                    <option value="0" onChange={this.handleChange2}>Please select the child Geographic Area</option>
+                    <option value="" onChange={this.handleChange2}>Please select the child Geographic Area</option>
                     {item.map(items => (
                       <option value={items.geographicAreaId} key={items.geographicAreaId}>
                         {items.name}
@@ -112,7 +112,7 @@ class US007Redux extends React.Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.Reducers007.loading,
-    location: state.Reducers007.location,
+    added: state.Reducers007.added,
     error: state.Reducers007.error
   }
 };

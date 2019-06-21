@@ -43,7 +43,7 @@ export function fetchMotherChildSuccess(data) {
   return {
     type: FETCH_MOTHERCHILD_SUCCESS,
     payload: {
-      location: data
+      added: data
     }
   }
 }
