@@ -31,7 +31,7 @@ export function uploadFile(fileToUpload) {
 
 export function postFileStarted() {
   return {
-    type: POST_FILE_STARTED
+    type: POST_FILE_STARTED,
   }
 }
 
@@ -39,7 +39,7 @@ export function postFileSuccess(data) { // cria uma açao
   return {
     type: POST_FILE_SUCCESS,
     payload: {
-      fileResults: data //passa o array com os dados
+      importGAReadingsResults: data //passa o array com os dados
     }
   }
 }
