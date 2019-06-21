@@ -37,7 +37,7 @@ class US108Button extends Component {
     });
   };
 
-  toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}));
+  toggleHidden = () => this.setState({isHidden: false})
 
   render() {
     return (
@@ -46,9 +46,9 @@ class US108Button extends Component {
           this.submit();
         }}>Edit the
           room {this.props.name}</Button><US108BackButton/>
-        {!this.state.isHidden &&
+        {this.state.isHidden === false ?
         <US108Put name={this.props.name} floor={this.props.floor} width={this.props.width} length={this.props.length}
-                  height={this.props.height}/>}
+                  height={this.props.height}/>:''}
       </div>
     )
   }

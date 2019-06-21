@@ -139,15 +139,21 @@ public class SensorSettingsWebController {
     @PostMapping(value = "/sensorTypes")
     public ResponseEntity<Object> addSensorType(@RequestBody SensorTypeDTO sensorTypeDTO) {
         if (sensorTypeDTO.getName() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Null.",HttpStatus.BAD_REQUEST);
+        }
+        if (sensorTypeDTO.getUnits() == null) {
+            return new ResponseEntity<>("Null.",HttpStatus.BAD_REQUEST);
+        }
+        if(sensorTypeDTO.getUnits().equals("")){
+            return new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
         }
         if (sensorTypeDTO.getName().equals("")) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
         }
         List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
         for (SensorTypeDTO a : repoTypes) {
             if (a.getName().equals(sensorTypeDTO.getName())) {
-                return new ResponseEntity<>(a, HttpStatus.CONFLICT);
+                return new ResponseEntity<>("The sensor already exists.", HttpStatus.CONFLICT);
             }
         }
         sensorTypeRepository.add(SensorTypeMapper.dtoToObject(sensorTypeDTO));

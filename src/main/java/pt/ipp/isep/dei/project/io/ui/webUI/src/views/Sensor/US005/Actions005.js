@@ -3,9 +3,11 @@ import axios from 'axios';
 export const POST_SENSOR_TYPE_STARTED = 'POST_SENSOR_TYPE_STARTED';
 export const POST_SENSOR_TYPE_SUCCESS = 'POST_SENSOR_TYPE_SUCCESS';
 export const POST_SENSOR_TYPE_FAILURE = 'POST_SENSOR_TYPE_FAILURE';
+export const POST_SENSOR_TYPE_DATA = 'POST_SENSOR_TYPE_DATA';
 
 
-export function addSensorType(name, units) {
+
+export const addSensorType = (name, units)=> {
   const token = localStorage.getItem('loginToken');
   const data = {name, units};
   return dispatch => {
@@ -27,11 +29,16 @@ export function addSensorType(name, units) {
         dispatch(addSensorTypeSuccess(res.data));
       })
       .catch(err => {
-        dispatch(addSensorTypeFailure(err.message));
+        if (err.response === 400) {
+          dispatch(addSensorTypeNoData(err.message))
+        } else {
+          if (err.response !== undefined) {
+            dispatch(addSensorTypeFailure(err.response.data));
+          }
+        }
       });
-
   };
-}
+};
 
 export function addSensorTypeStarted(name, units) {
   return {
@@ -52,11 +59,20 @@ export function addSensorTypeSuccess(data) {
   }
 }
 
-export function addSensorTypeFailure(message) {
+export function addSensorTypeFailure(response) {
   return {
     type: POST_SENSOR_TYPE_FAILURE,
     payload: {
-      error: message
+      error: response
+    }
+  }
+}
+
+export function addSensorTypeNoData(response) {
+  return {
+    type: POST_SENSOR_TYPE_DATA,
+    payload: {
+      errorData: response
     }
   }
 }

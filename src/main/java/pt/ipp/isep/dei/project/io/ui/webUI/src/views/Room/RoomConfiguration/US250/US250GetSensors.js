@@ -57,7 +57,6 @@ class US250GetSensors extends Component {
             <thead>
             <tr>
               <th>Sensor</th>
-              <th>Id</th>
               <th>Type</th>
               <th>Activation</th>
               <th>State</th>
@@ -68,7 +67,6 @@ class US250GetSensors extends Component {
             {item.map(item => (
               <tr key={item.name}>
                 <td>{item.name}</td>
-                <td> {item.id}</td>
                 <td>{item.type}</td>
                 <td>{item.dateStartedFunctioning}</td>
                 <td>{item.active == true ? <Badge color="success"> Active </Badge> :
@@ -80,9 +78,10 @@ class US250GetSensors extends Component {
 
             </tbody>
           </Table> : "No sensors on this room."}
-        <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}
-                  class="fa fa-plus-square-o fa-lg mt-4">Add Sensor</Button>
+        <div style={{
+          textAlign: "right"
+        }}>
+          <Button onClick={this.toggle} className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}><i className="fa fa-plus-square-o fa-lg"/> Add Sensor</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

@@ -15,7 +15,6 @@ class US006Redux extends React.Component {
     this.handleChange2 = this.handleChange2.bind(this);
     this.state = {
       isHidden: true,
-      item: [],
       types: [],
       geographicAreaId: '',
       typeSensor: '',
@@ -37,23 +36,6 @@ class US006Redux extends React.Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/geoAreas/', {
-        headers: {
-          'Authorization': token,
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: true,
-          item: json,
-        })
-      })
-      .catch(console.log)
     fetch('https://localhost:8443/rooms/types', {
         headers: {
           'Authorization': token,
@@ -86,7 +68,7 @@ class US006Redux extends React.Component {
   }
 
   handleSubmit() {
-    this.props.onFetchLocation(this.state);
+    this.props.onFetchLocation(this.props.linkAdd.href,this.state.typeSensor, this.state.name, this.state.sensorId, this.state.dateStartedFunctioning, this.state.latitude, this.state.longitude, this.state.altitude);
     this.setState({isHidden: false})
   }
 
@@ -100,31 +82,17 @@ class US006Redux extends React.Component {
   }
 
   render() {
-    const {item, types, name, sensorId, latitude, longitude, altitude} = this.state;
+    const {types, name, sensorId, latitude, longitude, altitude} = this.state;
     const {location, error} = this.props;
     const numberOfMonths = 1;
 
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new
-          sensor to a Geographic Area</Button>
+        <Button onClick={this.toggle} className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}><i className="fa fa-plus-square-o fa-lg"/> Add
+          Sensor </Button>
         <Collapse isOpen={this.state.collapse}>
-          <Card>
+          <Card style={{textAlign: "center"}}>
             <CardBody>
-              <Form action="" method="post">
-                <FormGroup>
-                  <Label>Select Geographic Area</Label>
-                  <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                    <option value="" onChange={this.handleChange}>Please select the Geographic Area</option>
-                    {item.map(items => (
-                      <option value={items.geographicAreaId} key={items.geographicAreaId}>
-                        Name: {items.name}
-                      </option>
-                    ))}
-                  </Input>
-                </FormGroup>
-              </Form>
-              <p></p>
               <Form action="" method="post">
                 <FormGroup>
                   <Label>Select Sensor Type</Label>
@@ -205,9 +173,9 @@ const mapStateToProps = (state) => {
 const
   mapDispatchToProps = (dispatch) => {
     return {
-      onFetchLocation: ({geographicAreaId, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude}) => {
+      onFetchLocation: (linkAdd, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude) => {
         dispatch(fetchLocation({
-          geographicAreaId,
+          linkAdd,
           typeSensor,
           name,
           sensorId,

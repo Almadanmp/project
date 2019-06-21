@@ -42,24 +42,34 @@ class TableBody extends Component {
       <>
         <thead>
         <tr>
-          <th>Sensor</th>
-          <th>Type</th>
-          <th>Activation</th>
-          <th>State</th>
-          <th>Remove</th>
+          <th style={{
+            textAlign: "center"}}>Sensor</th>
+          <th style={{
+            textAlign: "center"}}>Type</th>
+          <th style={{
+            textAlign: "center"}}>Activation</th>
+          <th style={{
+            textAlign: "center"}}>State</th>
+          <th style={{
+            textAlign: "center"}}>Remove</th>
         </tr>
         </thead>
         <tbody>
 
         {item.map(item => (
           <tr key={item.name}>
-            <td>{item.name}</td>
-            <td>{item.type}</td>
-            <td>{item.dateStartedFunctioning}</td>
+            <td style={{
+              textAlign: "center"}}>{item.name}</td>
+            <td style={{
+              textAlign: "center"}}>{item.type}</td>
+            <td style={{
+              textAlign: "center"}}>{item.dateStartedFunctioning}</td>
             {/*<td>{item.active == true ? <Badge color="success"> Active </Badge> :*/}
               {/*<Badge color="danger"> Inactive </Badge>}</td>*/}
-            <td><AreaSensorInactivation link={item.links.find((hrefs) => hrefs.rel === 'Deactivate this Sensor')} sensorId={item.name} active={item.active}/> </td>
-            <td><AreaSensorRemover link={item.links.find((hrefs) => hrefs.rel === 'Delete this Sensor')} sensorId={item.name} area={this.props.area}/></td>
+            <td style={{
+              textAlign: "right"}}><AreaSensorInactivation link={item.links.find((hrefs) => hrefs.rel === 'Deactivate this Sensor')} sensorId={item.name} active={item.active}/> </td>
+            <td style={{
+              textAlign: "center"}}><AreaSensorRemover link={item.links.find((hrefs) => hrefs.rel === 'Delete this Sensor')} sensorId={item.name} area={this.props.area}/></td>
           </tr>
         ))}
 

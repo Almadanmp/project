@@ -28,12 +28,7 @@ class Area extends Component {
         <p></p>
         <AreasList/>
         <US001/>
-        <US002/>
-        <US004/>
-        <US006Redux/>
         <US007Redux/>
-        <US010/>
-        <US011/>
       </div>
     );
   }
