@@ -5,7 +5,7 @@ import {Button} from "reactstrap";
 import CardBody from "reactstrap/es/CardBody";
 import Card from "reactstrap/es/Card";
 import {confirmAlert} from "react-confirm-alert";
-
+import 'react-confirm-alert/src/react-confirm-alert.css'
 class US005Redux extends React.Component {
 
   constructor(props) {
@@ -47,6 +47,7 @@ class US005Redux extends React.Component {
   }
 
   render() {
+
     const {name, units} = this.state;
     return (
       <div className="animated fadeIn">
@@ -60,7 +61,7 @@ class US005Redux extends React.Component {
                    onChange={this.handleInputChange('units')}/>
           </label>
           <p/>
-          <Button style={{marginBottom: '1rem'}} onClick={this.submit()}>Add sensor
+          <Button style={{marginBottom: '1rem'}} onClick={this.submit}>Add sensor
             type</Button>
         </CardBody>
         </Card>

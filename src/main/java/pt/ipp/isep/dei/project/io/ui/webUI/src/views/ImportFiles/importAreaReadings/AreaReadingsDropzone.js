@@ -4,6 +4,7 @@ import {uploadFile} from "./ImportAreaReadingsActions";
 import {Alert, Button} from "reactstrap";
 import {connect} from "react-redux";
 import {confirmAlert} from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class AreaReadingsDropzone extends Component {
   constructor(props) {

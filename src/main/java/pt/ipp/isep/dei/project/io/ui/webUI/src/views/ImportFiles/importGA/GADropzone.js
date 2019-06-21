@@ -4,6 +4,7 @@ import {uploadFile} from "./ImportGAActions";
 import {Alert, Button} from "reactstrap";
 import {connect} from "react-redux";
 import {confirmAlert} from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class GADropzone extends Component {
   constructor(props) {
