@@ -5,13 +5,14 @@ export const ADD_AREA_SENSOR_SUCCESS = 'ADD_AREA_SENSOR_SUCCESS';
 export const ADD_AREA_SENSOR_FAILURE = 'ADD_AREA_SENSOR_FAILURE';
 
 
-export const fetchLocation = ({geographicAreaId, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude}) => {
+export const fetchLocation = ({linkAdd, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude}) => {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchLocationStarted(geographicAreaId, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude));
-    const data = {geographicAreaId, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude};
+    dispatch(fetchLocationStarted(linkAdd, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude));
+    const data = {linkAdd, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude};
+    console.log(linkAdd)
     axios
-      .post('https://localhost:8443/sensors/areas/' + geographicAreaId + '/sensors', data, {
+      .post(linkAdd, data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,
@@ -25,18 +26,17 @@ export const fetchLocation = ({geographicAreaId, typeSensor, name, sensorId, dat
         dispatch(fetchLocationSuccess(res.data));
       })
       .catch(err => {
-        console.log("olaaa");
         dispatch(fetchLocationFailure(err.message))
       })
 
   };
 };
 
-export function fetchLocationStarted(geographicAreaId, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude) {
+export function fetchLocationStarted(linkAdd, typeSensor, name, sensorId, dateStartedFunctioning, latitude, longitude, altitude) {
   return {
     type: ADD_AREA_SENSOR_STARTED,
     payload: {
-      geographicAreaId: geographicAreaId,
+      linkAdd: linkAdd,
       typeSensor: typeSensor,
       name: name,
       sensorId: sensorId,

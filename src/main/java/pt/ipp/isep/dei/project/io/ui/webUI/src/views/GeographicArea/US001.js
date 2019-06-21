@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card} from 'reactstrap';
+import {Collapse, Button, CardBody, Card, CardHeader} from 'reactstrap';
 import US001Redux from "./US001/US001Redux";
 
 class US001 extends Component {
@@ -19,7 +19,10 @@ class US001 extends Component {
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a Type of
           Geographic Area</Button>
         <Collapse isOpen={this.state.collapse}>
-          <Card>
+          <Card style={{size: 10}}>
+            <CardHeader>
+              Create a new Type
+            </CardHeader>
             <CardBody>
               <US001Redux/>
             </CardBody>

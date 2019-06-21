@@ -59,7 +59,7 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>
-            <GetSensors link={item.links.find((hrefs) => hrefs.rel === 'List area sensors.')} area={item.name}/>
+            <GetSensors link={item.links.find((hrefs) => hrefs.rel === 'List area sensors.')} area={item.name} linkAdd={item.links.find((hrefs) => hrefs.rel === 'Add a new area sensors.')}/>
             </td>
 
             <td style={{

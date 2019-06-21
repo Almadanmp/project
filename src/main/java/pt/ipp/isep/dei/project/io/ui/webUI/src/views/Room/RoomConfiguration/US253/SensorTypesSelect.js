@@ -51,14 +51,16 @@ class SensorTypesSelect extends Component {
     } else {
       if (!item.error) {
       return (
-        <div>
+        <div style={{
+          textAlign: "center"
+        }}>
           <Form action="" method="post" >
             <FormGroup>
               <Label>Select Sensor Type</Label>
               <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
                 <option value="0" onChange={this.handleChange}>Please select</option>
                 {item.map(items => (
-                  <option value={items.name}  key={items.name}>
+                  <option value={items.name} key={items.name}>
                     Type: {items.name}
                   </option>
                 ))}
