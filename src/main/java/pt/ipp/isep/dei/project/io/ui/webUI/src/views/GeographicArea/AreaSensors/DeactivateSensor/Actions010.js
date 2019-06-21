@@ -5,7 +5,7 @@ export const FETCH_AREA_SENSORS_SUCCESS = 'FETCH_AREA_SENSORS_SUCCESS';
 export const FETCH_AREA_SENSORS_FAILURE = 'FETCH_AREA_SENSORS_FAILURE';
 
 
-export function inactivateSensorFromArea(link) {
+export function inactivateSensorFromArea({link}) {
   const token = localStorage.getItem('loginToken');
   console.log(link)
   return dispatch => {
