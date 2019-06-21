@@ -8,7 +8,7 @@ class Message105 extends React.Component {
 
   constructor(props) {
     super(props);
-  //  this.handleSubmit = this.handleSubmit.bind(this);
+    //  this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       formerGrid: '',
       name: '',
@@ -27,15 +27,14 @@ class Message105 extends React.Component {
         <div>
           <div className="help-block"><Alert color="danger">ERROR: {error}</Alert></div>
 
-          </div>
-        )}
-        else
-      {
-        return (
-          <><h6><i className="fa fa-check-square-o fa-lg"/> The room has been created!</h6>
-          </>
-        );
-      }
+        </div>
+      )
+    } else {
+      return (
+        <><h6><i className="fa fa-check-square-o fa-lg"/> The room has been created!</h6>
+        </>
+      );
+    }
 
   }
 }

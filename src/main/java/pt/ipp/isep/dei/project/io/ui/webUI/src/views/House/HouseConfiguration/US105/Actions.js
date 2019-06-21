@@ -28,10 +28,10 @@ export const fetchRoom = ({name, floor, width, length, height}) => {
       .catch(err => {
         if (err.response === 400) {
           dispatch(fetchRoomNoData(err.message))
-        }
-        else {
-          if(err.response !== undefined){
-            dispatch(fetchInfoFailure(err.response.data));}
+        } else {
+          if (err.response !== undefined) {
+            dispatch(fetchInfoFailure(err.response.data));
+          }
         }
       });
   };
