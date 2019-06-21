@@ -22,9 +22,9 @@ class US006Redux extends React.Component {
       name: '',
       sensorId: '',
       dateStartedFunctioning: '',
-      latitude: 0,
-      longitude: 0,
-      altitude: 0
+      latitude: '',
+      longitude: '',
+      altitude: ''
     };
 
     this.handleInputChange = attribute => event => {
@@ -115,7 +115,7 @@ class US006Redux extends React.Component {
                 <FormGroup>
                   <Label>Select Geographic Area</Label>
                   <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                    <option value="0" onChange={this.handleChange}>Please select the Geographic Area</option>
+                    <option value="" onChange={this.handleChange}>Please select the Geographic Area</option>
                     {item.map(items => (
                       <option value={items.geographicAreaId} key={items.geographicAreaId}>
                         Name: {items.name}
@@ -129,7 +129,7 @@ class US006Redux extends React.Component {
                 <FormGroup>
                   <Label>Select Sensor Type</Label>
                   <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange2}>
-                    <option value="0" onChange={this.handleChange2}>Please select the Sensor Type</option>
+                    <option value="" onChange={this.handleChange2}>Please select the Sensor Type</option>
                     {types.map(type => (
                       <option value={type.name} key={type.name}>
                         Type: {type.name}
@@ -140,7 +140,7 @@ class US006Redux extends React.Component {
               </Form>
               <p></p>
               <span>Sensor ID:
-                <input value={sensorId} placeholder="Sensor00" type="text" name="sensorId"
+                <input value={sensorId} placeholder="Sensor ID" type="text" name="sensorId"
                        onChange={this.handleInputChange('sensorId')}/>
               </span>
               <span> Sensor name:
