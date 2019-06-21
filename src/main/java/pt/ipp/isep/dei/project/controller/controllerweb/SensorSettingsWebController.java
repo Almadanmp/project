@@ -34,6 +34,7 @@ public class SensorSettingsWebController {
     private SensorTypeRepository sensorTypeRepository;
 
     // Part 1 - Geographical Areas
+
     /**
      * Shows a Geographical Area selected by it's ID, given that it is present in the database.
      *
@@ -143,8 +144,10 @@ public class SensorSettingsWebController {
         }
         List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
         for (SensorTypeDTO a : repoTypes) {
-            if ( (a.getName().equals(sensorTypeDTO.getName())) && (a.getUnits().equals(sensorTypeDTO.getUnits())) ) {
-                return new ResponseEntity<>(a, HttpStatus.CONFLICT);
+            if (a.getName().equals(sensorTypeDTO.getName())) {
+                if (a.getUnits().equals(sensorTypeDTO.getUnits())) {
+                    return new ResponseEntity<>(a, HttpStatus.CONFLICT);
+                }
             }
         }
         sensorTypeRepository.add(SensorTypeMapper.dtoToObject(sensorTypeDTO));
