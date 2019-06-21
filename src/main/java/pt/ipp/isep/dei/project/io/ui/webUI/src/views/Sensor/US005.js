@@ -17,8 +17,7 @@ class US005 extends Component {
   render() {
     return (
       <div style={{float:'left'}}>
-        <Button style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}} onClick={this.toggle} >Add a new type of
-          Sensor</Button>
+        <Button className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}} onClick={this.toggle} ><i className="fa fa-plus-square-o fa-lg"/></Button>
         <Collapse isOpen={this.state.collapse}>
 
             <CardBody>
