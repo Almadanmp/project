@@ -67,7 +67,7 @@ class SensorTypesSelect extends Component {
               </Input>
             </FormGroup>
           </Form>
-          <RoomSensorCreator roomID = {this.props.roomID} typeSensor = {this.state.value} />
+          <RoomSensorCreator roomID = {this.props.roomID} typeSensor = {this.state.value} link={this.props.link} />
         </div>
       );
       } else {
