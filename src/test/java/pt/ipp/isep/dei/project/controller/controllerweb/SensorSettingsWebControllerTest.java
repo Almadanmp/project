@@ -172,10 +172,21 @@ class SensorSettingsWebControllerTest {
 
     @Test
     void seeIfCreateAreaSensorFailsWithConflict() {
+        //Arrange
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        geographicAreaDTO.setId(12L);
 
         AreaSensorDTO areaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor);
 
+        Mockito.when(geographicAreaRepository.getDTOById(12L)).thenReturn(geographicAreaDTO);
+        Mockito.when(geographicAreaRepository.sensorExists(areaSensorDTO2.getSensorId())).thenReturn(true);
+
+        //Act
+
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO2, 12L);
+
+        //Assert
 
         assertEquals(HttpStatus.CONFLICT, actualResult.getStatusCode());
     }
@@ -340,30 +351,6 @@ class SensorSettingsWebControllerTest {
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("rain");
         typeToAdd.setUnits("mm2");
-
-        // Act
-
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfAddSensorTypeWorksAlmostDuplicate2() {
-        // Arrange
-
-        List<SensorTypeDTO> repoList = new ArrayList<>();
-        SensorTypeDTO typeInRepo = new SensorTypeDTO();
-        typeInRepo.setName("rain");
-        typeInRepo.setUnits("mm");
-        repoList.add(typeInRepo);
-        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
-        SensorTypeDTO typeToAdd = new SensorTypeDTO();
-        typeToAdd.setName("rain2");
-        typeToAdd.setUnits("mm");
 
         // Act
 

@@ -70,7 +70,8 @@ public class SensorSettingsWebController {
             if (areaSensorDTO.getName().equals("")) {
                 return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
+            if (!geographicAreaRepository.sensorExists(areaSensorDTO.getSensorId())) {
+                geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO);
                 geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
                 return new ResponseEntity<>(areaSensorDTO, HttpStatus.CREATED);
             }
@@ -144,10 +145,7 @@ public class SensorSettingsWebController {
         }
         List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
         for (SensorTypeDTO a : repoTypes) {
-            if (a.getName() == (sensorTypeDTO.getName())) {
-                return new ResponseEntity<>(a, HttpStatus.CONFLICT);
-            }
-            if (a.getUnits() == (sensorTypeDTO.getUnits())) {
+            if (a.getName().equals(sensorTypeDTO.getName())) {
                 return new ResponseEntity<>(a, HttpStatus.CONFLICT);
             }
         }

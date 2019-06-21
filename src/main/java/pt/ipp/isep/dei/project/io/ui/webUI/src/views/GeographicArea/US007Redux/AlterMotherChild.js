@@ -13,7 +13,7 @@ class CreateLocation extends React.Component {
   }
 
   render() {
-    const {added, error} = this.props;
+    const {added} = this.props;
     console.log(added)
     const {motherId, childId} = this.props;
     if ((added.toString()).indexOf("409") !== -1) {

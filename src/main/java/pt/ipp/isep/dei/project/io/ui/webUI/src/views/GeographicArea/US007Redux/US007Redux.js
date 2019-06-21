@@ -112,7 +112,7 @@ class US007Redux extends React.Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.Reducers007.loading,
-    added: state.Reducers007.added,
+    added: state.Reducers007.location,
     error: state.Reducers007.error
   }
 };

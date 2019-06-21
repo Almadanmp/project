@@ -46,7 +46,6 @@ class TableBody extends Component {
           <th>Type</th>
           <th>Activation</th>
           <th>State</th>
-          <th>Deactivate</th>
           <th>Remove</th>
         </tr>
         </thead>
@@ -57,10 +56,10 @@ class TableBody extends Component {
             <td>{item.name}</td>
             <td>{item.type}</td>
             <td>{item.dateStartedFunctioning}</td>
-            <td>{item.active == true ? <Badge color="success"> Active </Badge> :
-              <Badge color="danger"> Inactive </Badge>}</td>
-            <AreaSensorInactivation link={item.links.find((hrefs) => hrefs.rel === 'Deactivate this Sensor')} sensorId={item.name}/>
-            <AreaSensorRemover link={item.links.find((hrefs) => hrefs.rel === 'Delete this Sensor')} sensorId={item.name} area={this.props.area}/>
+            {/*<td>{item.active == true ? <Badge color="success"> Active </Badge> :*/}
+              {/*<Badge color="danger"> Inactive </Badge>}</td>*/}
+            <td><AreaSensorInactivation link={item.links.find((hrefs) => hrefs.rel === 'Deactivate this Sensor')} sensorId={item.name} active={item.active}/> </td>
+            <td><AreaSensorRemover link={item.links.find((hrefs) => hrefs.rel === 'Delete this Sensor')} sensorId={item.name} area={this.props.area}/></td>
           </tr>
         ))}
 

@@ -8,8 +8,6 @@ import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.repository.AreaTypeCrudRepo;
 import pt.ipp.isep.dei.project.model.repository.GeographicAreaCrudRepo;
 
 import java.util.*;
@@ -396,5 +394,25 @@ public class GeographicAreaRepository {
             }
         }
         return addedReadings;
+    }
+
+    /**
+     * This method receives a sensor ID and checks in the repository
+     * for any Area Sensor with the given ID.
+     *
+     * return true in case the sensor exists, false otherwise
+     * **/
+    public boolean sensorExists(String sensorId) {
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        List<GeographicArea> geographicAreas = geographicAreaCrudRepo.findAll();
+        for (GeographicArea g : geographicAreas) {
+            try {
+                AreaSensor areaSensor = g.getAreaSensorByID(sensorId);
+                areaSensors.add(areaSensor);
+            } catch (IllegalArgumentException i) {
+                i.getMessage();
+            }
+        }
+        return !areaSensors.isEmpty();
     }
 }

@@ -14,19 +14,8 @@ class AreaSensorInactivation extends React.Component {
     this.state = {
       id: 0,
       sensorId: '',
-      isChecked: false
+      isChecked: !this.props.active,
     };
-
-    this.handleInputChange = attribute => event => {
-      this.setState({
-        [attribute]: event.target.value
-      });
-    };
-
-  }
-
-  componentWillMount () {
-    this.setState( { isChecked: this.props.isChecked } );
   }
 
   submit = () => {
@@ -51,13 +40,12 @@ class AreaSensorInactivation extends React.Component {
   };
 
   handleSubmit() {
-    const{link}=this.props.link.href;
-    this.props.onInactivateSensorFromArea(link);
+    this.props.onInactivateSensorFromArea(this.props.link.href);
   }
 
 
   render() {
-    const isEnabled = this.state.isChecked != null;
+    const isEnabled = this.state.isChecked;
     return (
       <>
 
@@ -65,7 +53,6 @@ class AreaSensorInactivation extends React.Component {
           <label>
             <input ref="switch" checked={this.state.isChecked } disabled={isEnabled} onChange={ this.submit } className="switch" type="checkbox" />
             <div>
-
               <div> </div>
             </div>
           </label>
@@ -78,7 +65,7 @@ class AreaSensorInactivation extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     onInactivateSensorFromArea: (link) => {
-      dispatch(inactivateSensorFromArea(link))
+      dispatch(inactivateSensorFromArea({link}))
     }
   }
 };
