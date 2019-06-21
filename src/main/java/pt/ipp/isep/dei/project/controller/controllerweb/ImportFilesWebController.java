@@ -22,12 +22,11 @@ import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/import")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 public class ImportFilesWebController {
     private static final String IMPORT_TIME = "Import time: ";
+    private static final String EMPTY_FILE = "ERROR: Imported file is empty.";
     private static final String MILLISECONDS = " millisecond(s).";
     private static final String SUCCESS = "Successfully imported - ";
-    private static String UPLOADED_FOLDER = "src/test/resources/temp/";
 
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
@@ -44,9 +43,18 @@ public class ImportFilesWebController {
     @Autowired
     private HouseRepository houseRepository;
 
+    /**
+     * Method to import files with Geographic Area and Area Sensors
+     * @param file file to import
+     * @return response: string with information regarding success or failure
+     */
     @PostMapping("/importGA")
-    public ResponseEntity<?> importGAFile(
+    public ResponseEntity<Object> importGAFile(
             @RequestPart("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return new ResponseEntity<>(EMPTY_FILE, HttpStatus.OK);
+        }
+
         String result;
         String filename;
         try {
@@ -69,10 +77,18 @@ public class ImportFilesWebController {
                 filename + ".\n" + result, new HttpHeaders(), HttpStatus.OK);
     }
 
-
+    /**
+     * Method to import Area Sensor Readings
+     * @param file file to import
+     * @return response: string with information regarding success or failure
+     */
     @PostMapping("/importAreaReadings")
-    public ResponseEntity<?> importGAReadings(
+    public ResponseEntity<Object> importGAReadings(
             @RequestPart("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return new ResponseEntity<>(EMPTY_FILE, HttpStatus.OK);
+        }
+
         String result;
         String filename;
         try {
@@ -88,19 +104,17 @@ public class ImportFilesWebController {
                 filename + ".\n" + result, new HttpHeaders(), HttpStatus.OK);
     }
 
-
-    private Path saveUploadedFiles(MultipartFile file) throws IOException {
-        Path path;
-        byte[] bytes = file.getBytes();
-        path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-        Files.write(path, bytes);
-
-        return path;
-    }
-
+    /**
+     * Method to import files with House, rooms and Energy Grid Data
+      * @param houseFile file to import
+     * @return response: string with information regarding success or failure
+     */
     @PostMapping("/importHouse")
-    public ResponseEntity<?> importHouseFile(
-            @RequestPart("file") MultipartFile houseFile) {
+    public ResponseEntity<Object> importHouseFile(@RequestPart("file") MultipartFile houseFile) {
+        if (houseFile.isEmpty()) {
+            return new ResponseEntity<>(EMPTY_FILE, HttpStatus.OK);
+        }
+
         String result;
         String filename;
         House house = houseRepository.getHouses().get(0);
@@ -122,6 +136,26 @@ public class ImportFilesWebController {
                 filename + ".\n" + result, new HttpHeaders(), HttpStatus.OK);
     }
 
+
+
+
+
+
+
+    /**
+     * Method to save an imported file
+     * @param file imported file to save
+     * @return path to the saved file
+     */
+    private Path saveUploadedFiles(MultipartFile file) throws IOException {
+        Path path;
+        byte[] bytes = file.getBytes();
+        String uploadFolder = "src/test/resources/temp/";
+        path = Paths.get(uploadFolder + file.getOriginalFilename());
+        Files.write(path, bytes);
+
+        return path;
+    }
 
 }
 

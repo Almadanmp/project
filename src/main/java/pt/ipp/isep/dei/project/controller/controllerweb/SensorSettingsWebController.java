@@ -1,15 +1,12 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -18,13 +15,9 @@ import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 @RestController
 @ApplicationScope
 @RequestMapping("/sensors")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 public class SensorSettingsWebController {
 
     @Autowired
@@ -67,7 +60,7 @@ public class SensorSettingsWebController {
             return new ResponseEntity<>("That ID does not belong to any Geographic Area", HttpStatus.NOT_FOUND);
         }
         if (areaSensorDTO.getSensorId() != "" && areaSensorDTO.getSensorId() != null && areaSensorDTO.getDateStartedFunctioning() != ""
-        && areaSensorDTO.getType() != "") {
+                && areaSensorDTO.getType() != "") {
             if (areaSensorDTO.getName().equals("")) {
                 return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
@@ -139,16 +132,16 @@ public class SensorSettingsWebController {
     @PostMapping(value = "/sensorTypes")
     public ResponseEntity<Object> addSensorType(@RequestBody SensorTypeDTO sensorTypeDTO) {
         if (sensorTypeDTO.getName() == null) {
-            return new ResponseEntity<>("Null.",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Null.", HttpStatus.BAD_REQUEST);
         }
         if (sensorTypeDTO.getUnits() == null) {
-            return new ResponseEntity<>("Null.",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Null.", HttpStatus.BAD_REQUEST);
         }
-        if(sensorTypeDTO.getUnits().equals("")){
-            return new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
+        if (sensorTypeDTO.getUnits().equals("")) {
+            return new ResponseEntity<>("Empty information.", HttpStatus.BAD_REQUEST);
         }
         if (sensorTypeDTO.getName().equals("")) {
-            return new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Empty information.", HttpStatus.BAD_REQUEST);
         }
         List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
         for (SensorTypeDTO a : repoTypes) {
