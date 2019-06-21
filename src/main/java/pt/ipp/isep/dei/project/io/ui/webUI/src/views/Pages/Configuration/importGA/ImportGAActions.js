@@ -31,7 +31,7 @@ export function uploadFile(fileToUpload) {
 
 export function postFileStarted() {
   return {
-    type: POST_FILE_STARTED
+    type: POST_FILE_STARTED,
   }
 }
 
