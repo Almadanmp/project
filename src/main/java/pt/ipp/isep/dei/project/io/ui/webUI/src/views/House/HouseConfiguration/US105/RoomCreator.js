@@ -28,7 +28,7 @@ class RoomCreator extends React.Component {
 
   }
 
-  toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}))
+  toggleHidden = () => this.setState({isHidden: false})
 
   handleSubmit() {
     this.props.onFetchRoom(this.state);
@@ -91,9 +91,9 @@ class RoomCreator extends React.Component {
           this.submit();
           this.toggleHidden()
         }}>Save new room
-          configuration</Button>{!this.state.isHidden &&
+          configuration</Button>{this.state.isHidden === false ?
       <Message105 name={this.state.name} floor={this.state.floor} width={this.state.width} length={this.state.width}
-                  height={this.state.height}/>}
+                  height={this.state.height}/>:''}
       </>
     )
   }

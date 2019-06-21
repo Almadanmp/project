@@ -25,7 +25,7 @@ class US005Redux extends React.Component {
     };
 
   }
-  toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}))
+  toggleHidden = () => this.setState({isHidden: false})
 
   submit = () => {
     confirmAlert({
@@ -69,8 +69,8 @@ class US005Redux extends React.Component {
             this.toggleHidden()
           }}>Add sensor
             type</Button>
-          {!this.state.isHidden &&
-          <Message005 name={this.state.name} units={this.state.units}/>}
+          {this.state.isHidden === false ?
+            <Message005 name={this.state.name} units={this.state.units}/>:''}
         </CardBody>
         </Card>
       </div>
