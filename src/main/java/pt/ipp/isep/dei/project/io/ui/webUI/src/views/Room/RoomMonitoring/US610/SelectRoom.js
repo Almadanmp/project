@@ -16,7 +16,7 @@ class SelectRoom extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken')
-    fetch('https://localhost:8443/houseSettings/houseRooms', {
+    fetch('https://localhost:8443/rooms/', {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,

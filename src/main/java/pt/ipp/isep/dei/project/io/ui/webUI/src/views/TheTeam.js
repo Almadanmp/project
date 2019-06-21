@@ -28,7 +28,7 @@ class UnderMaintenance extends Component {
             <Col style={{textAlign: "center"}}>
               <img src="https://imgur.com/MIORjL7.png" width="40%" height="60%"/>
               <h3>Cárina</h3>
-              <p>Kitties</p></Col>
+              <p>oi colega</p></Col>
             <Col style={{textAlign: "center"}}>
               <img src="https://imgur.com/a78ZEfT.png" width="40%" height="60%"/>
               <h3>Daniel</h3>

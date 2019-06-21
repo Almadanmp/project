@@ -10,7 +10,6 @@ class AreaSensorCreator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      geographicAreaId:this.props.geographicAreaId,
       typeSensor:this.props.typeSensor,
       name: '',
       sensorId: '',
@@ -71,7 +70,7 @@ class AreaSensorCreator extends React.Component {
             </CardHeader>
           </div>
         </label>
-        <US006Button geographicAreaId={this.props.geographicAreaId} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}
+        <US006Button link={this.props.linkAdd} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}
         latitude={this.state.latitude} longitude={this.state.longitude} altitude={this.state.altitude}/>
       </div>
     )
