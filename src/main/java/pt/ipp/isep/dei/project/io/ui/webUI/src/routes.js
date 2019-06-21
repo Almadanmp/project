@@ -1,5 +1,5 @@
 import React from 'react';
-import Configuration from "./views/Pages/Configuration/Configuration";
+import Configuration from "./views/ImportFiles/Configuration";
 
 
 const About = React.lazy(() => import('./views/Pages/About'));

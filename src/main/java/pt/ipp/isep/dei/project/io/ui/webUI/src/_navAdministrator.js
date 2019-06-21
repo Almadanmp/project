@@ -54,6 +54,11 @@ export default {
       url: '/sensor',
       icon: 'icon-speedometer\n',
     },
+    {
+      name: 'Data Import',
+      url: '/configuration',
+      icon: 'icon-cloud-upload',
+    },
 
     {
       divider: true,
@@ -75,11 +80,6 @@ export default {
     {
       name: 'PleaseLogin',
       url: '/pleaseLogIn',
-      icon: 'icon-star',
-    },
-    {
-      name: 'Configuration',
-      url: '/configuration',
       icon: 'icon-star',
     },
   ],

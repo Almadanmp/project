@@ -19,8 +19,8 @@ import Reducers633 from './views/House/HouseMonitoring/USRedux/US633Redux/Reduce
 import Reducer005extra from './views/Sensor/US005Extra/Reducers005extra'
 import ReducersUserRole from "./user/ReducersUserRole";
 import ReducersGetRoomsNotInGrid from './views/EnergyGrid/US147/ReducersGetRoomsNotInGrid'
-import ReducersImportGA from "./views/Pages/Configuration/importGA/ReducersImportGA";
-import ReducersAreaReadings from "./views/Pages/Configuration/importAreaReadings/ReducersAreaReadings";
+import ReducersImportGA from "./views/ImportFiles/importGA/ReducersImportGA";
+import ReducersAreaReadings from "./views/ImportFiles/importAreaReadings/ReducersAreaReadings";
 
 export default combineReducers({
 
