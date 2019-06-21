@@ -141,6 +141,12 @@ public class SensorSettingsWebController {
         if (sensorTypeDTO.getName() == null) {
             return new ResponseEntity<>("Null.",HttpStatus.BAD_REQUEST);
         }
+        if (sensorTypeDTO.getUnits() == null) {
+            return new ResponseEntity<>("Null.",HttpStatus.BAD_REQUEST);
+        }
+        if(sensorTypeDTO.getUnits().equals("")){
+            return new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
+        }
         if (sensorTypeDTO.getName().equals("")) {
             return new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
         }

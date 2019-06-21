@@ -302,6 +302,7 @@ class SensorSettingsWebControllerTest {
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("rain");
+        typeToAdd.setUnits("mm");
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeToAdd, HttpStatus.OK);
 
         // Act
@@ -360,6 +361,25 @@ class SensorSettingsWebControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+    @Test
+    void seeIfAddSensorTypeWorksInvalidInputEmpty1() {
+        // Arrange
+
+        List<SensorTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("rain");
+        typeToAdd.setUnits("");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfAddSensorTypeWorksInvalidInputEmpty() {
@@ -370,7 +390,7 @@ class SensorSettingsWebControllerTest {
         ResponseEntity<Object> expectedResult = new ResponseEntity<>("Empty information.",HttpStatus.BAD_REQUEST);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("");
-
+typeToAdd.setUnits("mm");
         // Act
 
         ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
@@ -389,6 +409,25 @@ class SensorSettingsWebControllerTest {
         ResponseEntity<Object> expectedResult = new ResponseEntity<>("Null.", HttpStatus.BAD_REQUEST);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName(null);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeIfAddSensorTypeWorksInvalidInputNull1() {
+        // Arrange
+
+        List<SensorTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("Null.", HttpStatus.BAD_REQUEST);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("rain");
+        typeToAdd.setUnits(null);
 
         // Act
 
