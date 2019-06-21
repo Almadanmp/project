@@ -3,6 +3,8 @@ import US001 from "./US001";
 import US002 from './US002';
 import US004 from './US004';
 import US006 from './US006';
+import US006Redux from './US006Redux/US006Redux';
+
 import US007Redux from './US007Redux/US007Redux';
 import US010 from './US010';
 import US011 from './US011';
@@ -28,6 +30,7 @@ class Area extends Component {
         <US001/>
         <US002/>
         <US004/>
+        <US006Redux/>
         <US007Redux/>
         <US010/>
         <US011/>
