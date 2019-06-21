@@ -34,6 +34,7 @@ public class SensorSettingsWebController {
     private SensorTypeRepository sensorTypeRepository;
 
     // Part 1 - Geographical Areas
+
     /**
      * Shows a Geographical Area selected by it's ID, given that it is present in the database.
      *
@@ -65,7 +66,12 @@ public class SensorSettingsWebController {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("That ID does not belong to any Geographic Area", HttpStatus.NOT_FOUND);
         }
-        if (areaSensorDTO.getSensorId() != "" && areaSensorDTO.getSensorId() != null) {
+        if (areaSensorDTO.getSensorId() != null) {
+            if (areaSensorDTO.getName().equals("")) {
+                return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
+            }
+        }
+        if (areaSensorDTO.getSensorId() != "") {
             if (areaSensorDTO.getName().equals("")) {
                 return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
@@ -143,7 +149,7 @@ public class SensorSettingsWebController {
         }
         List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
         for (SensorTypeDTO a : repoTypes) {
-            if ( (a.getName().equals(sensorTypeDTO.getName())) && (a.getUnits().equals(sensorTypeDTO.getUnits())) ) {
+            if ((a.getName().equals(sensorTypeDTO.getName())) && (a.getUnits().equals(sensorTypeDTO.getUnits()))) {
                 return new ResponseEntity<>(a, HttpStatus.CONFLICT);
             }
         }
