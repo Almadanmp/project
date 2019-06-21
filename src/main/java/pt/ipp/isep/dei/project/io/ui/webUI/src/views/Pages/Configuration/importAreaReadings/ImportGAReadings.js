@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, Collapse} from "reactstrap";
 import ImportAreaReadingsDropzone from "./AreaReadingsDropzone";
+import {connect} from "react-redux";
 
 class ImportGAReadings extends Component {
   constructor(props) {
@@ -14,22 +15,47 @@ class ImportGAReadings extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}
-                class="fa fa-plus-square-o fa-lg mt-4">Import Area Readings </Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
-            <CardBody>
+    if (this.props.loading === true) {
+      return (
+        <div align="center">
+          <p><font size="5">LOADING</font> </p>
+          <p><font size="4">. . . please wait . . .</font> </p>
+          <div align="center">
+            <div className="spinner-border" role="status">
+              <span className="sr-only"> Loading...</span>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}
+                  class="fa fa-plus-square-o fa-lg mt-4">Import Area Readings </Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
               <span>
               <ImportAreaReadingsDropzone/>
               </span>
-            </CardBody>
-          </Card>
-        </Collapse>
-      </div>
-    )
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
+      )
+    }
   }
 }
 
-export default ImportGAReadings;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.ReducersAreaReadings.loading,
+  }
+};
+
+
+export default connect(
+  mapStateToProps,
+  null,
+)(ImportGAReadings);
+

@@ -28,34 +28,32 @@ class AreaReadingsDropzone extends Component {
     this.setState({file: formData})
   }
 
-  //TODO not to remove - check tomorrow if it doesnt move in someonelses pc
-
-  // handleSubmit = () => {
-  //   if (this.state.file instanceof FormData) {
-  //     confirmAlert({
-  //       title: 'Confirm to import data',
-  //       message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
-  //       buttons: [
-  //         {
-  //           label: 'Yes',
-  //           onClick: () => this.props.onPostFile(this.state.file)
-  //         },
-  //         {
-  //           label: 'No',
-  //           onClick: () => {
-  //           }
-  //         }
-  //       ]
-  //     });
-  //   } else {
-  //     //TODO improve alert Box
-  //     alert('Unable to submit: a file must be selected')
-  //   }
-  // };
-
-  handleSubmit () {
-   this.props.onPostFile(this.state.file)
+  handleSubmit = () => {
+    if (this.state.file instanceof FormData) {
+      confirmAlert({
+        title: 'Confirm to import data',
+        message: 'Are you sure to import ' + this.state.file.get('file').name + '?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => this.props.onPostFile(this.state.file)
+          },
+          {
+            label: 'No',
+            onClick: () => {
+            }
+          }
+        ]
+      });
+    } else {
+      //TODO improve alert Box
+      alert('Unable to submit: a file must be selected')
+    }
   };
+
+  // handleSubmit () {
+  //  this.props.onPostFile(this.state.file)
+  // };
 
 
   render() {
