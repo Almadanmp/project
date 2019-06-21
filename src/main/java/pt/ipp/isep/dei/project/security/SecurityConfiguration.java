@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
                 .antMatchers("/gridSettings/**").hasRole(ADMIN)
                 .antMatchers("/geographic_area_settings/**").hasRole(ADMIN)
-                .antMatchers("/import/**").permitAll()
+                .antMatchers("/import/**").hasRole(ADMIN)
                 //Regular User Access - US600, US605, US610, US620, US630, US631, US633
                 .antMatchers("/houseMonitoring/**").hasAnyRole(REGULAR_USER, POWER_USER, ROOM_OWNER)
                 .antMatchers("/roomMonitoring/**").hasAnyRole(REGULAR_USER, POWER_USER)
@@ -88,7 +88,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001", "http://localhost:3002"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.addExposedHeader("Authorization");

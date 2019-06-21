@@ -24,8 +24,6 @@ class GADropzone extends Component {
     this.setState({file: formData})
   }
 
-  //TODO not to remove - check tomorrow if it doesnt move in someonelses pc
-
   handleSubmit = () => {
     if (this.state.file instanceof FormData) {
       confirmAlert({

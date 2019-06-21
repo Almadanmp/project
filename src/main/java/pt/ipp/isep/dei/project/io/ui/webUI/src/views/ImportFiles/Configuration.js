@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ImportGeographicAreas from "./importGA/ImportGA";
 import ImportAreaReadings from "./importAreaReadings/ImportGAReadings";
+import ImportHouse from "./importHouse/ImportHouse";
 
 class Configuration extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Configuration extends Component {
         <p></p>
         <ImportGeographicAreas/>
         <ImportAreaReadings/>
+        <ImportHouse/>
       </>
     );
   }

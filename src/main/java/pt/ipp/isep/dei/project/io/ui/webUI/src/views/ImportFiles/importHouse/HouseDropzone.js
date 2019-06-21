@@ -1,22 +1,17 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
-import {uploadFile} from "./ImportAreaReadingsActions";
+import {uploadFile} from "./ImportHouseActions";
 import {Alert, Button} from "reactstrap";
 import {connect} from "react-redux";
 import {confirmAlert} from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
-class AreaReadingsDropzone extends Component {
+class HouseDropzone extends Component {
   constructor(props) {
     super(props);
     this.state = {file: {}};
     this.onDrop = this.onDrop.bind(this);
-    this.toggle = this.toggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  toggle() {
-    this.setState(state => ({collapse: !state.collapse}));
   }
 
   onDrop = (acceptedFiles) => {
@@ -82,7 +77,7 @@ class AreaReadingsDropzone extends Component {
                     </li>
                   ))}
                 </ul>
-                <div className="help-block"><Alert color="white">{this.props.importGAReadingsResults}</Alert></div>
+                <div className="help-block"><Alert color="white">{this.props.houseResults}</Alert></div>
               </div>
 
             )
@@ -101,9 +96,9 @@ class AreaReadingsDropzone extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.ReducersAreaReadings.loading,
-    error: state.ReducersAreaReadings.error,
-    importGAReadingsResults: state.ReducersAreaReadings.importGAReadingsResults,
+    loading: state.ReducersImportHouse.loading,
+    error: state.ReducersImportHouse.error,
+    houseResults: state.ReducersImportHouse.houseResults,
   }
 };
 
@@ -118,4 +113,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AreaReadingsDropzone);
+)(HouseDropzone);

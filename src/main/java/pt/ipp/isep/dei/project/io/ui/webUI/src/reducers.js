@@ -21,6 +21,7 @@ import ReducersUserRole from "./user/ReducersUserRole";
 import ReducersGetRoomsNotInGrid from './views/EnergyGrid/US147/ReducersGetRoomsNotInGrid'
 import ReducersImportGA from "./views/ImportFiles/importGA/ReducersImportGA";
 import ReducersAreaReadings from "./views/ImportFiles/importAreaReadings/ReducersAreaReadings";
+import ReducersImportHouse from "./views/ImportFiles/importHouse/ReducersImportHouse";
 
 export default combineReducers({
 
@@ -44,6 +45,7 @@ export default combineReducers({
   ReducersUserRole,
   ReducersImportGA,
   ReducersAreaReadings,
+  ReducersImportHouse,
 
   ReducersGetRoomsNotInGrid,
 })
