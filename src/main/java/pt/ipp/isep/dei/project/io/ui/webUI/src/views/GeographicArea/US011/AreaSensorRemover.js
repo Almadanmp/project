@@ -28,7 +28,7 @@ class AreaSensorRemover extends React.Component {
   submit = () => {
     confirmAlert({
       title: 'Confirm to remove',
-      message: 'Are you sure to remove ' + this.state.sensorId + ' from ' + this.state.id + '?',
+      message: 'Are you sure to remove ' + this.props.sensorId + ' from ' + this.props.area + '?',
       buttons: [
         {
           label: 'Yes',
@@ -44,24 +44,15 @@ class AreaSensorRemover extends React.Component {
   };
 
   handleSubmit() {
-    this.props.onDeleteSensorFromArea(this.state);
+    console.log(this.props.link.href)
+    this.props.onDeleteSensorFromArea(this.props.link.href, this.props.sensorId);
   }
 
   render() {
     return (
       <>
-
-        <label> Geographic area Id:
-          <input value={this.state.id} type="number" name="id" onChange={this.handleInputChange('id')}/>
-        </label>
-
-        <label> Area Sensor Id:
-          <input value={this.state.sensorId} type="text" name="sensorId" placeholder="Sensor id" onChange={this.handleInputChange('sensorId')}/>
-        </label>
-
-        <p>{''}</p>
-
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.submit}> Remove sensor </Button>
+        <Button style={{backgroundColor: '#ffffff', marginBottom: '1rem'}} onClick={this.submit}><i
+          className="fa fa-minus-square-o fa-lg"></i> </Button>
       </>
     )
   }
@@ -69,8 +60,8 @@ class AreaSensorRemover extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDeleteSensorFromArea: ({id, sensorId}) => {
-      dispatch(deleteSensorFromArea({id, sensorId}))
+    onDeleteSensorFromArea: (href, sensorId) => {
+      dispatch(deleteSensorFromArea({href, sensorId}))
     }
   }
 };

@@ -5,12 +5,13 @@ export const REMOVE_AREA_SENSOR_INFO_SUCCESS = 'REMOVE_AREA_SENSOR_INFO_SUCCESS'
 export const REMOVE_AREA_SENSOR_INFO_FAILURE = 'REMOVE_AREA_SENSOR_INFO_FAILURE';
 
 
-export const deleteSensorFromArea = ({id, sensorId}) => {
+export const deleteSensorFromArea = ({href, sensorId}) => {
   const token = localStorage.getItem('loginToken');
+  console.log(href)
   return dispatch => {
-    dispatch(fetchSensorFromAreaInfo(id, sensorId));
+    dispatch(fetchSensorFromAreaInfo(href, sensorId));
     axios
-      .delete('https://localhost:8443/geoAreas/' + id,
+      .delete(href,
         {
           headers: {
             'Authorization': token,
@@ -30,12 +31,12 @@ export const deleteSensorFromArea = ({id, sensorId}) => {
 };
 
 
-export function fetchSensorFromAreaInfo(id, sensorId) {
+export function fetchSensorFromAreaInfo(href, sensorId) {
   return {
     type: REMOVE_AREA_SENSOR_INFO_STARTED,
     payload: {
-      id: id,
-      sensorId: sensorId,
+      href: href,
+      sensorId: sensorId
     }
   }
 }
