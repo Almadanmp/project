@@ -13,7 +13,7 @@ const initialstate = {
 };
 
 
-export default function Reducers105 (state = initialstate, action) {
+export default function Reducers105(state = initialstate, action) {
   switch (action.type) {
     case ADD_ROOM_INFO_STARTED:
       return {
