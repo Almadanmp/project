@@ -480,7 +480,7 @@ class GeoAreasWebControllerTest {
         validGeographicAreaDTO.add(link);
 
         // Act
-        ResponseEntity<Object> actualResult = geoAreasWebController.addChildArea(validGeographicAreaDTO2.getGeographicAreaId(),validGeographicAreaDTO.getGeographicAreaId());
+        ResponseEntity<Object> actualResult = geoAreasWebController.addChildArea(validGeographicAreaDTO2,validGeographicAreaDTO.getGeographicAreaId());
 
         // Assert
        // assertEquals(HttpStatus.OK, actualResult.getStatusCode());
@@ -501,7 +501,7 @@ class GeoAreasWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
 
         // Act
-        ResponseEntity<Object> actualResult = geoAreasWebController.addChildArea(6L, validGeographicAreaDTO.getGeographicAreaId());
+        ResponseEntity<Object> actualResult = geoAreasWebController.addChildArea(validGeographicAreaDTO, validGeographicAreaDTO.getGeographicAreaId());
 
         // Assert
         assertEquals(expectedResult, actualResult);
@@ -510,9 +510,11 @@ class GeoAreasWebControllerTest {
     @Test
     void addDaughterAreaNotFound() {
 
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
         Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).addChildArea(any(long.class), any(long.class));
 
-        ResponseEntity<Object> actualResult = geoAreasWebController.addChildArea(6L, 3L);
+        ResponseEntity<Object> actualResult = geoAreasWebController.addChildArea(validGeographicAreaDTO, 3L);
 
         assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
     }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row} from "reactstrap";
 
-class UnderMaintenance extends Component {
+class TheTeam extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -69,5 +69,5 @@ class UnderMaintenance extends Component {
   }
 }
 
-export default UnderMaintenance;
+export default TheTeam;
 

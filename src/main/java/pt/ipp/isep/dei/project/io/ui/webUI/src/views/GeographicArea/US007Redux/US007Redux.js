@@ -10,12 +10,10 @@ class US007Redux extends React.Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.state = {
       isHidden: true,
       item: [],
-      motherId: '',
       childId: '',
       count: 0,
     };
@@ -46,16 +44,14 @@ class US007Redux extends React.Component {
     this.setState(state => ({collapse: !state.collapse}));
   }
 
-  handleChange1(event) {
-    this.setState({motherId: event.target.value});
-  }
-
   handleChange2(event) {
     this.setState({childId: event.target.value});
   }
 
   handleSubmit() {
-    this.props.onFetchMotherChild(this.state);
+    this.props.onFetchMotherChild(this.props.linkAdd,this.state.childId);
+    console.log(this.props.linkAdd)
+    console.log(this.state.childId)
     this.setState({isHidden: false})
   }
 
@@ -72,24 +68,10 @@ class US007Redux extends React.Component {
               <Form action="" method="post">
                 <FormGroup>
                   <Label>Select Geographic Area</Label>
-                  <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange1}>
-                    <option value="" onChange={this.handleChange1}>Please select the mother Geographic Area</option>
-                    {item.map(items => (
-                      <option value={items.geographicAreaId} key={items.geographicAreaId}>
-                        {items.name}
-                      </option>
-                    ))}
-                  </Input>
-                </FormGroup>
-              </Form>
-              <p></p>
-              <Form action="" method="post">
-                <FormGroup>
-                  <Label>Select Geographic Area</Label>
                   <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange2}>
                     <option value="" onChange={this.handleChange2}>Please select the child Geographic Area</option>
                     {item.map(items => (
-                      <option value={items.geographicAreaId} key={items.geographicAreaId}>
+                      <option value={items.geographicAreaId} key={items.geographicAreaId} >
                         {items.name}
                       </option>
                     ))}
@@ -100,9 +82,9 @@ class US007Redux extends React.Component {
               <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save changes
               </Button>
               {(this.state.isHidden === false ?
-                <AlterMotherChild motherId={this.state.motherId} childId={this.state.childId}/> : '')}
+                <AlterMotherChild childId={this.state.childId}/> : '')}
             </CardBody>
-          </Card>
+          </Card>'
         </Collapse>
       </div>
     );
@@ -120,8 +102,8 @@ const mapStateToProps = (state) => {
 const
   mapDispatchToProps = (dispatch) => {
     return {
-      onFetchMotherChild: ({motherId, childId}) => {
-        dispatch(fetchMotherChild({motherId, childId}))
+      onFetchMotherChild: (linkAdd,  id) => {
+        dispatch(fetchMotherChild({linkAdd, id}))
       }
     }
   };

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, CardHeader, Col, Collapse, Table} from "reactstrap";
 import TableBody from "../ChildAreas/TableBody";
+import US007Redux from "../US007Redux/US007Redux";
 
 class GetChildren extends Component {
 
@@ -30,7 +31,7 @@ class GetChildren extends Component {
                 <Table responsive>
                   <TableBody link={this.props.link}/>
                 </Table>
-                {/*<RemoveChildArea/>*/}
+                <US007Redux linkAdd={this.props.linkAdd.href}/>
               </CardBody>
             </Card>
         </Collapse>

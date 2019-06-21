@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
+import RemoveChildArea from "./RemoveChild/RemoveChildArea";
 class TableBody extends Component {
 
   constructor(props) {
@@ -58,7 +59,7 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>
-              Remove
+              <RemoveChildArea  link={item.links.find((hrefs) => hrefs.rel === 'Remove Child Area')} area={item.name}/>
             </td>
           </tr>
         ))}

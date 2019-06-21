@@ -5,19 +5,24 @@ export const FETCH_MOTHERCHILD_SUCCESS = 'FETCH_MOTHERCHILD_SUCCESS';
 export const FETCH_MOTHERCHILD_FAILURE = 'FETCH_MOTHERCHILD_FAILURE';
 
 
-export const fetchMotherChild = ({motherId, childId}) => {
+export const fetchMotherChild = ({linkAdd, id}) => {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchMotherChildStarted(motherId, childId));
-    const data = {motherId, childId};
+    dispatch(fetchMotherChildStarted(linkAdd, id));
+    console.log(id)
+    console.log(linkAdd)
+    const data = {linkAdd, id};
     axios
-      .put('https://localhost:8443/geoAreas/' + motherId + '/' + childId, data, {
+      .put(linkAdd + id, data, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json"
-          }}
+          },
+
+
+      }
       )
       .then(res => {
         dispatch(fetchMotherChildSuccess(res.data));
@@ -29,12 +34,12 @@ export const fetchMotherChild = ({motherId, childId}) => {
   };
 };
 
-export function fetchMotherChildStarted(motherId, childId) {
+export function fetchMotherChildStarted(linkAdd, id) {
   return {
     type: FETCH_MOTHERCHILD_STARTED,
     payload: {
-      motherId: motherId,
-      childId: childId,
+      linkAdd: linkAdd,
+      id: id,
     }
   }
 }
