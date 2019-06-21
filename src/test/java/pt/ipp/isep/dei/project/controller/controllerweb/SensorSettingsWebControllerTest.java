@@ -336,7 +336,7 @@ class SensorSettingsWebControllerTest {
         typeInRepo.setUnits("mm");
         repoList.add(typeInRepo);
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.OK);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
         typeToAdd.setName("rain");
         typeToAdd.setUnits("mm2");
@@ -360,10 +360,10 @@ class SensorSettingsWebControllerTest {
         typeInRepo.setUnits("mm");
         repoList.add(typeInRepo);
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.OK);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
-        typeToAdd.setName("rain");
-        typeToAdd.setUnits("");
+        typeToAdd.setName("rain2");
+        typeToAdd.setUnits("mm");
 
         // Act
 
