@@ -401,7 +401,7 @@ class SensorSettingsWebControllerTest {
         Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         SensorTypeDTO typeToAdd = new SensorTypeDTO();
-        typeToAdd.setName("");
+        typeToAdd.setName(null);
 
         // Act
 
