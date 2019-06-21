@@ -51,7 +51,8 @@ class AreaSensorInactivation extends React.Component {
   };
 
   handleSubmit() {
-    this.props.onInactivateSensorFromArea(this.props.link.href);
+    const{link}=this.props.link.href;
+    this.props.onInactivateSensorFromArea(link);
   }
 
 
@@ -76,8 +77,8 @@ class AreaSensorInactivation extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onInactivateSensorFromArea: ({link}) => {
-      dispatch(inactivateSensorFromArea({link}))
+    onInactivateSensorFromArea: (link) => {
+      dispatch(inactivateSensorFromArea(link))
     }
   }
 };

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Badge} from "reactstrap";
 import AreaSensorInactivation from "./DeactivateSensor/AreaSensorInactivation";
+import AreaSensorRemover from "../US011/AreaSensorRemover"
 class TableBody extends Component {
 
   constructor(props) {
@@ -59,6 +60,7 @@ class TableBody extends Component {
             <td>{item.active == true ? <Badge color="success"> Active </Badge> :
               <Badge color="danger"> Inactive </Badge>}</td>
             <AreaSensorInactivation link={item.links.find((hrefs) => hrefs.rel === 'Deactivate this Sensor')} sensorId={item.name}/>
+            <AreaSensorRemover link={item.links.find((hrefs) => hrefs.rel === 'Delete this Sensor')} sensorId={item.name} area={this.props.area}/>
           </tr>
         ))}
 
