@@ -14,9 +14,9 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.repository.HouseCrudRepo;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.model.repository.HouseCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -275,58 +275,81 @@ class HouseConfigurationUI {
 
     private void runUS265() {
         String filePath = InputHelperUI.getInputJsonXmlCsv();
-        if (filePath.endsWith(".csv")) {
-            importReadingsFromCSV(filePath);
-        } else if (filePath.endsWith(".json")) {
-            importReadingsFromJSON(filePath);
-        } else if (filePath.endsWith(".xml")) {
-            importReadingsFromXML(filePath);
-        }
+        selectImportHouseReadingsMethod(filePath);
     }
 
-    private void importReadingsFromCSV(String filePath) {
-        int addedReadings = 0;
+    public String selectImportHouseReadingsMethod(String filePath) {
+        if (filePath.endsWith(".csv")) {
+            return importReadingsFromCSV(filePath);
+        } else if (filePath.endsWith(".json")) {
+            return importReadingsFromJSON(filePath);
+        } else if (filePath.endsWith(".xml")) {
+            return importReadingsFromXML(filePath);
+        }
+        return "ERROR: File type not valid";
+    }
+
+
+    private String importReadingsFromCSV(String filePath) {
+        String output;
+        int addedReadings;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
         long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
             addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
+            output = "The CSV file is invalid. Please fix before continuing.";
             System.out.println("The CSV file is invalid. Please fix before continuing.");
+            return output;
         }
-        System.out.println(addedReadings + READINGS_IMPORTED);
         long stopTime = System.currentTimeMillis();
+        System.out.println(addedReadings + READINGS_IMPORTED);
+        output = addedReadings + READINGS_IMPORTED + "\n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
         System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
+        return output;
     }
 
-    void importReadingsFromJSON(String filePath) {
-        int addedReadings = 0;
+    String importReadingsFromJSON(String filePath) {
+        String output;
+        int addedReadings;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
             addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
+            output = "The JSON file is invalid. Please fix before continuing.";
             System.out.println("The JSON file is invalid. Please fix before continuing.");
+            return output;
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
         long stopTime = System.currentTimeMillis();
+        output = addedReadings + READINGS_IMPORTED + "\n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
         System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
+        return output;
     }
 
-    private void importReadingsFromXML(String filePath) {
-        int addedReadings = 0;
+    private String importReadingsFromXML(String filePath) {
+        int addedReadings;
+        String output;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
         long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerXML.readFile(filePath);
             addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
+            output = "The XML file is invalid. Please fix before continuing.";
             System.out.println("The XML file is invalid. Please fix before continuing.");
+            return output;
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
         long stopTime = System.currentTimeMillis();
+        output = addedReadings + READINGS_IMPORTED + "\n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
         System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
+        return output;
+
+
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings) {

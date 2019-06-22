@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ImportGeographicAreas from "./importGA/ImportGA";
 import ImportAreaReadings from "./importAreaReadings/ImportGAReadings";
 import ImportHouse from "./importHouse/ImportHouse";
+import ImportHouseSensors from "./importHouseSensors/ImportHouseSensors";
 
 class Configuration extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Configuration extends Component {
         <ImportGeographicAreas/>
         <ImportAreaReadings/>
         <ImportHouse/>
+        <ImportHouseSensors/>
       </>
     );
   }

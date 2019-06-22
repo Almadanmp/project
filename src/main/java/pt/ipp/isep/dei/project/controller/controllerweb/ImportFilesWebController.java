@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import pt.ipp.isep.dei.project.controller.controllercli.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.commandline.GASettingsUI;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -42,9 +46,12 @@ public class ImportFilesWebController {
     private ReaderController readerController;
     @Autowired
     private HouseRepository houseRepository;
+    @Autowired
+    private HouseConfigurationController houseConfigurationController;
 
     /**
      * Method to import files with Geographic Area and Area Sensors
+     *
      * @param file file to import
      * @return response: string with information regarding success or failure
      */
@@ -79,6 +86,7 @@ public class ImportFilesWebController {
 
     /**
      * Method to import Area Sensor Readings
+     *
      * @param file file to import
      * @return response: string with information regarding success or failure
      */
@@ -106,7 +114,8 @@ public class ImportFilesWebController {
 
     /**
      * Method to import files with House, rooms and Energy Grid Data
-      * @param houseFile file to import
+     *
+     * @param houseFile file to import
      * @return response: string with information regarding success or failure
      */
     @PostMapping("/importHouse")
@@ -123,10 +132,10 @@ public class ImportFilesWebController {
             String pathToFile = path.toString();
             filename = houseFile.getOriginalFilename();
             long startTime = System.currentTimeMillis();
-             readerController.readJSONAndDefineHouse(house,pathToFile);
+            readerController.readJSONAndDefineHouse(house, pathToFile);
 
-                long stopTime = System.currentTimeMillis();
-                result = " \n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
+            long stopTime = System.currentTimeMillis();
+            result = " \n" + IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
 
             Files.delete(path);
         } catch (IOException e) {
@@ -137,13 +146,42 @@ public class ImportFilesWebController {
     }
 
 
+    /**
+     * Method to import a file with House Sensors data
+     *
+     * @param houseSensorsFile file to import
+     * @return response: string with information regarding success or failure
+     */
+    @PostMapping("/importHouseSensors")
+    public ResponseEntity<Object> importHouseSensorsFile(@RequestPart("file") MultipartFile houseSensorsFile) {
 
+        if (houseSensorsFile.isEmpty()) {
+            return new ResponseEntity<>(EMPTY_FILE, HttpStatus.OK);
+        }
+        String result;
+        String filename;
 
-
+        try {
+            Path path = saveUploadedFiles(houseSensorsFile);
+            String pathToFile = path.toString();
+            filename = houseSensorsFile.getOriginalFilename();
+            long startTime = System.currentTimeMillis();
+            int[] importedSensors = houseConfigurationController.readSensors(pathToFile);
+            long stopTime = System.currentTimeMillis();
+            result = importedSensors[0] + " Sensors successfully imported and " + importedSensors[1] + " rejected.\n" +
+                    IMPORT_TIME + (stopTime - startTime) + MILLISECONDS;
+            Files.delete(path);
+        } catch (IOException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(SUCCESS +
+                filename + ".\n" + result, new HttpHeaders(), HttpStatus.OK);
+    }
 
 
     /**
      * Method to save an imported file
+     *
      * @param file imported file to save
      * @return path to the saved file
      */
