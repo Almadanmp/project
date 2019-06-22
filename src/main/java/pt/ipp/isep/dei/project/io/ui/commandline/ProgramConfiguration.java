@@ -72,7 +72,7 @@ public class ProgramConfiguration implements CommandLineRunner {
 
 
         House house = mainHouse(houseCrudRepo, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
-
+        dataImporter.importData(house);
         //LOAD PERSISTED GA DATA
 
         //MAIN CODE
