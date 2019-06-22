@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, CardHeader, Col, Collapse, Table} from "reactstrap";
 import TableBody from "../ChildAreas/TableBody";
+import US007Redux from "../US007Redux/US007Redux";
 
 class GetChildren extends Component {
 
@@ -12,6 +13,7 @@ class GetChildren extends Component {
 
   toggle() {
     this.setState(state => ({collapse: !state.collapse}));
+    console.log(this.props.geographicAreaId)
   }
 
   render() {
@@ -22,7 +24,7 @@ class GetChildren extends Component {
         <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardHeader>
-                <strong>Child Geographic Area</strong>
+                <strong>Child Geographic Area  from {this.props.geographicAreaId}</strong>
               </CardHeader>
               <CardBody style={{
                 textAlign: "right"
@@ -30,7 +32,7 @@ class GetChildren extends Component {
                 <Table responsive>
                   <TableBody link={this.props.link}/>
                 </Table>
-                {/*<RemoveChildArea/>*/}
+                <US007Redux geographicAreaId={this.props.geographicAreaId} />
               </CardBody>
             </Card>
         </Collapse>

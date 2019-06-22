@@ -110,7 +110,7 @@ public class GeoAreasWebController {
           //  if (userService.getUsernameFromToken().equals("admin")) {
                 Link getChildAreas = linkTo(methodOn(GeoAreasWebController.class).getChildAreas(g.getGeographicAreaId())).
                         withRel("List child areas.");
-                Link addChildArea = linkTo(methodOn(GeoAreasWebController.class).addChildArea(0
+                Link addChildArea = linkTo(methodOn(GeoAreasWebController.class).addChildArea(0L
                         , g.getGeographicAreaId())).withRel("Add child area.");
 
                 Link sensors = linkTo(methodOn(GeoAreasWebController.class).getAreaSensors(g.getGeographicAreaId())).
@@ -137,8 +137,8 @@ public class GeoAreasWebController {
         List<GeographicAreaDTO> childAreaDTOList = geographicAreaRepo.getDTOById(id).getDaughterAreas();
         for (GeographicAreaDTO g : childAreaDTOList) {
             if (userService.getUsernameFromToken().equals("admin")) {
-                Link removeChildArea = linkTo(methodOn(GeoAreasWebController.class).removeChildArea(g.getGeographicAreaId(),
-                        g.getGeographicAreaId())).withRel("Remove Child Area");
+                Link removeChildArea = linkTo(methodOn(GeoAreasWebController.class).removeChildArea(
+                        g.getGeographicAreaId(), id)).withRel("Remove Child Area");
                 g.add(removeChildArea);
             }
         }
@@ -171,24 +171,25 @@ public class GeoAreasWebController {
     /**
      * Add daughter area to a mother area
      *
-     * @param idAreaChild  of the geoArea to be added
+     * @param areaChild  of the geoArea to be added
      * @param idAreaParent of the geoArea with the daughter area
      * @return string with info if geoArea was added or not
      */
     @PutMapping("/{idParent}/{idChild}")
-    public ResponseEntity<Object> addChildArea(@PathVariable("idChild") long idAreaChild,
+    public ResponseEntity<Object> addChildArea(@PathVariable("idChild")long areaChild,
                                                @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
         Long parentLong = idAreaParent;
-        Long childLong = idAreaChild;
+        Long childLong = areaChild;
+
         if(parentLong.compareTo(childLong) == 0){
             return new ResponseEntity<>("You can't add a Geographic Area to itself.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
         try {
-            if (geographicAreaRepo.addChildArea(idAreaChild, idAreaParent)) {
+            if (geographicAreaRepo.addChildArea(childLong, idAreaParent)) {
                 result = geographicAreaRepo.getDTOByIdWithParent(idAreaParent);
-                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(idAreaChild)).withRel("See geographic area");
+                link = linkTo(methodOn(GeoAreasWebController.class).getGeographicArea(childLong)).withRel("See geographic area");
                 result.add(link);
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } else {

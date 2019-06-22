@@ -65,7 +65,7 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>
-              <GetChildren link={item.links.find((hrefs) => hrefs.rel === 'List child areas.')} />
+              <GetChildren link={item.links.find((hrefs) => hrefs.rel === 'List child areas.')} geographicAreaId={item.geographicAreaId}  />
             </td>
           </tr>
         ))}

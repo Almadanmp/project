@@ -20,6 +20,7 @@ import {
 import US250GetSensors from "./US250/US250GetSensors";
 import {fetchRooms} from "../../House/HouseConfiguration/US108/Actions108";
 import connect from "react-redux/es/connect/connect";
+import SensorTypesSelect from "./US253/SensorTypesSelect";
 
 
 class ListRooms extends Component {
@@ -80,7 +81,7 @@ class ListRooms extends Component {
 
                       <TabContent activeTab={this.state.activeTab}>
                         <TabPane tabId={item.name}>
-                          <US250GetSensors link={item.links.find((hrefs) => hrefs.rel === 'Get Room Sensors')} roomID={item.name}/>
+                          <US250GetSensors link={item.links.find((hrefs) => hrefs.rel === 'Get Room Sensors')} roomID={item.name}  linkAdd={item.links.find((hrefs) => hrefs.rel === 'Add a new Room Sensor')}/>
                         </TabPane>
                       </TabContent>
 
